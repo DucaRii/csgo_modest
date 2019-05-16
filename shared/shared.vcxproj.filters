@@ -27,6 +27,15 @@
     <ClInclude Include="bitflag\bitflag.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="stack_frame\stack_frame.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hash\hash.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyformat\tinyformat.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mem\mem.cpp">

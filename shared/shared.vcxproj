@@ -78,7 +78,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -107,7 +107,7 @@
       <ConformanceMode>false</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,8 +133,11 @@
   <ItemGroup>
     <ClInclude Include="address\address.hpp" />
     <ClInclude Include="bitflag\bitflag.hpp" />
+    <ClInclude Include="hash\hash.hpp" />
     <ClInclude Include="mem\mem.hpp" />
     <ClInclude Include="shared.hpp" />
+    <ClInclude Include="stack_frame\stack_frame.hpp" />
+    <ClInclude Include="tinyformat\tinyformat.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mem\mem.cpp" />

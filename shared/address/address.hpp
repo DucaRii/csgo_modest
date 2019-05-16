@@ -26,7 +26,7 @@ namespace shared
 		template< typename t = address_t >
 		inline t offset( std::ptrdiff_t offset ) const
 		{
-			return reinterpret_cast< t >( m_ptr + offset );
+			return static_cast< t >( m_ptr + offset );
 		}
 
 		/// Dereference address x times
@@ -45,7 +45,7 @@ namespace shared
 		template< typename t = address_t >
 		inline void set( t val )
 		{
-			*reinterpret_cast< t* >( m_ptr ) = val;
+			*static_cast< t* >( m_ptr ) = val;
 		}
 
 		/// Get relative offset
@@ -57,13 +57,13 @@ namespace shared
 
 			out = m_ptr + offset;
 
-			rel = *reinterpret_cast< uint32_t* >( out );
+			rel = *static_cast< uint32_t* >( out );
 			if ( !rel )
 				return t{};
 
 			out = ( out + 0x4 ) + rel;
 
-			return reinterpret_cast< t >( out );
+			return static_cast< t >( out );
 		}
 
 		uintptr_t m_ptr;
