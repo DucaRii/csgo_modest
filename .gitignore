@@ -30,3 +30,14 @@
 *.exe
 *.out
 *.app
+.vs/csgo_modest/v16/.suo
+*.db
+*.opendb
+*.ipch
+*.db-shm
+*.db-wal
+*.pdb
+*.log
+*.idb
+*.tlog
+*.txt
