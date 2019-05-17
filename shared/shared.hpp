@@ -26,5 +26,3 @@
 #include "render/render.hpp"
 
 #include "stack_frame/stack_frame.hpp"
-
-#include "tinyformat/tinyformat.hpp"

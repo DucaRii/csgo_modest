@@ -15,6 +15,13 @@ namespace shared
 			return m_ptr;
 		}
 
+		/// Cast address and deref
+		template< typename t = address_t >
+		__forceinline t to() const
+		{
+			return *reinterpret_cast< t* >( m_ptr );
+		}
+
 		/// Cast address
 		template< typename t = address_t >
 		inline t as() const

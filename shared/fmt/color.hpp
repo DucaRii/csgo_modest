@@ -8,7 +8,7 @@
 #ifndef FMT_COLOR_H_
 #define FMT_COLOR_H_
 
-#include "format.h"
+#include "format.hpp"
 
 FMT_BEGIN_NAMESPACE
 

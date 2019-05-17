@@ -57,7 +57,7 @@
 #  define FMT_CUDA_VERSION 0
 #endif
 
-#include "core.h"
+#include "core.hpp"
 
 #if FMT_GCC_VERSION >= 406 || FMT_CLANG_VERSION
 #  pragma GCC diagnostic push

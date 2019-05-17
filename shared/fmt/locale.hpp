@@ -9,7 +9,7 @@
 #define FMT_LOCALE_H_
 
 #include <locale>
-#include "format.h"
+#include "format.hpp"
 
 FMT_BEGIN_NAMESPACE
 
