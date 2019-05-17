@@ -19,7 +19,11 @@
 
 #include "bitflag/bitflag.hpp"
 
+#include "fmt/format.hpp"
+
 #include "hash/hash.hpp"
+
+#include "log/log.hpp"
 
 #include "mem/mem.hpp"
 

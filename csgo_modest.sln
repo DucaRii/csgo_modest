@@ -6,8 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shared", "shared\shared.vcxproj", "{B7186DA2-A6A5-4895-84D3-144483E36394}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "csgo", "csgo\csgo.vcxproj", "{0A5E5EC7-5BE5-4BDC-A266-71011E5EAC36}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7186DA2-A6A5-4895-84D3-144483E36394} = {B7186DA2-A6A5-4895-84D3-144483E36394}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "injector", "injector\injector.vcxproj", "{B251E5B3-0B86-4DA1-9E0A-2519E0B3DF5E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7186DA2-A6A5-4895-84D3-144483E36394} = {B7186DA2-A6A5-4895-84D3-144483E36394}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

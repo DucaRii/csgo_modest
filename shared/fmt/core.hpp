@@ -180,7 +180,7 @@
       }
 #  endif
 #  define FMT_BEGIN_NAMESPACE \
-    namespace fmt {           \
+    namespace shared::fmt {           \
     FMT_INLINE_NAMESPACE v5 {
 #endif
 

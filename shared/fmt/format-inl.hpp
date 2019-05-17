@@ -55,11 +55,11 @@
 
 // Dummy implementations of strerror_r and strerror_s called if corresponding
 // system functions are not available.
-inline fmt::internal::null<> strerror_r(int, char*, ...) {
-  return fmt::internal::null<>();
+inline shared::fmt::internal::null<> strerror_r(int, char*, ...) {
+  return shared::fmt::internal::null<>();
 }
-inline fmt::internal::null<> strerror_s(char*, std::size_t, ...) {
-  return fmt::internal::null<>();
+inline shared::fmt::internal::null<> strerror_s(char*, std::size_t, ...) {
+  return shared::fmt::internal::null<>();
 }
 
 FMT_BEGIN_NAMESPACE

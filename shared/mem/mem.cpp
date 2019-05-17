@@ -2,7 +2,7 @@
 
 namespace shared::mem
 {
-	address_t find_ida_sig( const std::string& mod, const std::string& sig )
+	address_t find_ida_sig( const char* mod, const char* sig )
 	{
 		/// Credits: MarkHC
 		static auto pattern_to_byte = []( const char* pattern )
@@ -28,7 +28,7 @@ namespace shared::mem
 			return bytes;
 		};
 
-		const auto module = GetModuleHandleA( mod.c_str() );
+		const auto module = GetModuleHandleA( mod );
 
 		if ( module )
 		{
@@ -36,7 +36,7 @@ namespace shared::mem
 			const auto ntHeaders = PIMAGE_NT_HEADERS( reinterpret_cast< std::uint8_t* >( module ) + dosHeader->e_lfanew );
 
 			const auto sizeOfImage = ntHeaders->OptionalHeader.SizeOfImage;
-			auto patternBytes = pattern_to_byte( sig.c_str() );
+			auto patternBytes = pattern_to_byte( sig );
 			const auto scanBytes = reinterpret_cast< std::uint8_t* >( module );
 
 			const auto s = patternBytes.size();
@@ -66,7 +66,7 @@ namespace shared::mem
 	}
 
 	/// Go through multiple sigs incase 1 is invalid
-	address_t find_ida_sig( const std::string& mod, const std::vector<const std::string&> sigs )
+	address_t find_ida_sig( const char* mod, const std::vector<const char*>& sigs )
 	{
 		/// TODO: maybe scan all sigs and check if they all match? 
 		address_t dummy{};

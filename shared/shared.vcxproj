@@ -70,10 +70,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>$(SolutionDir)$(Configuration)_intermediate\</IntDir>
+    <IntDir>$(SolutionDir)$(Configuration)_intermediate\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IntDir>$(SolutionDir)$(Configuration)_intermediate\</IntDir>
+    <IntDir>$(SolutionDir)$(Configuration)_intermediate\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -83,7 +83,7 @@
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FMT_HEADER_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FMT_HEADER_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -136,14 +136,29 @@
   <ItemGroup>
     <ClInclude Include="address\address.hpp" />
     <ClInclude Include="bitflag\bitflag.hpp" />
+    <ClInclude Include="fmt\chrono.hpp" />
+    <ClInclude Include="fmt\color.hpp" />
+    <ClInclude Include="fmt\core.hpp" />
+    <ClInclude Include="fmt\format-inl.hpp" />
+    <ClInclude Include="fmt\format.hpp" />
+    <ClInclude Include="fmt\locale.hpp" />
+    <ClInclude Include="fmt\ostream.hpp" />
+    <ClInclude Include="fmt\posix.hpp" />
+    <ClInclude Include="fmt\prepare.hpp" />
+    <ClInclude Include="fmt\printf.hpp" />
+    <ClInclude Include="fmt\ranges.hpp" />
+    <ClInclude Include="fmt\time.hpp" />
     <ClInclude Include="hash\hash.hpp" />
+    <ClInclude Include="log\log.hpp" />
     <ClInclude Include="mem\mem.hpp" />
+    <ClInclude Include="render\render.hpp" />
     <ClInclude Include="shared.hpp" />
     <ClInclude Include="stack_frame\stack_frame.hpp" />
-    <ClInclude Include="tinyformat\tinyformat.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="log\log.cpp" />
     <ClCompile Include="mem\mem.cpp" />
+    <ClCompile Include="render\render.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

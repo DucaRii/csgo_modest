@@ -70,11 +70,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IntDir>$(SolutionDir)$(Configuration)_intermediate\</IntDir>
+    <IntDir>$(SolutionDir)$(Configuration)_intermediate\$(ProjectName)\</IntDir>
     <LibraryPath>$(SolutionDir)$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>$(SolutionDir)$(Configuration)_intermediate\</IntDir>
+    <IntDir>$(SolutionDir)$(Configuration)_intermediate\$(ProjectName)\</IntDir>
     <LibraryPath>$(SolutionDir)$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -140,9 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="sdk\entities.cpp" />
+    <ClCompile Include="sdk\helper\render.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="csgo.hpp" />
+    <ClInclude Include="sdk\entities.hpp" />
+    <ClInclude Include="sdk\helper\render.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

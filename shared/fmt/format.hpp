@@ -308,17 +308,17 @@ typename Allocator::value_type* allocate(Allocator& alloc, std::size_t n) {
 FMT_END_NAMESPACE
 
 namespace std {
-using namespace fmt::v5::internal::uintptr;
+using namespace shared::fmt::v5::internal::uintptr;
 // Standard permits specialization of std::numeric_limits. This specialization
 // is used to detect presence of uintptr_t.
 template <>
-class numeric_limits<fmt::internal::uintptr_t>
+class numeric_limits<shared::fmt::internal::uintptr_t>
     : public std::numeric_limits<int> {
  public:
   typedef uintptr_t uintptr_type;
 
   static uintptr_type to_uint(const void* p) {
-    return fmt::internal::bit_cast<uintptr_type>(p);
+    return shared::fmt::internal::bit_cast<uintptr_type>(p);
   }
 };
 }  // namespace std
@@ -3678,7 +3678,7 @@ FMT_END_NAMESPACE
 
 #ifdef FMT_HEADER_ONLY
 #  define FMT_FUNC inline
-#  include "format-inl.h"
+#  include "format-inl.hpp"
 #else
 #  define FMT_FUNC
 #endif
