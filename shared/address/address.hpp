@@ -52,7 +52,7 @@ namespace shared
 		template< typename t = address_t >
 		inline void set( t val )
 		{
-			*static_cast< t* >( m_ptr ) = val;
+			*reinterpret_cast< t* >( m_ptr ) = val;
 		}
 
 		/// Get relative offset
@@ -64,13 +64,13 @@ namespace shared
 
 			out = m_ptr + offset;
 
-			rel = *static_cast< uint32_t* >( out );
+			rel = *reinterpret_cast< uint32_t* >( out );
 			if ( !rel )
 				return t{};
 
 			out = ( out + 0x4 ) + rel;
 
-			return static_cast< t >( out );
+			return reinterpret_cast< t >( out );
 		}
 
 		uintptr_t m_ptr;

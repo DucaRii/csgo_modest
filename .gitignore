@@ -41,3 +41,6 @@
 *.idb
 *.tlog
 *.txt
+*.ilk
+*.iobj
+*.ipdb
