@@ -11,6 +11,21 @@ namespace shared::math
 		vec3_t( float x, float y, float z ) : m_x( x ), m_y( y ), m_z( z ) {};
 		vec3_t( float* arr ) : m_x( arr[ PITCH ] ), m_y( arr[ YAW ] ), m_z( arr[ ROLL ] ) {};
 
+		inline float& x()
+		{
+			return m_x;
+		}
+
+		inline float& y()
+		{
+			return m_y;
+		}
+
+		inline float& z()
+		{
+			return m_z;
+		}
+
 		inline float length() const
 		{
 			float root = 0.0f;

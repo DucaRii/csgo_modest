@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math_definitions.h"
+#include "math_definitions.hpp"
 
 #include "datatypes/vec2_t.hpp"
 #include "datatypes/vec3_t.hpp"

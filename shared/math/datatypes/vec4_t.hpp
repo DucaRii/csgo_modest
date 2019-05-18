@@ -5,20 +5,20 @@ namespace shared::math
 	struct vec4_t
 	{
 		vec4_t() = default;
-		vec4_t( float xywh ) : m_x( xywh ), m_y( xywh ), m_w( xywh ), m_h( xywh ) {};
-		vec4_t( float x, float y ) : m_x( x ), m_y( y ), m_w( x ), m_h( y ) {};
-		vec4_t( float x, float y, float w, float h ) : m_x( x ), m_y( y ), m_w( w ), m_h( h ) {};
+		vec4_t( float xywh ) : x( xywh ), y( xywh ), w( xywh ), h( xywh ) {};
+		vec4_t( float x, float y ) : x( x ), y( y ), w( x ), h( y ) {};
+		vec4_t( float x, float y, float w, float h ) : x( x ), y( y ), w( w ), h( h ) {};
 
-		vec2_t get_pos()
+		vec2_t get_pos() const
 		{
-			return vec2_t( m_x, m_y );
+			return vec2_t( x, y );
 		}
 
-		vec2_t get_size()
+		vec2_t get_size() const
 		{
-			return vec2_t( m_w, m_h );
+			return vec2_t( w, h );
 		}
 
-		float m_x, m_y, m_w, m_h;
+		float x, y, w, h;
 	};
 }

@@ -81,9 +81,6 @@
     <ClInclude Include="math\datatypes\vec2_t.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="math\math_definitions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="math\datatypes\vec3_t.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -94,6 +91,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="math\datatypes\matrix3x4_t.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="math\math_definitions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

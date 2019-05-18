@@ -157,7 +157,7 @@
     <ClInclude Include="math\datatypes\vec3_t.hpp" />
     <ClInclude Include="math\datatypes\vec4_t.hpp" />
     <ClInclude Include="math\math.hpp" />
-    <ClInclude Include="math\math_definitions.h" />
+    <ClInclude Include="math\math_definitions.hpp" />
     <ClInclude Include="mem\mem.hpp" />
     <ClInclude Include="shared.hpp" />
     <ClInclude Include="stack_frame\stack_frame.hpp" />

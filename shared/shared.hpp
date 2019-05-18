@@ -8,6 +8,7 @@
 #include <functional>
 #include <thread>
 #include <vector>
+#include <array>
 #include <map>
 #include <deque>
 #include <fstream>
@@ -22,6 +23,8 @@
 #include "fmt/format.hpp"
 
 #include "hash/hash.hpp"
+
+#include "input/input.hpp"
 
 #include "log/log.hpp"
 
