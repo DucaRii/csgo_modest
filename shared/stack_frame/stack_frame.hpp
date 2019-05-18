@@ -7,8 +7,8 @@ namespace shared
 		address_t m_fp;
 
 		stack_frame_t() = default;
-		stack_frame_t( void* ret ) { setup( uintptr_t( ret ) ); }
-		stack_frame_t( uintptr_t ret ) { setup( ret ); }
+		stack_frame_t( void* ret ) : m_fp( nullptr ) { setup( uintptr_t( ret ) ); }
+		stack_frame_t( uintptr_t ret ) : m_fp( nullptr ) { setup( ret ); }
 
 		~stack_frame_t() = default;
 

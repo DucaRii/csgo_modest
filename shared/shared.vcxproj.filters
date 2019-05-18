@@ -33,9 +33,6 @@
     <ClInclude Include="hash\hash.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="render\render.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="fmt\chrono.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -75,15 +72,42 @@
     <ClInclude Include="log\log.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="input\input.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="math\math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="math\datatypes\vec2_t.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="math\math_definitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="math\datatypes\vec3_t.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="math\datatypes\vec4_t.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="math\datatypes\angle_t.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="math\datatypes\matrix3x4_t.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mem\mem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="render\render.cpp">
+    <ClCompile Include="log\log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="log\log.cpp">
+    <ClCompile Include="input\input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="math\math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -149,16 +149,24 @@
     <ClInclude Include="fmt\ranges.hpp" />
     <ClInclude Include="fmt\time.hpp" />
     <ClInclude Include="hash\hash.hpp" />
+    <ClInclude Include="input\input.hpp" />
     <ClInclude Include="log\log.hpp" />
+    <ClInclude Include="math\datatypes\angle_t.hpp" />
+    <ClInclude Include="math\datatypes\matrix3x4_t.hpp" />
+    <ClInclude Include="math\datatypes\vec2_t.hpp" />
+    <ClInclude Include="math\datatypes\vec3_t.hpp" />
+    <ClInclude Include="math\datatypes\vec4_t.hpp" />
+    <ClInclude Include="math\math.hpp" />
+    <ClInclude Include="math\math_definitions.h" />
     <ClInclude Include="mem\mem.hpp" />
-    <ClInclude Include="render\render.hpp" />
     <ClInclude Include="shared.hpp" />
     <ClInclude Include="stack_frame\stack_frame.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="input\input.cpp" />
     <ClCompile Include="log\log.cpp" />
+    <ClCompile Include="math\math.cpp" />
     <ClCompile Include="mem\mem.cpp" />
-    <ClCompile Include="render\render.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

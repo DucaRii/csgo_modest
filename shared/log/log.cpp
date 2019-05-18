@@ -24,6 +24,12 @@ namespace shared::log
 		shared::fmt::print( "[{:%H:%M:%S}] - {} \n", fmt::localtime( std::time( nullptr ) ), text );
 	}
 
+	/// Wrapper for string objects
+	void print( const std::string& text )
+	{
+		print( text.c_str() );
+	}
+
 	void detach()
 	{
 		/// Close used handles first
