@@ -24,6 +24,8 @@
 
 #include "hash/hash.hpp"
 
+#include "hook/hook.hpp"
+
 #include "input/input.hpp"
 
 #include "log/log.hpp"

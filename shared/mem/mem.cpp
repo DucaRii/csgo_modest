@@ -88,11 +88,9 @@ namespace shared::mem
 	{
 		auto length = uint32_t{};
 
-		while ( table.as<uintptr_t*>()[ length ] >= 0x00010000 &&
-				table.as<uintptr_t*>()[ length ] < 0xFFF00000 &&
-				length < 1024 )
+		while ( is_safe_address( table.offset( 0x4 * length ) ) )
 		{
-			length++;
+			length += 1;
 		}
 
 		return length;

@@ -148,7 +148,9 @@
     <ClInclude Include="fmt\printf.hpp" />
     <ClInclude Include="fmt\ranges.hpp" />
     <ClInclude Include="fmt\time.hpp" />
+    <ClInclude Include="gui\gui.hpp" />
     <ClInclude Include="hash\hash.hpp" />
+    <ClInclude Include="hook\hook.hpp" />
     <ClInclude Include="input\input.hpp" />
     <ClInclude Include="log\log.hpp" />
     <ClInclude Include="math\datatypes\angle_t.hpp" />
@@ -163,6 +165,7 @@
     <ClInclude Include="stack_frame\stack_frame.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gui\gui.cpp" />
     <ClCompile Include="input\input.cpp" />
     <ClCompile Include="log\log.cpp" />
     <ClCompile Include="math\math.cpp" />
