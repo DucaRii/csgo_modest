@@ -13,11 +13,6 @@ namespace shared::hook
 		hook_t( void** ptr ) : m_vtable( reinterpret_cast< uintptr_t** >( ptr ) ), m_table_length( 0 ), m_orig( nullptr ), m_replace( nullptr ) {};
 		hook_t( address_t ptr ) : m_vtable( ptr.as<uintptr_t**>() ), m_table_length( 0 ), m_orig( nullptr ), m_replace( nullptr ) {};
 
-		~hook_t()
-		{
-			unhook();
-		}
-
 		bool init()
 		{
 			if ( !m_vtable )

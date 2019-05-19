@@ -2,6 +2,7 @@
 
 struct hook_info_t
 {
+	hook_info_t() = default;
 	hook_info_t( int index, void* replace ) : m_index( index ), m_replace( replace ) {}
 
 	int m_index;
@@ -11,7 +12,7 @@ struct hook_info_t
 struct hook_t
 {
 	hook_t() = default;
-	hook_t( void* table ) : m_table( table ), m_hook( shared::hook::hook_t( table ) )
+	hook_t( void* table ) : m_table( table ), m_hook( shared::hook::hook_t( uintptr_t( table ) ) )
 	{
 		m_hook.init();
 	}
@@ -35,7 +36,7 @@ namespace hooks
 }
 
 template< typename func_sig >
-inline func_sig create_hook_impl( uint32_t token, void* table, int index, void* func )
+inline func_sig create_hook_impl( const uint32_t token, void* table, const uint32_t index, void* func )
 {
 	auto& map = hooks::get_map();
 
