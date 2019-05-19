@@ -1,39 +1,49 @@
 #pragma once
 
+#include "../bitflag/bitflag.hpp"
+
 namespace shared
 {
-	struct address_t
+	class address_t
 	{
-		address_t() = default;
+	public:
+		uintptr_t m_ptr;
+
+		address_t() : m_ptr{} {};
 		address_t( uintptr_t ptr ) : m_ptr( ptr ) {};
 		address_t( void* ptr ) : m_ptr( uintptr_t( ptr ) ) {};
 
 		~address_t() = default;
 
-		inline operator uintptr_t()
+		inline operator uintptr_t() const
 		{
 			return m_ptr;
+		}
+
+		inline operator void* ( ) const
+		{
+			return reinterpret_cast< void* >( m_ptr );
 		}
 
 		/// Cast address and deref
 		template< typename t = address_t >
 		__forceinline t to() const
 		{
-			return *reinterpret_cast< t* >( m_ptr );
+			return *( t* )( m_ptr );
 		}
 
 		/// Cast address
 		template< typename t = address_t >
 		inline t as() const
 		{
-			return reinterpret_cast< t >( m_ptr );
+			return ( t )( m_ptr );
 		}
 
 		/// Add to address
 		template< typename t = address_t >
 		inline t offset( std::ptrdiff_t offset ) const
 		{
-			return static_cast< t >( m_ptr + offset );
+			return ( t )( m_ptr + offset );
 		}
 
 		/// Dereference address x times
@@ -42,10 +52,10 @@ namespace shared
 		{
 			uintptr_t dummy = m_ptr;
 
-			while ( derefs-- && mem::is_safe_address( dummy ) )
+			while ( derefs-- && is_safe( dummy ) )
 				dummy = *reinterpret_cast< uintptr_t* >( dummy );
 
-			return dummy;
+			return ( t )dummy;
 		}
 
 		/// Set address to value
@@ -70,9 +80,27 @@ namespace shared
 
 			out = ( out + 0x4 ) + rel;
 
-			return reinterpret_cast< t >( out );
+			return ( t )( out );
 		}
 
-		uintptr_t m_ptr;
+		/// Check if address is valid
+		inline static bool is_safe( address_t address )
+		{
+			static MEMORY_BASIC_INFORMATION32 mbi{};
+
+			if ( !address
+				 || address < 0x10000
+				 || address > 0xFFE00000
+				 || !VirtualQuery( address, ( PMEMORY_BASIC_INFORMATION )& mbi, sizeof( mbi ) ) )
+				return false;
+
+			if ( !mbi.AllocationBase
+				 || mbi.State != MEM_COMMIT
+				 || mbi.Protect == PAGE_NOACCESS
+				 || mbi.Protect & PAGE_GUARD )
+				return false;
+
+			return true;
+		}
 	};
 }

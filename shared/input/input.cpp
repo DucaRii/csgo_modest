@@ -5,6 +5,11 @@ namespace shared::input
 	HWND m_window = NULL;
 	WNDPROC m_original_wndproc = nullptr;
 
+	char m_last_char;
+	std::array<key_info_t, 256> m_key_info{};
+
+	mouse_info_t m_mouse_info;
+
 	void init( const std::string& window )
 	{
 		/// Input was already initialized ?
@@ -16,7 +21,6 @@ namespace shared::input
 			m_window, GWLP_WNDPROC, reinterpret_cast< LONG_PTR >( hook ) ) );
 	}
 
-	mouse_info_t m_mouse_info;
 	bool handle_mouse( const UINT msg )
 	{
 		switch ( msg )
@@ -24,47 +28,45 @@ namespace shared::input
 			/// Left mouse button
 			case WM_LBUTTONDOWN:
 			case WM_LBUTTONDBLCLK:
-				if ( m_mouse_info.m_state == e_mouse_state::IDLE )
-					m_mouse_info.m_state = e_mouse_state::PRESSED;
+				if ( m_mouse_info.m_state == e_state::IDLE )
+					m_mouse_info.m_state = e_state::PRESSED;
 				return true;
 			case WM_LBUTTONUP:
-				m_mouse_info.m_state = e_mouse_state::IDLE;
+				m_mouse_info.m_state = e_state::IDLE;
 				return true;
 
 				/// Right mouse button
 			case WM_RBUTTONDOWN:
 			case WM_RBUTTONDBLCLK:
-				if ( m_mouse_info.m_state_right == e_mouse_state::IDLE )
-					m_mouse_info.m_state_right = e_mouse_state::PRESSED;
+				if ( m_mouse_info.m_state_right == e_state::IDLE )
+					m_mouse_info.m_state_right = e_state::PRESSED;
 				return true;
 			case WM_RBUTTONUP:
-				m_mouse_info.m_state_right = e_mouse_state::IDLE;
+				m_mouse_info.m_state_right = e_state::IDLE;
 				return true;
 			default:
 				break;
 		}
 
 		/// Mouse has been pressed for more than 1 input tick
-		if ( m_mouse_info.m_state == e_mouse_state::PRESSED )
-			m_mouse_info.m_state = e_mouse_state::HELD;
+		if ( m_mouse_info.m_state == e_state::PRESSED )
+			m_mouse_info.m_state = e_state::HELD;
 
-		if ( m_mouse_info.m_state_right == e_mouse_state::PRESSED )
-			m_mouse_info.m_state_right = e_mouse_state::HELD;
+		if ( m_mouse_info.m_state_right == e_state::PRESSED )
+			m_mouse_info.m_state_right = e_state::HELD;
 
 		return msg == WM_MOUSEMOVE || msg == WM_NCMOUSEMOVE;
 	}
 
-	char m_last_char;
-	std::array<key_info_t, 256> m_key_info{};
 	bool handle_keyboard( const UINT msg, const WPARAM param )
 	{
 		auto changed_state = false;
 
 		for ( auto i = 0; i < 256; i++ )
 		{
-			if ( m_key_info.at( i ).m_state == e_key_state::PRESSED )
+			if ( m_key_info.at( i ).m_state == e_state::PRESSED )
 			{
-				m_key_info.at( i ).m_state = e_key_state::HELD;
+				m_key_info.at( i ).m_state = e_state::HELD;
 				changed_state = true;
 			}
 		}
@@ -80,12 +82,12 @@ namespace shared::input
 				/// "Normal" keys
 			case WM_KEYDOWN:
 				if ( param >= 0 && param < 256 )
-					m_key_info.at( param ).m_state = e_key_state::PRESSED;
+					m_key_info.at( param ).m_state = e_state::PRESSED;
 				return true;
 			case WM_KEYUP:
 				if ( param >= 0 && param < 256 )
 				{
-					m_key_info.at( param ).m_state = e_key_state::IDLE;
+					m_key_info.at( param ).m_state = e_state::IDLE;
 				}
 				return true;
 
@@ -93,52 +95,52 @@ namespace shared::input
 			case WM_XBUTTONDOWN:
 			case WM_XBUTTONDBLCLK:
 				if ( GET_XBUTTON_WPARAM( param ) & XBUTTON1 )
-					m_key_info.at( VK_XBUTTON1 ).m_state = e_key_state::PRESSED;
+					m_key_info.at( VK_XBUTTON1 ).m_state = e_state::PRESSED;
 				else if ( GET_XBUTTON_WPARAM( param ) & XBUTTON2 )
-					m_key_info.at( VK_XBUTTON2 ).m_state = e_key_state::PRESSED;
+					m_key_info.at( VK_XBUTTON2 ).m_state = e_state::PRESSED;
 				return true;
 			case WM_XBUTTONUP:
 				if ( GET_XBUTTON_WPARAM( param ) & XBUTTON1 )
-					m_key_info.at( VK_XBUTTON1 ).m_state = e_key_state::IDLE;
+					m_key_info.at( VK_XBUTTON1 ).m_state = e_state::IDLE;
 				else if ( GET_XBUTTON_WPARAM( param ) & XBUTTON2 )
-					m_key_info.at( VK_XBUTTON2 ).m_state = e_key_state::IDLE;
+					m_key_info.at( VK_XBUTTON2 ).m_state = e_state::IDLE;
 				return true;
 
 				/// System keys
 			case WM_SYSKEYDOWN:
 				if ( param >= 0 && param < 256 )
-					m_key_info.at( param ).m_state = e_key_state::PRESSED;
+					m_key_info.at( param ).m_state = e_state::PRESSED;
 				return true;
 			case WM_SYSKEYUP:
 				if ( param >= 0 && param < 256 )
-					m_key_info.at( param ).m_state = e_key_state::IDLE;
+					m_key_info.at( param ).m_state = e_state::IDLE;
 				return true;
 
 				/// Middle button
 			case WM_MBUTTONDOWN:
 			case WM_MBUTTONDBLCLK:
-				m_key_info.at( VK_MBUTTON ).m_state = e_key_state::PRESSED;
+				m_key_info.at( VK_MBUTTON ).m_state = e_state::PRESSED;
 				return true;
 			case WM_MBUTTONUP:
-				m_key_info.at( VK_MBUTTON ).m_state = e_key_state::IDLE;
+				m_key_info.at( VK_MBUTTON ).m_state = e_state::IDLE;
 				return true;
 
 				/// Left mouse button
 			case WM_LBUTTONDOWN:
 			case WM_LBUTTONDBLCLK:
-				m_key_info.at( VK_LBUTTON ).m_state = e_key_state::PRESSED;
+				m_key_info.at( VK_LBUTTON ).m_state = e_state::PRESSED;
 				return true;
 			case WM_LBUTTONUP:
-				m_key_info.at( VK_LBUTTON ).m_state = e_key_state::IDLE;
+				m_key_info.at( VK_LBUTTON ).m_state = e_state::IDLE;
 				return true;
 
 				/// Right mouse button
 			case WM_RBUTTONDOWN:
 			case WM_RBUTTONDBLCLK:
-				m_key_info.at( VK_RBUTTON ).m_state = e_key_state::PRESSED;
+				m_key_info.at( VK_RBUTTON ).m_state = e_state::PRESSED;
 				return true;
 			case WM_RBUTTONUP:
-				m_key_info.at( VK_RBUTTON ).m_state = e_key_state::IDLE;
+				m_key_info.at( VK_RBUTTON ).m_state = e_state::IDLE;
 				return true;
 
 				/// Mouse wheel
@@ -172,8 +174,8 @@ namespace shared::input
 
 	void reset_mouse()
 	{
-		m_mouse_info.m_state = e_mouse_state::IDLE;
-		m_mouse_info.m_state_right = e_mouse_state::IDLE;
+		m_mouse_info.m_state = e_state::IDLE;
+		m_mouse_info.m_state_right = e_state::IDLE;
 		m_mouse_info.m_scroll = 0;
 	}
 

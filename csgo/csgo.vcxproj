@@ -84,7 +84,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -141,13 +141,21 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sdk\entities.cpp" />
+    <ClCompile Include="sdk\helper\interface_handler.cpp" />
     <ClCompile Include="sdk\helper\render.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="context\client.hpp" />
+    <ClInclude Include="context\config.hpp" />
+    <ClInclude Include="context\csgo.hpp" />
+    <ClInclude Include="context\mem.hpp" />
     <ClInclude Include="csgo.hpp" />
     <ClInclude Include="sdk\entities.hpp" />
+    <ClInclude Include="sdk\helper\interface_handler.hpp" />
     <ClInclude Include="sdk\helper\render.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
+    <ClInclude Include="sdk\source_engine\IPanel.hpp" />
+    <ClInclude Include="sdk\source_engine\ISurface.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

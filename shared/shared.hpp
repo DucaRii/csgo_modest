@@ -14,6 +14,7 @@
 #include <fstream>
 #include <Psapi.h>
 #include <sstream>
+#include <libloaderapi.h>
 
 /// Our stuff ( keep in alphabetical order )
 #include "address/address.hpp"

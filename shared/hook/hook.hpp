@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../mem/mem.hpp"
+
 namespace shared::hook
 {
 	struct hook_t

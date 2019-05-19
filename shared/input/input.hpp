@@ -5,14 +5,7 @@
 
 namespace shared::input
 {
-	enum e_mouse_state
-	{
-		IDLE,
-		PRESSED,
-		HELD
-	};
-
-	enum e_key_state
+	enum e_state
 	{
 		IDLE,
 		PRESSED,
@@ -22,8 +15,8 @@ namespace shared::input
 	struct mouse_info_t
 	{
 		mouse_info_t() :
-			m_state( e_mouse_state::IDLE ),
-			m_state_right( e_mouse_state::IDLE ),
+			m_state( e_state::IDLE ),
+			m_state_right( e_state::IDLE ),
 			m_scroll( 0 ),
 			m_pos( math::vec2_t{ } )
 		{}
@@ -33,8 +26,8 @@ namespace shared::input
 			m_scroll = 0;
 		}
 
-		e_mouse_state m_state;
-		e_mouse_state m_state_right;
+		e_state m_state;
+		e_state m_state_right;
 		int m_scroll;
 
 		math::vec2_t m_pos;
@@ -42,7 +35,7 @@ namespace shared::input
 
 	struct key_info_t
 	{
-		e_key_state m_state;
+		e_state m_state;
 	};
 
 	void init( const std::string& window );

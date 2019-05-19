@@ -1,5 +1,13 @@
 #include "csgo.hpp"
 
+namespace ctx
+{
+	csgo_t csgo = csgo_t{};
+	client_t client = client_t{};
+	mem_t mem = mem_t{};
+	config_t config = config_t{};
+}
+
 BOOL WINAPI detach()
 {
 	shared::log::detach();
@@ -10,6 +18,8 @@ BOOL WINAPI detach()
 DWORD WINAPI entry( LPVOID lpThreadParameter )
 {
 	LOG( "Cheat Attached!" );
+
+	MessageBoxA( NULL, std::to_string( uintptr_t( ctx::csgo.surface() ) ).c_str(), "gg", 0 );
 
 	while ( !GetAsyncKeyState( VK_END ) )
 		std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
