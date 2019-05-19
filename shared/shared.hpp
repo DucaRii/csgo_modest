@@ -35,4 +35,6 @@
 
 #include "mem/mem.hpp"
 
+#include "mem_protect/mem_protect.hpp"
+
 #include "stack_frame/stack_frame.hpp"

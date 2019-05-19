@@ -66,7 +66,7 @@ namespace shared::mem
 	}
 
 	/// Go through multiple sigs incase 1 is invalid
-	address_t find_ida_sig( const char* mod, const std::vector<const char*>& sigs )
+	address_t find_ida_sig( const char* mod, const std::vector<const char*> & sigs )
 	{
 		/// TODO: maybe scan all sigs and check if they all match? 
 		address_t dummy{};
@@ -81,17 +81,16 @@ namespace shared::mem
 
 	address_t call_vfunc( address_t table, uint16_t index )
 	{
-		return table.to<address_t*>()->offset( 0x4 * index );
+		return table.to<address_t*>()[ index ];
 	}
 
 	uint32_t get_vtable_length( address_t table )
 	{
 		auto length = uint32_t{};
 
-		while ( address_t::is_safe( table.offset( 0x4 * length ) ) )
-		{
-			length += 1;
-		}
+		for ( length = 0; table.as<uintptr_t*>()[ length ]; length++ )
+			if ( IS_INTRESOURCE( table.as<uintptr_t*>()[ length ] ) )
+				break;
 
 		return length;
 	}

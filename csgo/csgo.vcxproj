@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="hooks\functions\paint_traverse.cpp" />
+    <ClCompile Include="hooks\hook_handler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sdk\entities.cpp" />
     <ClCompile Include="sdk\helper\interface_handler.cpp" />
@@ -150,6 +152,7 @@
     <ClInclude Include="context\csgo.hpp" />
     <ClInclude Include="context\mem.hpp" />
     <ClInclude Include="csgo.hpp" />
+    <ClInclude Include="hooks\hook_handler.hpp" />
     <ClInclude Include="sdk\entities.hpp" />
     <ClInclude Include="sdk\helper\interface_handler.hpp" />
     <ClInclude Include="sdk\helper\render.hpp" />

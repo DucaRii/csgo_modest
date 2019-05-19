@@ -161,6 +161,7 @@
     <ClInclude Include="math\math.hpp" />
     <ClInclude Include="math\math_definitions.hpp" />
     <ClInclude Include="mem\mem.hpp" />
+    <ClInclude Include="mem_protect\mem_protect.hpp" />
     <ClInclude Include="shared.hpp" />
     <ClInclude Include="stack_frame\stack_frame.hpp" />
   </ItemGroup>

@@ -12,6 +12,7 @@ namespace ctx
 	struct csgo_t
 	{
 		ADD_INTERFACE( ISurface, surface, "vguimatsurface.dll", "VGUI_Surface" );
+		ADD_INTERFACE( IPanel, panel, "vgui2.dll", "VGUI_Panel" );
 	};
 
 	extern csgo_t csgo;

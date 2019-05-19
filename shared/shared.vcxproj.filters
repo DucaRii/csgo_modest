@@ -102,6 +102,9 @@
     <ClInclude Include="hook\hook.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mem_protect\mem_protect.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mem\mem.cpp">

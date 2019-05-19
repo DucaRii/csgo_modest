@@ -8,3 +8,5 @@
 #include "context/mem.hpp"
 #include "context/client.hpp"
 #include "context/config.hpp"
+
+#include "hooks/hook_handler.hpp"

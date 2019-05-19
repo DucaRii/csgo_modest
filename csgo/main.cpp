@@ -19,13 +19,15 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 {
 	LOG( "Cheat Attached!" );
 
-	MessageBoxA( NULL, std::to_string( uintptr_t( ctx::csgo.surface() ) ).c_str(), "gg", 0 );
+	hooks::init();
 
-	while ( !GetAsyncKeyState( VK_END ) )
+	while ( !shared::input::get_key_info( VK_END ).m_state )
 		std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
 
 DETACH:
 	LOG( "Cheat Detached!" );
+
+	hooks::undo();
 
 	std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
 

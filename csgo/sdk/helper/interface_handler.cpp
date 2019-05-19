@@ -20,6 +20,8 @@ namespace interface_handler
 	{
 		auto& entry = m_interfaces[ HASH( mod ) ];
 
+		/// TODO Loop through all loaded modules remove the need
+		/// of entering a module name
 		if ( entry.empty() )
 		{
 			auto module_address = GetModuleHandleA( mod );
