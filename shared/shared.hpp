@@ -21,6 +21,8 @@
 
 #include "bitflag/bitflag.hpp"
 
+#include "color/col_t.hpp"
+
 #include "fmt/format.hpp"
 
 #include "hash/hash.hpp"

@@ -70,13 +70,18 @@ namespace shared::mem
 	{
 		/// TODO: maybe scan all sigs and check if they all match? 
 		address_t dummy{};
+
+		auto sigs_tried = uint32_t();
+
 		for ( auto sig : sigs )
 			/// Check if address was found
 			if ( dummy = find_ida_sig( mod, sig ) )
 				break;
+			else
+				LOG( fmt::format( "Failed to find signature {}/{} ( {} ), ", ++sigs_tried, sigs.size(), sig ) );
 
 		/// No valid address found
-		return {};
+		return dummy;
 	}
 
 	address_t call_vfunc( address_t table, uint16_t index )

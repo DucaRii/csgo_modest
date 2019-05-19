@@ -105,6 +105,9 @@
     <ClInclude Include="mem_protect\mem_protect.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="color\col_t.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mem\mem.cpp">

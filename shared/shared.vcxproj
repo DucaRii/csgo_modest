@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="address\address.hpp" />
     <ClInclude Include="bitflag\bitflag.hpp" />
+    <ClInclude Include="color\col_t.hpp" />
     <ClInclude Include="fmt\chrono.hpp" />
     <ClInclude Include="fmt\color.hpp" />
     <ClInclude Include="fmt\core.hpp" />

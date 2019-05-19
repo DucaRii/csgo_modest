@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -157,8 +157,11 @@
     <ClInclude Include="sdk\helper\interface_handler.hpp" />
     <ClInclude Include="sdk\helper\render.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
+    <ClInclude Include="sdk\source_engine\CFontManager.hpp" />
     <ClInclude Include="sdk\source_engine\IPanel.hpp" />
     <ClInclude Include="sdk\source_engine\ISurface.hpp" />
+    <ClInclude Include="sdk\source_engine\IVEngineClient.hpp" />
+    <ClInclude Include="sdk\source_engine\player_info_t.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

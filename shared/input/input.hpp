@@ -38,7 +38,8 @@ namespace shared::input
 		e_state m_state;
 	};
 
-	void init( const std::string& window );
+	bool init( const std::string& window );
+	void undo();
 
 	/// Message handling
 	bool handle_mouse( const UINT msg );

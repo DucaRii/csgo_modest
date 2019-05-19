@@ -17,15 +17,26 @@ BOOL WINAPI detach()
 
 DWORD WINAPI entry( LPVOID lpThreadParameter )
 {
-	LOG( "Cheat Attached!" );
+	if ( !shared::input::init( "Valve001" ) )
+		goto DETACH;
+
+	LOG( "Initialized Input!" );
 
 	hooks::init();
+
+	LOG( "Initialized Hooks!" );
+
+	LOG( "Cheat Attached!" );
+
+	ctx::csgo.engine()->ClientCmd_Unrestricted( "ggg" );
 
 	while ( !shared::input::get_key_info( VK_END ).m_state )
 		std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
 
 DETACH:
 	LOG( "Cheat Detached!" );
+
+	shared::input::undo();
 
 	hooks::undo();
 

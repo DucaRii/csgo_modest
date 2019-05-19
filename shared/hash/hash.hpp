@@ -2,8 +2,8 @@
 
 namespace shared::hash
 {
-	constexpr uint32_t BASIS = 0x811c9dc5;
-	constexpr uint32_t PRIME = 0x1000193;
+	constexpr uint64_t BASIS = 0x811c9dc5;
+	constexpr uint64_t PRIME = 0x1000193;
 
 	/// Compile-Time
 	inline constexpr uint32_t get_const( const char* str, const uint32_t value = BASIS ) noexcept
