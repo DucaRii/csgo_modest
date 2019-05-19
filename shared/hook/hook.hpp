@@ -104,6 +104,9 @@ namespace shared::hook
 			INIT_MEM_PROTECT_RW( m_vtable, sizeof( uintptr_t ) );
 
 			*m_vtable = m_orig;
+
+			/// Prevent double unhook
+			m_orig = nullptr;
 		}
 
 		uintptr_t** m_vtable;
