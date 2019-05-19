@@ -12,6 +12,13 @@ namespace shared::input
 		HELD
 	};
 
+	enum e_key_state
+	{
+		IDLE,
+		PRESSED,
+		HELD
+	};
+
 	struct mouse_info_t
 	{
 		mouse_info_t() :
@@ -35,11 +42,10 @@ namespace shared::input
 
 	struct key_info_t
 	{
-		bool pressed;
-		bool held;
+		e_key_state m_state;
 	};
 
-	void init( const std::string& window_name );
+	void init( const std::string& window );
 
 	/// Message handling
 	bool handle_mouse( const UINT msg );

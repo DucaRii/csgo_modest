@@ -6,43 +6,21 @@ namespace shared::math
 	{
 		vec3_t() = default;
 
-		vec3_t( float xyz ) : m_x( xyz ), m_y( xyz ), m_z( xyz ) {};
-		vec3_t( float x, float y ) : m_x( x ), m_y( y ), m_z( 0 ) {};
-		vec3_t( float x, float y, float z ) : m_x( x ), m_y( y ), m_z( z ) {};
-		vec3_t( float* arr ) : m_x( arr[ PITCH ] ), m_y( arr[ YAW ] ), m_z( arr[ ROLL ] ) {};
-
-		inline float& x()
-		{
-			return m_x;
-		}
-
-		inline float& y()
-		{
-			return m_y;
-		}
-
-		inline float& z()
-		{
-			return m_z;
-		}
+		vec3_t( float xyz ) : x( xyz ), y( xyz ), z( xyz ) {};
+		vec3_t( float x, float y ) : x( x ), y( y ), z( 0 ) {};
+		vec3_t( float x, float y, float z ) : x( x ), y( y ), z( z ) {};
+		vec3_t( float* arr ) : x( arr[ PITCH ] ), y( arr[ YAW ] ), z( arr[ ROLL ] ) {};
 
 		inline float length() const
 		{
-			float root = 0.0f;
-
-			float sqsr = m_x * m_x + m_y * m_y + m_z * m_z;
-
-			__asm sqrtss xmm0, sqsr
-			__asm movss root, xmm0
-
-			return root;
+			return sqrt( x * x + y * y + z * z );
 		}
 
 		inline float length_2d() const
 		{
 			float root = 0.0f;
 
-			float sqst = m_x * m_x + m_y * m_y;
+			float sqst = x * x + y * y;
 
 			__asm
 			{
@@ -60,38 +38,38 @@ namespace shared::math
 
 			if ( l != 0 )
 			{
-				out.m_x = m_x / l;
-				out.m_y = m_y / l;
-				out.m_z = m_z / l;
+				out.x = x / l;
+				out.y = y / l;
+				out.z = z / l;
 			}
 			else
-				out.m_x = out.m_y = 0.0f; out.m_z = 1.0f;
+				out.x = out.y = 0.0f; out.z = 1.0f;
 
 			return out;
 		}
 
 		inline float self_dot() const
 		{
-			return ( m_x * m_x + m_y * m_y + m_z * m_z );
+			return ( x * x + y * y + z * z );
 		}
 
 		inline float dot( const vec3_t & in ) const
 		{
-			return ( m_x * in.m_x + m_y * in.m_y + m_z * in.m_z );
+			return ( x * in.x + y * in.y + z * in.z );
 		}
 
 		inline float dot( const float* in ) const
 		{
-			return ( m_x * in[ PITCH ] + m_y * in[ YAW ] + m_z * in[ ROLL ] );
+			return ( x * in[ PITCH ] + y * in[ YAW ] + z * in[ ROLL ] );
 		}
 
 
 #pragma region assignment
 		inline vec3_t& operator=( const vec3_t & in )
 		{
-			m_x = in.m_x;
-			m_y = in.m_y;
-			m_z = in.m_z;
+			x = in.x;
+			y = in.y;
+			z = in.z;
 
 			return *this;
 		}
@@ -100,12 +78,12 @@ namespace shared::math
 #pragma region equality
 		inline bool operator!=( const vec3_t & in )
 		{
-			return ( m_x != in.m_x || m_y != in.m_y || m_z != in.m_z );
+			return ( x != in.x || y != in.y || z != in.z );
 		}
 
 		inline bool operator==( const vec3_t & in )
 		{
-			return ( m_x == in.m_x && m_y == in.m_y && m_z == in.m_z );
+			return ( x == in.x && y == in.y && z == in.z );
 		}
 #pragma endregion equality
 
@@ -113,35 +91,35 @@ namespace shared::math
 		inline vec3_t operator+( vec3_t in ) const
 		{
 			return vec3_t(
-				m_x + in.m_x,
-				m_y + in.m_y,
-				m_z + in.m_z
+				x + in.x,
+				y + in.y,
+				z + in.z
 			);
 		}
 
 		inline vec3_t operator+( float in ) const
 		{
 			return vec3_t(
-				m_x + in,
-				m_y + in,
-				m_z + in
+				x + in,
+				y + in,
+				z + in
 			);
 		}
 
 		inline vec3_t& operator+=( vec3_t in )
 		{
-			m_x += in.m_x;
-			m_y += in.m_y;
-			m_z += in.m_z;
+			x += in.x;
+			y += in.y;
+			z += in.z;
 
 			return *this;
 		}
 
 		inline vec3_t& operator+=( float in )
 		{
-			m_x += in;
-			m_y += in;
-			m_z += in;
+			x += in;
+			y += in;
+			z += in;
 
 			return *this;
 		}
@@ -151,35 +129,35 @@ namespace shared::math
 		inline vec3_t operator-( vec3_t in ) const
 		{
 			return vec3_t(
-				m_x - in.m_x,
-				m_y - in.m_y,
-				m_z - in.m_z
+				x - in.x,
+				y - in.y,
+				z - in.z
 			);
 		}
 
 		inline vec3_t operator-( float in ) const
 		{
 			return vec3_t(
-				m_x - in,
-				m_y - in,
-				m_z - in
+				x - in,
+				y - in,
+				z - in
 			);
 		}
 
 		inline vec3_t& operator-=( vec3_t in )
 		{
-			m_x -= in.m_x;
-			m_y -= in.m_y;
-			m_z -= in.m_z;
+			x -= in.x;
+			y -= in.y;
+			z -= in.z;
 
 			return *this;
 		}
 
 		inline vec3_t& operator-=( float in )
 		{
-			m_x -= in;
-			m_y -= in;
-			m_z -= in;
+			x -= in;
+			y -= in;
+			z -= in;
 
 			return *this;
 		}
@@ -189,35 +167,35 @@ namespace shared::math
 		inline vec3_t operator*( vec3_t in ) const
 		{
 			return vec3_t(
-				m_x * in.m_x,
-				m_y * in.m_y,
-				m_z * in.m_z
+				x * in.x,
+				y * in.y,
+				z * in.z
 			);
 		}
 
 		inline vec3_t operator*( float in ) const
 		{
 			return vec3_t(
-				m_x * in,
-				m_y * in,
-				m_z * in
+				x * in,
+				y * in,
+				z * in
 			);
 		}
 
 		inline vec3_t& operator*=( vec3_t in )
 		{
-			m_x *= in.m_x;
-			m_y *= in.m_y;
-			m_z *= in.m_z;
+			x *= in.x;
+			y *= in.y;
+			z *= in.z;
 
 			return *this;
 		}
 
 		inline vec3_t& operator*=( float in )
 		{
-			m_x *= in;
-			m_y *= in;
-			m_z *= in;
+			x *= in;
+			y *= in;
+			z *= in;
 
 			return *this;
 		}
@@ -227,40 +205,40 @@ namespace shared::math
 		inline vec3_t operator/( vec3_t in ) const
 		{
 			return vec3_t(
-				m_x / in.m_x,
-				m_y / in.m_y,
-				m_z / in.m_z
+				x / in.x,
+				y / in.y,
+				z / in.z
 			);
 		}
 
 		inline vec3_t operator/( float in ) const
 		{
 			return vec3_t(
-				m_x / in,
-				m_y / in,
-				m_z / in
+				x / in,
+				y / in,
+				z / in
 			);
 		}
 
 		inline vec3_t& operator/=( vec3_t in )
 		{
-			m_x /= in.m_x;
-			m_y /= in.m_y;
-			m_z /= in.m_z;
+			x /= in.x;
+			y /= in.y;
+			z /= in.z;
 
 			return *this;
 		}
 
 		inline vec3_t& operator/=( float in )
 		{
-			m_x /= in;
-			m_y /= in;
-			m_z /= in;
+			x /= in;
+			y /= in;
+			z /= in;
 
 			return *this;
 		}
 #pragma endregion division
 
-		float m_x, m_y, m_z;
+		float x, y, z;
 	};
 }

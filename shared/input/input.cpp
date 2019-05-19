@@ -5,13 +5,13 @@ namespace shared::input
 	HWND m_window = NULL;
 	WNDPROC m_original_wndproc = nullptr;
 
-	void init( const std::string& window_name )
+	void init( const std::string& window )
 	{
 		/// Input was already initialized ?
 		if ( m_window )
 			return;
 
-		m_window = FindWindowA( window_name.c_str(), NULL );
+		m_window = FindWindowA( window.c_str(), NULL );
 		m_original_wndproc = reinterpret_cast< WNDPROC >( SetWindowLongA(
 			m_window, GWLP_WNDPROC, reinterpret_cast< LONG_PTR >( hook ) ) );
 	}
@@ -62,10 +62,9 @@ namespace shared::input
 
 		for ( auto i = 0; i < 256; i++ )
 		{
-			if ( m_key_info.at( i ).pressed )
+			if ( m_key_info.at( i ).m_state == e_key_state::PRESSED )
 			{
-				m_key_info.at( i ).pressed = false;
-				m_key_info.at( i ).held = true;
+				m_key_info.at( i ).m_state = e_key_state::HELD;
 				changed_state = true;
 			}
 		}
@@ -81,13 +80,12 @@ namespace shared::input
 				/// "Normal" keys
 			case WM_KEYDOWN:
 				if ( param >= 0 && param < 256 )
-					m_key_info.at( param ).pressed = true;
+					m_key_info.at( param ).m_state = e_key_state::PRESSED;
 				return true;
 			case WM_KEYUP:
 				if ( param >= 0 && param < 256 )
 				{
-					m_key_info.at( param ).pressed = false;
-					m_key_info.at( param ).held = false;
+					m_key_info.at( param ).m_state = e_key_state::IDLE;
 				}
 				return true;
 
@@ -95,44 +93,52 @@ namespace shared::input
 			case WM_XBUTTONDOWN:
 			case WM_XBUTTONDBLCLK:
 				if ( GET_XBUTTON_WPARAM( param ) & XBUTTON1 )
-					m_key_info.at( VK_XBUTTON1 ).pressed = true;
+					m_key_info.at( VK_XBUTTON1 ).m_state = e_key_state::PRESSED;
 				else if ( GET_XBUTTON_WPARAM( param ) & XBUTTON2 )
-					m_key_info.at( VK_XBUTTON2 ).pressed = true;
+					m_key_info.at( VK_XBUTTON2 ).m_state = e_key_state::PRESSED;
 				return true;
 			case WM_XBUTTONUP:
 				if ( GET_XBUTTON_WPARAM( param ) & XBUTTON1 )
-				{
-					m_key_info.at( VK_XBUTTON1 ).pressed = false;
-					m_key_info.at( VK_XBUTTON1 ).held = false;
-				}
+					m_key_info.at( VK_XBUTTON1 ).m_state = e_key_state::IDLE;
 				else if ( GET_XBUTTON_WPARAM( param ) & XBUTTON2 )
-				{
-					m_key_info.at( VK_XBUTTON2 ).pressed = false;
-					m_key_info.at( VK_XBUTTON2 ).held = false;
-				}
+					m_key_info.at( VK_XBUTTON2 ).m_state = e_key_state::IDLE;
 				return true;
 
 				/// System keys
 			case WM_SYSKEYDOWN:
 				if ( param >= 0 && param < 256 )
-					m_key_info.at( param ).pressed = true;
+					m_key_info.at( param ).m_state = e_key_state::PRESSED;
 				return true;
 			case WM_SYSKEYUP:
 				if ( param >= 0 && param < 256 )
-				{
-					m_key_info.at( param ).pressed = false;
-					m_key_info.at( param ).held = false;
-				}
+					m_key_info.at( param ).m_state = e_key_state::IDLE;
 				return true;
 
 				/// Middle button
 			case WM_MBUTTONDOWN:
 			case WM_MBUTTONDBLCLK:
-				m_key_info.at( VK_MBUTTON ).pressed = true;
+				m_key_info.at( VK_MBUTTON ).m_state = e_key_state::PRESSED;
 				return true;
 			case WM_MBUTTONUP:
-				m_key_info.at( VK_MBUTTON ).pressed = false;
-				m_key_info.at( VK_MBUTTON ).held = false;
+				m_key_info.at( VK_MBUTTON ).m_state = e_key_state::IDLE;
+				return true;
+
+				/// Left mouse button
+			case WM_LBUTTONDOWN:
+			case WM_LBUTTONDBLCLK:
+				m_key_info.at( VK_LBUTTON ).m_state = e_key_state::PRESSED;
+				return true;
+			case WM_LBUTTONUP:
+				m_key_info.at( VK_LBUTTON ).m_state = e_key_state::IDLE;
+				return true;
+
+				/// Right mouse button
+			case WM_RBUTTONDOWN:
+			case WM_RBUTTONDBLCLK:
+				m_key_info.at( VK_RBUTTON ).m_state = e_key_state::PRESSED;
+				return true;
+			case WM_RBUTTONUP:
+				m_key_info.at( VK_RBUTTON ).m_state = e_key_state::IDLE;
 				return true;
 
 				/// Mouse wheel
@@ -171,11 +177,11 @@ namespace shared::input
 		m_mouse_info.m_scroll = 0;
 	}
 
-	bool mouse_in_bounds( const math::vec2_t& pos, const math::vec2_t& size )
+	bool mouse_in_bounds( const math::vec2_t & pos, const math::vec2_t & size )
 	{
 		const auto mouse_pos = m_mouse_info.m_pos;
 
-		return mouse_pos.x > pos.x && mouse_pos.x < pos.x + size.x
+		return mouse_pos.x > pos.x&& mouse_pos.x < pos.x + size.x
 			&& mouse_pos.y > pos.y && mouse_pos.y < pos.y + size.y;
 	}
 

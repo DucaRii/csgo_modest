@@ -30,18 +30,18 @@ namespace shared::math
 
 		void init( const vec3_t& x_axis, const vec3_t& y_axis, const vec3_t& z_axis, const vec3_t& vec_origin )
 		{
-			m_matrix[ 0 ][ 0 ] = x_axis.m_x;
-			m_matrix[ 0 ][ 1 ] = y_axis.m_x;
-			m_matrix[ 0 ][ 2 ] = z_axis.m_x;
-			m_matrix[ 0 ][ 3 ] = vec_origin.m_x;
-			m_matrix[ 1 ][ 0 ] = x_axis.m_y;
-			m_matrix[ 1 ][ 1 ] = y_axis.m_y;
-			m_matrix[ 1 ][ 2 ] = z_axis.m_y;
-			m_matrix[ 1 ][ 3 ] = vec_origin.m_y;
-			m_matrix[ 2 ][ 0 ] = x_axis.m_z;
-			m_matrix[ 2 ][ 1 ] = y_axis.m_z;
-			m_matrix[ 2 ][ 2 ] = z_axis.m_z;
-			m_matrix[ 2 ][ 3 ] = vec_origin.m_z;
+			m_matrix[ 0 ][ 0 ] = x_axis.x;
+			m_matrix[ 0 ][ 1 ] = y_axis.x;
+			m_matrix[ 0 ][ 2 ] = z_axis.x;
+			m_matrix[ 0 ][ 3 ] = vec_origin.x;
+			m_matrix[ 1 ][ 0 ] = x_axis.y;
+			m_matrix[ 1 ][ 1 ] = y_axis.y;
+			m_matrix[ 1 ][ 2 ] = z_axis.y;
+			m_matrix[ 1 ][ 3 ] = vec_origin.y;
+			m_matrix[ 2 ][ 0 ] = x_axis.z;
+			m_matrix[ 2 ][ 1 ] = y_axis.z;
+			m_matrix[ 2 ][ 2 ] = z_axis.z;
+			m_matrix[ 2 ][ 3 ] = vec_origin.z;
 		}
 
 		float* operator[]( int i )
