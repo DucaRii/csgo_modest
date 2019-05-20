@@ -39,12 +39,20 @@ namespace shared::hash
 	}
 }
 
-/// This has to be in a function kind of way since
-/// it won't work with msvc else
+/// <summary>
+/// Creates hash of text during compile-time
+/// </summary>
+/// <param name="str">The text that is going to be hashed</param>
+/// <returns>Hashed text</returns>
 #define CT_HASH( str ) \
        [ ]( ) { \
            constexpr uint32_t ret = shared::hash::get_const( str ); \
            return ret; \
        }( )
 
+/// <summary>
+/// Creates hash of text during run-time
+/// </summary>
+/// <param name="str">The text that is going to be hashed</param>
+/// <returns>Hashed text</returns>
 #define HASH( str ) shared::hash::get( str )

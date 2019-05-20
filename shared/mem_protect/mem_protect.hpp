@@ -39,8 +39,8 @@ namespace shared
 		DWORD m_flags;
 	};
 
-#define INIT_MEM_PROTECT_RW( address, size ) auto protect = mem_protect( address, size, PAGE_READWRITE );
-#define INIT_MEM_PROTECT_R( address, size ) auto protect = mem_protect( address, size, PAGE_READONLY );
-#define INIT_MEM_PROTECT_W( address, size ) auto protect = mem_protect( address, size, PAGE_WRITECOPY );
-#define INIT_MEM_PROTECT( address, size, flags ) auto protect = mem_protect( address, size, flags );
+#define INIT_MEM_PROTECT_RW( address, size ) auto protect = mem_protect_t( address, size, PAGE_READWRITE );
+#define INIT_MEM_PROTECT_R( address, size ) auto protect = mem_protect_t( address, size, PAGE_READONLY );
+#define INIT_MEM_PROTECT_W( address, size ) auto protect = mem_protect_t( address, size, PAGE_WRITECOPY );
+#define INIT_MEM_PROTECT( address, size, flags ) auto protect = mem_protect_t( address, size, flags );
 }
