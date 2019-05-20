@@ -6,14 +6,19 @@
 
 /// Simple loadlibrary injector
 
-/// Usage: Either just start the program
-///        and it will inject csgo.dll ( if found )
-///        Or you drop a file onto the program and
-///        it will inject that file
-
 #define DLL_NAME "csgo.dll"
 #define PROCESS_NAME "csgo.exe"
 
+/// Usage: Either just start the program
+///        and it will inject DLL_NAME ( if found )
+///        Or you drop a file onto the program and
+///        it will inject that file
+
+/// <summary>
+/// Loops through all processes and searches for the provided process
+/// </summary>
+/// <param name="name">Process name to search for</param>
+/// <returns>Process ID, 0 if not found</returns>
 uint32_t get_process_info( const char* name )
 {
 	auto snapshot = CreateToolhelp32Snapshot( TH32CS_SNAPPROCESS, 0 );
@@ -39,6 +44,12 @@ uint32_t get_process_info( const char* name )
 	return 0;
 }
 
+/// <summary>
+/// Injects a .dll file utilizing kernel32's LoadLibrary function and mapping it into the process
+/// </summary>
+/// <param name="arg_number">Argument number provided with the call of the function</param>
+/// <param name="arguments">Arguments provided with the call of the function</param>
+/// <returns>Success of function</returns>
 BOOL main( int arg_number, char* arguments[] )
 {
 	HANDLE process_handle;
@@ -122,6 +133,9 @@ BOOL main( int arg_number, char* arguments[] )
 	}
 	catch ( std::exception & ex )
 	{
+		/// Cleanup memory/handles
+		cleanup();
+
 		MessageBoxA( NULL, ex.what(), "Error", MB_OK | MB_ICONERROR );
 
 		return TRUE;
