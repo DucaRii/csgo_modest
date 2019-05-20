@@ -1,8 +1,9 @@
-#include "../shared/shared.hpp"
+#include <Windows.h>
 
 #include <filesystem>
 #include <TlHelp32.h>
 #include <iostream>
+#include <thread>
 
 /// Simple loadlibrary injector
 
@@ -90,7 +91,7 @@ BOOL main( int arg_number, char* arguments[] )
 			throw std::exception( "Failed to find target file" );
 
 		/// Check if process exists
-		uint32_t process_id = get_process_info( PROCESS_NAME );
+		auto process_id = get_process_info( PROCESS_NAME );
 		if ( !process_id )
 			throw std::exception( "Target process isn't open" );
 
@@ -106,7 +107,7 @@ BOOL main( int arg_number, char* arguments[] )
 		if ( !kernel_handle )
 			throw std::exception( "Failed to open kernel32 handle" );
 
-		LPVOID load_library = reinterpret_cast< LPVOID >( GetProcAddress( kernel_handle, "LoadLibraryA" ) );
+		auto load_library = reinterpret_cast< LPVOID >( GetProcAddress( kernel_handle, "LoadLibraryA" ) );
 		if ( !load_library )
 			throw std::exception( "Failed to find LoadLibrary" );
 
