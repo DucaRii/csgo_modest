@@ -37,7 +37,7 @@ namespace interface_handler
 			/// .text:108C25F3 5D                                pop     ebp
 			/// .text:108C25F4 E9 87 FF FF FF                    jmp     sub_108C2580    ; Jump
 			///                ^ Check for this byte
-			if ( create_interface_fn.offset( 0x4 ).get<byte>() != 0xE9 )
+			if ( create_interface_fn.offset( 0x4 ).deref().compare( 0xE9 ) )
 				return nullptr;
 
 			/// Now that we know that there is a jump we will follow that jump

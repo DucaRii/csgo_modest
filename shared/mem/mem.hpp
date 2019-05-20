@@ -2,11 +2,35 @@
 
 namespace shared::mem
 {
+	/// <summary>
+	/// Tries to find a ida style signature in the given module
+	/// </summary>
+	/// <param name="mod">Module in which the signature will be searched</param>
+	/// <param name="sig">The ida style signature that will be searched for</param>
+	/// <returns>Address, if it was found</returns>
 	address_t find_ida_sig( const char* mod, const char* sig );
+
+	/// <summary>
+	/// Tries to find multiple ida style signature in the given module
+	/// </summary>
+	/// <param name="mod">Module in which the signature will be searched</param>
+	/// <param name="sig">The ida style signatures that will be searched for</param>
+	/// <returns>Address, if it was found</returns>
 	address_t find_ida_sig( const char* mod, const std::vector< const char* >& sigs );
 
+	/// <summary>
+	/// Will get a vfunc from a given vtable + index
+	/// </summary>
+	/// <param name="table">Pointer of which the vtable will be retrieved and searched (not the actual vtable)</param>
+	/// <param name="index">Index of the virtual function</param>
+	/// <returns>Address of the virtual function, if it was found</returns>
 	address_t call_vfunc( address_t table, uint16_t index );
 
+	/// <summary>
+	/// Will get the length of a given vtable
+	/// </summary>
+	/// <param name="table">Pointer of which the vtable will be retrieved and searched</param>
+	/// <returns>Amount of virtual functions found</returns>
 	uint32_t get_vtable_length( address_t table );
 }
 

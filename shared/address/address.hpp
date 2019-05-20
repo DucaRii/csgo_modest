@@ -11,39 +11,39 @@ namespace shared
 
 		address_t() : m_ptr{} {};
 		address_t( uintptr_t ptr ) : m_ptr( ptr ) {};
-		address_t( void* ptr ) : m_ptr( uintptr_t( ptr ) ) {};
+		address_t( const void* ptr ) : m_ptr( uintptr_t( ptr ) ) {};
 
 		~address_t() = default;
 
-		inline operator uintptr_t() const
+		inline operator uintptr_t()
 		{
 			return m_ptr;
 		}
 
-		inline operator void* ( ) const
+		inline operator void* ( )
 		{
 			return reinterpret_cast< void* >( m_ptr );
 		}
 
 		/// Cast address and deref
 		template< typename t = address_t >
-		__forceinline t to() const
+		__forceinline t to()
 		{
-			return *( t* )( m_ptr );
+			return *reinterpret_cast< t* >( m_ptr );
 		}
 
 		/// Cast address
-		template< typename t = address_t >
-		inline t as() const
+		template< typename t >
+		inline t as()
 		{
-			return ( t )( m_ptr );
+			return t( m_ptr );
 		}
 
 		/// Add to address
 		template< typename t = address_t >
-		inline t offset( std::ptrdiff_t offset ) const
+		inline t offset( std::ptrdiff_t offset )
 		{
-			return ( t )( m_ptr + offset );
+			return t( m_ptr + offset );
 		}
 
 		/// Dereference address x times
@@ -55,7 +55,29 @@ namespace shared
 			while ( derefs-- && is_safe( dummy ) )
 				dummy = *reinterpret_cast< uintptr_t* >( dummy );
 
-			return ( t )dummy;
+			return reinterpret_cast< t >( dummy );
+		}
+
+		inline uintptr_t get_ptr()
+		{
+			return m_ptr;
+		}
+
+		inline address_t deref( uint8_t derefs = 1 )
+		{
+			uintptr_t dummy = m_ptr;
+
+			while ( derefs-- && is_safe( dummy ) )
+				dummy = *reinterpret_cast< uintptr_t* >( dummy );
+
+			m_ptr = dummy;
+
+			return *this;
+		}
+
+		inline bool compare( uint8_t byte ) const
+		{
+			return m_ptr == byte;
 		}
 
 		/// Set address to value

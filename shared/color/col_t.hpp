@@ -82,6 +82,10 @@ namespace shared
 			return !( operator==( in ) );
 		}
 
+		/// <summary>
+		/// Gets the hue of the current color
+		/// </summary>
+		/// <returns>Hue of color</returns>
 		float hue() const
 		{
 			float r = m_color[ 0 ] / 255.0f;
@@ -110,6 +114,10 @@ namespace shared
 			return hue / 360.f;
 		}
 
+		/// <summary>
+		/// Gets the saturation of the current color
+		/// </summary>
+		/// <returns>Saturation of color</returns>
 		float saturation() const
 		{
 			float r = m_color[ 0 ] / 255.0f;
@@ -127,6 +135,10 @@ namespace shared
 			return delta / mx;
 		}
 
+		/// <summary>
+		/// Gets the brightness of the current color
+		/// </summary>
+		/// <returns>Brightness of color</returns>
 		float brightness() const
 		{
 			float r = m_color[ 0 ] / 255.0f;
@@ -136,6 +148,13 @@ namespace shared
 			return max( r, max( g, b ) );
 		}
 
+		/// <summary>
+		/// Creates a new color object from the given arguments
+		/// </summary>
+		/// <param name="hue">Hue of new color</param>
+		/// <param name="saturation">Saturation of new color</param>
+		/// <param name="brightness">Brightness of new color</param>
+		/// <returns>New color object</returns>
 		static col_t from_hsb( float hue, float saturation, float brightness )
 		{
 			float h = hue == 1.0f ? 0 : hue * 6.0f;

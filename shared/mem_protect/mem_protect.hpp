@@ -2,22 +2,40 @@
 
 namespace shared
 {
-	class mem_protect
+	struct mem_protect_t
 	{
-	public:
-		mem_protect( LPVOID address, uint32_t size, DWORD flags ) : m_address( address ), m_size( size ), m_flags( 0 )
+		/// <summary>
+		/// Creates a protection object with the given arguments
+		/// </summary>
+		/// <param name="address">The address which should be affected</param>
+		/// <param name="size">The size of the memory which should be affected</param>
+		/// <param name="flags">The new flags of the memory</param>
+		mem_protect_t( LPVOID address, uint32_t size, DWORD flags ) : m_address( address ), m_size( size ), m_flags( 0 )
 		{
 			VirtualProtect( m_address, m_size, flags, &m_flags );
 		}
 
-		~mem_protect()
+		/// <summary>
+		/// Destroys the protection object and automatically restores old flags
+		/// </summary>
+		~mem_protect_t()
 		{
 			VirtualProtect( m_address, m_size, m_flags, &m_flags );
 		}
 
-	private:
+		/// <summary>
+		/// Address of affected memory
+		/// </summary>
 		LPVOID m_address;
+
+		/// <summary>
+		/// Size of affected memory
+		/// </summary>
 		uint32_t m_size;
+
+		/// <summary>
+		/// Old proctection flags
+		/// </summary>
 		DWORD m_flags;
 	};
 
