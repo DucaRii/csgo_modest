@@ -37,3 +37,4 @@ namespace shared::mem
 #define MEMBER_FUNC_ARGS(...) ( this, __VA_ARGS__ ); }
 #define VFUNC( index, func, sig ) auto func { return shared::mem::call_vfunc( this, index ).cast< sig >() MEMBER_FUNC_ARGS
 #define CUSTOM_VFUNC( func, sig, addr ) auto func { return addr.cast< sig >() MEMBER_FUNC_ARGS
+#define OFFSET( type, func, offset ) type& func() { return *reinterpret_cast< type* >( reinterpret_cast< uintptr_t >( this ) + offset.cast() ); }

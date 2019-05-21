@@ -13,12 +13,17 @@ void __fastcall hook_handler_t::paint_traverse( REGISTERS, int vguiPanel, bool f
 
 	render::init();
 
-	auto size = render::text_size( render::fonts::m_main, "HEEEY565678565678" );
+	render::text( render::fonts::m_main, { 100, 100 }, shared::col_t( 255, 255, 255, 255 ), {}, "Example Text" );
 
-	ctx::csgo.surface->DrawSetColor( 255, 0, 255, 255 );
-	ctx::csgo.surface->DrawFilledRect( 200, 200, 200 + size.x, 200 + size.y );
+	render::rect_filled( { 100, 120 }, { 50, 50 }, shared::col_t( 255, 0, 0 ) );
 
-	ctx::csgo.surface->DrawColoredText( render::fonts::m_main, 200, 200, 255, 0, 0, 255, "HEEEY565678565678" );
+	render::rect( { 160, 120 }, { 50, 50 }, shared::col_t( 255, 0, 0 ) );
+
+	render::line( { 220, 120 }, { 220, 170 }, shared::col_t( 255, 0, 0 ) );
+
+	render::circle( { 255, 145 }, 25, 128, shared::col_t( 0, 255, 0 ) );
+
+	render::circle_filled( { 315, 145 }, 25, shared::col_t( 0, 0, 255 ) );
 
 	shared::input::update_mouse();
 }

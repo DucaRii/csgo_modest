@@ -17,6 +17,7 @@ namespace interface_handler
 	{
 		static std::unordered_map< uint32_t,
 			std::vector< std::pair< const char*, shared::address_t >>> m_interfaces{};
+
 		auto& entry = m_interfaces[ HASH( mod ) ];
 
 		/// TODO Loop through all loaded modules remove the need
