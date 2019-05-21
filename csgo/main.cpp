@@ -28,8 +28,6 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 
 	LOG( "Cheat Attached!" );
 
-	ctx::csgo.engine()->ClientCmd_Unrestricted( "ggg" );
-
 	while ( !shared::input::get_key_info( VK_END ).m_state )
 		std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
 

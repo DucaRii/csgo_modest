@@ -13,11 +13,10 @@ namespace interface_handler
 		static InterfaceReg* s_pInterfaceRegs;
 	};
 
-	std::unordered_map< uint32_t,
-		std::vector< std::pair< const char*, shared::address_t >>> m_interfaces{};
-
 	uintptr_t* get( const char* mod, const char* interface_name )
 	{
+		static std::unordered_map< uint32_t,
+			std::vector< std::pair< const char*, shared::address_t >>> m_interfaces{};
 		auto& entry = m_interfaces[ HASH( mod ) ];
 
 		/// TODO Loop through all loaded modules remove the need
@@ -25,32 +24,33 @@ namespace interface_handler
 		if ( entry.empty() )
 		{
 			auto module_address = GetModuleHandleA( mod );
+			if ( !module_address )
+				return nullptr;
 
 			/// Find internal CreateInterface function and walk the context
 			auto create_interface_fn = shared::address_t( uintptr_t( GetProcAddress( module_address, "CreateInterface" ) ) );
 			if ( !create_interface_fn )
 				return nullptr;
 
-			/// Is this is the right function the 5th byte should be jmp opcode
+			/// This is what the function looks like, we want to get the JMP
+			/// instruction and follow it
 			/// .text:108C25F0 55                                push    ebp
 			/// .text:108C25F1 8B EC                             mov     ebp, esp
 			/// .text:108C25F3 5D                                pop     ebp
 			/// .text:108C25F4 E9 87 FF FF FF                    jmp     sub_108C2580    ; Jump
-			///                ^ Check for this byte
-			if ( create_interface_fn.offset( 0x4 ).get().compare( 0xE9 ) )
-				return nullptr;
+			///                ^ This is the JMP instruction
 
-			/// Now that we know that there is a jump we will follow that jump
-			/// After that get the interface_reg_list
+			/// We will follow that jump and get the interface_reg_list
 			/// .text : 108C2580 55                                push    ebp
 			///	.text : 108C2581 8B EC                           mov     ebp, esp
 			///	.text : 108C2583 56                              push    esi
 			///	.text : 108C2584 8B 35 64 CA 14 13               mov     esi, interface_reg_list
-			///                        ^_________^ Get this address
+			///                        ^_________^ Get this address ( interface_reg_list )
 			auto list = create_interface_fn.rel( 0x5 ).offset( 0x6 ).get< InterfaceReg* >( 2 );
 			if ( !list )
 				return nullptr;
 
+			/// Continue to walk the list until it's no longer valid
 			while ( list )
 			{
 				entry.push_back( std::make_pair( list->m_pName, uintptr_t( list->m_CreateFn() ) ) );

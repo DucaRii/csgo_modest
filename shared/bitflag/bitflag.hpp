@@ -47,9 +47,18 @@ namespace shared
 		/// Removes the given flag to the stored flags
 		/// </summary>
 		/// <param name="flag">Flag that will be removed</param>
-		inline  void remove_flag( uint32_t flag )
+		inline void remove_flag( uint32_t flag )
 		{
 			m_flags &= ~flag;
+		}
+
+		/// <summary>
+		/// Checks if there are no flags stored
+		/// </summary>
+		/// <returns>True if no flags stored</returns>
+		inline bool is_empty()
+		{
+			return !m_flags;
 		}
 	};
 }

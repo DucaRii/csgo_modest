@@ -4,7 +4,7 @@ namespace shared::math
 {
 	angle_t calc_angle( const vec3_t& src, const vec3_t& dst )
 	{
-		auto ret = angle_t{};
+		auto ret = angle_t();
 
 		auto vec_delta = src - dst;
 
@@ -15,8 +15,8 @@ namespace shared::math
 
 	void angle_vectors( const angle_t& ang, vec3_t& out_forward )
 	{
-		auto sine = vec2_t{},
-			cosine = vec2_t{};
+		auto sine = vec2_t(),
+			cosine = vec2_t();
 
 		sincos( deg2rad( ang.x ), sine.x, cosine.x );
 		sincos( deg2rad( ang.y ), sine.y, cosine.y );
@@ -28,8 +28,8 @@ namespace shared::math
 
 	void angle_vectors( const angle_t& ang, vec3_t& out_forward, vec3_t& out_right, vec3_t& out_up )
 	{
-		auto sine = vec3_t{},
-			cosine = vec3_t{};
+		auto sine = vec3_t(),
+			cosine = vec3_t();
 
 		sincos( deg2rad( ang.x ), sine.x, cosine.x );
 		sincos( deg2rad( ang.y ), sine.y, cosine.y );

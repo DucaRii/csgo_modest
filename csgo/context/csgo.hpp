@@ -1,16 +1,8 @@
 #pragma once
 
-#define ADD_INTERFACE( type, var_name, mod, interface_name ) __declspec( noinline ) type* var_name() \
-{ \
-	static type* ptr = reinterpret_cast<type*>( interface_handler::get( mod, interface_name ) ); \
-	return ptr; \
-} \
+#define ADD_INTERFACE( type, var_name, mod, interface_name ) type* var_name = reinterpret_cast< type* >( interface_handler::get( mod, interface_name ) );
 
-#define ADD_INTERFACE_CUSTOM( type, var_name, address ) __declspec( noinline ) type* var_name() \
-{ \
-	static auto ptr = address.cast< type* >(); \
-	return ptr; \
-} \
+#define ADD_INTERFACE_CUSTOM( type, var_name, address ) type* var_name = address.cast< type* >();
 
 
 namespace ctx

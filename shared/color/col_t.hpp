@@ -38,7 +38,7 @@ namespace shared
 			set( col.r(), col.g(), col.b(), a );
 		}
 
-		void set( const int r, const int g, const int b, const int a )
+		inline void set( const int r, const int g, const int b, const int a )
 		{
 			m_color[ 0 ] = static_cast< uint8_t >( r );
 			m_color[ 1 ] = static_cast< uint8_t >( g );
@@ -46,38 +46,38 @@ namespace shared
 			m_color[ 3 ] = static_cast< uint8_t >( a );
 		}
 
-		int r() const
+		inline int r() const
 		{
 			return m_color[ 0 ];
 		}
 
-		int g() const
+		inline int g() const
 		{
 			return m_color[ 1 ];
 		}
 
-		int b() const
+		inline int b() const
 		{
 			return m_color[ 2 ];
 		}
 
-		int a() const
+		inline int a() const
 		{
 			return m_color[ 3 ];
 		}
 
-		col_t& operator=( const col_t& in )
+		inline col_t& operator=( const col_t& in )
 		{
 			set( in.r(), in.g(), in.b(), in.a() );
 			return *this;
 		}
 
-		bool operator==( const col_t& in ) const
+		inline bool operator==( const col_t& in ) const
 		{
 			return *const_cast< col_t* >( this ) == *const_cast< col_t* >( &in );
 		}
 
-		bool operator!=( const col_t& in ) const
+		inline bool operator!=( const col_t& in ) const
 		{
 			return !( operator==( in ) );
 		}

@@ -76,5 +76,5 @@ struct hook_handler_t
 	static void __fastcall paint_traverse( REGISTERS, int vguiPanel, bool forceRepaint, bool allowForce );
 
 	/// Hooks
-	CREATE_HOOK( ctx::csgo.panel(), 41, paint_traverse );
+	CREATE_HOOK( ctx::csgo.panel, 41, paint_traverse );
 };

@@ -6,10 +6,9 @@ namespace render
 	{
 		enum e_flags
 		{
-			FONT_LEFT = 1 << 0,
-			FONT_RIGHT = 1 << 1,
-			FONT_CENTER_X = 1 << 2,
-			FONT_CENTER_Y = 1 << 3
+			FONT_RIGHT = 1 << 0,
+			FONT_CENTER_X = 1 << 1,
+			FONT_CENTER_Y = 1 << 2
 		};
 
 		void init();
@@ -17,7 +16,7 @@ namespace render
 		extern HFont m_main;
 	}
 
-	void init( ISurface* render );
+	void init();
 	void undo();
 
 	shared::math::vec2_t get_screen_size();
@@ -28,4 +27,7 @@ namespace render
 
 	shared::math::vec2_t text_size( const HFont& font, const char* txt );
 	shared::math::vec2_t text_size( const HFont& font, const std::string& txt );
+
+	void set_color( const shared::col_t& col );
+	void set_color( const int r, const int g, const int b, const int a = 255 );
 }
