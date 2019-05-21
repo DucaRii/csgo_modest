@@ -4,64 +4,84 @@ namespace shared::mem
 {
 	address_t find_ida_sig( const char* mod, const char* sig )
 	{
-		/// Credits: MarkHC
+		/// Credits: MarkHC, although slightly modified by me and also documented
+
 		static auto pattern_to_byte = []( const char* pattern )
 		{
+			/// Prerequisites
 			auto bytes = std::vector<int>{};
 			auto start = const_cast< char* >( pattern );
 			auto end = const_cast< char* >( pattern ) + strlen( pattern );
 
+			/// Convert signature into corresponding bytes
 			for ( auto current = start; current < end; ++current )
 			{
+				/// Is current byte a wildcard? Simply ignore that that byte later
 				if ( *current == '?' )
 				{
 					++current;
+
+					/// Check if following byte is also a wildcard
 					if ( *current == '?' )
 						++current;
+
+					/// Dummy byte
 					bytes.push_back( -1 );
 				}
 				else
 				{
+					/// Convert character to byte on hexadecimal base
 					bytes.push_back( strtoul( current, &current, 16 ) );
 				}
 			}
 			return bytes;
 		};
 
-		const auto module = GetModuleHandleA( mod );
+		const auto module_handle = GetModuleHandleA( mod );
+		if ( !module_handle )
+			return {};
 
-		if ( module )
+		/// Get module information to search in the given module
+		MODULEINFO module_info;
+		GetModuleInformation( GetCurrentProcess(), reinterpret_cast< HMODULE >( module_handle ), &module_info, sizeof( MODULEINFO ) );
+
+		/// The region where we will search for the byte sequence
+		const auto image_size = module_info.SizeOfImage;
+
+		/// Check if the image is faulty
+		if ( !image_size )
+			return {};
+
+		/// Convert IDA-Style signature to a byte sequence
+		auto pattern_bytes = pattern_to_byte( sig );
+
+		const auto image_bytes = reinterpret_cast< byte* >( module_handle );
+
+		const auto signature_size = pattern_bytes.size();
+		const auto signature_bytes = pattern_bytes.data();
+
+		/// Now loop through all bytes and check if the byte sequence matches
+		for ( auto i = 0ul; i < image_size - signature_size; ++i )
 		{
-			const auto dosHeader = PIMAGE_DOS_HEADER( module );
-			const auto ntHeaders = PIMAGE_NT_HEADERS( reinterpret_cast< std::uint8_t* >( module ) + dosHeader->e_lfanew );
+			auto byte_sequence_found = true;
 
-			const auto sizeOfImage = ntHeaders->OptionalHeader.SizeOfImage;
-			auto patternBytes = pattern_to_byte( sig );
-			const auto scanBytes = reinterpret_cast< std::uint8_t* >( module );
-
-			const auto s = patternBytes.size();
-			const auto d = patternBytes.data();
-
-			if ( !sizeOfImage )
-				return {};
-
-			for ( auto i = 0ul; i < sizeOfImage - s; ++i )
+			/// Go through all bytes from the signature and check if it matches
+			for ( auto j = 0ul; j < signature_size; ++j )
 			{
-				auto found = true;
-				for ( auto j = 0ul; j < s; ++j )
+				if ( image_bytes[ i + j ] != signature_bytes[ j ] /// Bytes don't match
+					 && signature_bytes[ j ] != -1 ) /// Byte isn't a wildcard either, WHAT THE HECK
 				{
-					if ( scanBytes[ i + j ] != d[ j ] && d[ j ] != -1 )
-					{
-						found = false;
-						break;
-					}
+					byte_sequence_found = false;
+					break;
 				}
-
-				if ( found )
-					return address_t( uintptr_t( &scanBytes[ i ] ) );
 			}
-		}
 
+			/// All good, now return the right address
+			if ( byte_sequence_found )
+				return address_t( uintptr_t( &image_bytes[ i ] ) );
+		}
+		
+		/// Byte sequence wasn't found
 		return {};
 	}
 
@@ -93,6 +113,7 @@ namespace shared::mem
 	{
 		auto length = uint32_t{};
 
+		/// Walk through every function until it is no longer valid
 		for ( length = 0; table.as<uintptr_t*>()[ length ]; length++ )
 			if ( IS_INTRESOURCE( table.as<uintptr_t*>()[ length ] ) )
 				break;
