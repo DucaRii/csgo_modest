@@ -33,6 +33,12 @@ namespace shared
 		/// Creates an address object with the given pointer
 		/// </summary>
 		/// <param name="ptr">The address on which the object will be based on</param>
+		address_t( void* ptr ) : m_ptr( uintptr_t( ptr ) ) {};
+
+		/// <summary>
+		/// Creates an address object with the given pointer
+		/// </summary>
+		/// <param name="ptr">The address on which the object will be based on</param>
 		address_t( const void* ptr ) : m_ptr( uintptr_t( ptr ) ) {};
 
 		/// <summary>
