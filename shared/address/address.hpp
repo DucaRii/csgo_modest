@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../bitflag/bitflag.hpp"
-
 namespace shared
 {
 	class address_t
