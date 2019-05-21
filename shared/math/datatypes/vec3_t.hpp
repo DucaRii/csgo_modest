@@ -31,7 +31,7 @@ namespace shared::math
 			return root;
 		}
 
-		inline vec3_t normalize()
+		inline vec3_t normalize() const
 		{
 			vec3_t out{};
 			float l = length();
