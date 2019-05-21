@@ -28,7 +28,7 @@ namespace shared::hook
 		/// Sets up a hook with given object pointer
 		/// </summary>
 		/// <param name="ptr">Address of object from desired vtable</param>
-		hook_t( address_t ptr ) : m_vtable( ptr.as<uintptr_t**>() ), m_table_length( 0 ), m_orig( nullptr ), m_replace( nullptr ) {};
+		hook_t( address_t ptr ) : m_vtable( ptr.cast<uintptr_t**>() ), m_table_length( 0 ), m_orig( nullptr ), m_replace( nullptr ) {};
 
 		/// <summary>
 		/// Sets up hook and replaces the vtable with new one

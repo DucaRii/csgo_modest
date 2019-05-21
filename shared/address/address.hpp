@@ -7,122 +7,196 @@ namespace shared
 	class address_t
 	{
 	public:
+		/// <summary>
+		/// Inner pointer
+		/// </summary>
 		uintptr_t m_ptr;
 
+		/// <summary>
+		/// Creates a NULL address object
+		/// </summary>
 		address_t() : m_ptr{} {};
+
+		/// <summary>
+		/// Creates an address object with the given pointer
+		/// </summary>
+		/// <param name="ptr">The address on which the object will be based on</param>
 		address_t( uintptr_t ptr ) : m_ptr( ptr ) {};
+
+		/// <summary>
+		/// Creates an address object with the given pointer
+		/// </summary>
+		/// <param name="ptr">The address on which the object will be based on</param>
+		address_t( uintptr_t* ptr ) : m_ptr( uintptr_t( ptr ) ) {};
+
+		/// <summary>
+		/// Creates an address object with the given pointer
+		/// </summary>
+		/// <param name="ptr">The address on which the object will be based on</param>
 		address_t( const void* ptr ) : m_ptr( uintptr_t( ptr ) ) {};
 
+		/// <summary>
+		/// Destroys the address object
+		/// </summary>
 		~address_t() = default;
 
-		inline operator uintptr_t()
+		/// <summary>
+		/// Whenever an address object is being passed into a function but it requires
+		/// a uintptr this function will be called
+		/// </summary>
+		inline operator uintptr_t() const
 		{
 			return m_ptr;
 		}
 
+		/// <summary>
+		/// Whenever an address object is being passed into a function but it requires
+		/// a void* this function will be called
+		/// </summary>
 		inline operator void* ( )
 		{
 			return reinterpret_cast< void* >( m_ptr );
 		}
 
-		/// Cast address and deref
-		template< typename t = address_t >
-		__forceinline t to()
-		{
-			return *reinterpret_cast< t* >( m_ptr );
-		}
-
-		/// Cast address
-		template< typename t >
-		inline t as()
-		{
-			return t( m_ptr );
-		}
-
-		/// Add to address
-		template< typename t = address_t >
-		inline t offset( std::ptrdiff_t offset )
-		{
-			return t( m_ptr + offset );
-		}
-
-		/// Dereference address x times
-		template< typename t = address_t >
-		inline t get( uint8_t derefs = 1 )
-		{
-			uintptr_t dummy = m_ptr;
-
-			while ( derefs-- && is_safe( dummy ) )
-				dummy = *reinterpret_cast< uintptr_t* >( dummy );
-
-			return reinterpret_cast< t >( dummy );
-		}
-
-		inline uintptr_t get_ptr()
+		/// <summary>
+		/// Returns the inner pointer
+		/// </summary>
+		/// <returns>Inner pointer</returns>
+		inline uintptr_t get_inner() const
 		{
 			return m_ptr;
 		}
 
-		inline address_t deref( uint8_t derefs = 1 )
+		/// <summary>
+		/// Compares the inner pointer with the given address
+		/// </summary>
+		/// <param name=in>Address that will be compared</param>
+		/// <returns>True if the addresses match</returns>
+		template< typename t = address_t >
+		inline bool compare( t in ) const
 		{
-			uintptr_t dummy = m_ptr;
+			return m_ptr == uintptr_t( in );
+		}
 
-			while ( derefs-- && is_safe( dummy ) )
-				dummy = *reinterpret_cast< uintptr_t* >( dummy );
+		/// Actions performed on self
 
-			m_ptr = dummy;
+		/// <summary>
+		/// Deref inner pointer
+		/// </summary>
+		/// <param name="in">Times the pointer will be deref'd</param>
+		/// <returns>Current address object</returns>
+		inline address_t& self_get( uint8_t in = 1 )
+		{
+			m_ptr = get<uintptr_t>( in );
 
 			return *this;
 		}
 
-		inline bool compare( uint8_t byte ) const
+		/// <summary>
+		/// Add offset to inner pointer
+		/// </summary>
+		/// <param name="in">Offset that will be added</param>
+		/// <returns>Current address object</returns>
+		inline address_t& self_offset( ptrdiff_t offset )
 		{
-			return m_ptr == byte;
+			m_ptr += offset;
+
+			return *this;
 		}
 
-		/// Set address to value
+		/// <summary>
+		/// Follows a relative JMP instruction
+		/// </summary>
+		/// <param name="offset">Offset at which the function address is</param>
+		/// <returns>Address object</returns>
 		template< typename t = address_t >
-		inline void set( t val )
+		inline address_t & self_rel( std::ptrdiff_t offset = 0 )
 		{
-			*reinterpret_cast< t* >( m_ptr ) = val;
+			m_ptr = rel( offset );
 		}
 
-		/// Get relative offset
+		/// <summary>
+		/// Set inner pointer to given value
+		/// </summary>
+		/// <param name="in">Offset that will be added</param>
+		/// <returns>Current address object</returns>
+		template< typename t = address_t >
+		inline address_t & set( t in )
+		{
+			m_ptr = uintptr_t( in );
+
+			return *this;
+		}
+
+		/// Const actions
+
+		/// <summary>
+		/// Returns a casted version of the inner pointer
+		/// </summary>
+		/// <returns>Current address object</returns>
+		template< typename t = uintptr_t >
+		inline t cast()
+		{
+			return t( m_ptr );
+		}
+
+		/// <summary>
+		/// Deref inner pointer
+		/// </summary>
+		/// <param name="in">Times the pointer will be deref'd</param>
+		/// <returns>Current address object</returns>
+		template< typename t = address_t >
+		inline t get( uint8_t in = 1 )
+		{
+			uintptr_t dummy = m_ptr;
+
+			while ( in-- )
+				/// Check if pointer is still valid
+				if ( dummy )
+					dummy = *reinterpret_cast< uintptr_t* >( dummy );
+
+			return t( dummy );
+		}
+
+		/// <summary>
+		/// Add offset to inner pointer
+		/// </summary>
+		/// <param name="in">Offset that will be added</param>
+		/// <returns>Address object</returns>
+		template< typename t = address_t >
+		inline t offset( ptrdiff_t offset )
+		{
+			return t( m_ptr + offset );
+		}
+
+		/// <summary>
+		/// Follows a relative JMP instruction
+		/// </summary>
+		/// <param name="offset">Offset at which the function address is</param>
+		/// <returns>Address object</returns>
 		template< typename t = address_t >
 		inline t rel( std::ptrdiff_t offset = 0 )
 		{
-			uintptr_t out;
-			uint32_t rel;
+			/// Example:
+			/// E9 ? ? ? ?
+			/// The offset has to skip the E9 (JMP) instruction
+			/// Then deref the address coming after that to get to the function
+			/// Since the relative JMP is based on the next instruction after the address it has to be skipped
 
-			out = m_ptr + offset;
+			/// Base address is the address that follows JMP ( 0xE9 ) instruction
+			uintptr_t base = m_ptr + offset;
 
-			rel = *reinterpret_cast< uint32_t* >( out );
-			if ( !rel )
-				return t{};
+			/// Store the function pointer
+			auto rel_jump = *reinterpret_cast< uintptr_t* >( base );
 
-			out = ( out + 0x4 ) + rel;
+			/// The JMP is based on the instruction after the address
+			/// so the address size has to be added
+			base += sizeof( uintptr_t );
 
-			return ( t )( out );
-		}
+			/// Now finally do the JMP by adding the function address
+			base += rel_jump;
 
-		/// Check if address is valid
-		inline static bool is_safe( address_t address )
-		{
-			static MEMORY_BASIC_INFORMATION32 mbi{};
-
-			if ( !address
-				 || address < 0x10000
-				 || address > 0xFFE00000
-				 || !VirtualQuery( address, ( PMEMORY_BASIC_INFORMATION )& mbi, sizeof( mbi ) ) )
-				return false;
-
-			if ( !mbi.AllocationBase
-				 || mbi.State != MEM_COMMIT
-				 || mbi.Protect == PAGE_NOACCESS
-				 || mbi.Protect & PAGE_GUARD )
-				return false;
-
-			return true;
+			return t( base );
 		}
 	};
 }

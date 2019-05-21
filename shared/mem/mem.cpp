@@ -80,7 +80,7 @@ namespace shared::mem
 			if ( byte_sequence_found )
 				return address_t( uintptr_t( &image_bytes[ i ] ) );
 		}
-		
+
 		/// Byte sequence wasn't found
 		return {};
 	}
@@ -106,7 +106,7 @@ namespace shared::mem
 
 	address_t call_vfunc( address_t table, uint16_t index )
 	{
-		return table.to<address_t*>()[ index ];
+		return table.get<uintptr_t*>()[ index ];
 	}
 
 	uint32_t get_vtable_length( address_t table )
@@ -114,8 +114,8 @@ namespace shared::mem
 		auto length = uint32_t{};
 
 		/// Walk through every function until it is no longer valid
-		for ( length = 0; table.as<uintptr_t*>()[ length ]; length++ )
-			if ( IS_INTRESOURCE( table.as<uintptr_t*>()[ length ] ) )
+		for ( length = 0; table.cast<uintptr_t*>()[ length ]; length++ )
+			if ( IS_INTRESOURCE( table.cast<uintptr_t*>()[ length ] ) )
 				break;
 
 		return length;

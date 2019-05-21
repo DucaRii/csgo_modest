@@ -43,10 +43,8 @@ namespace shared
 			m_fp = address_t( ret - sizeof( uintptr_t ) );
 
 			/// Store address of return address
-			m_ret = address_t( ret );
-
 			/// Deref once to get to the actual return address
-			m_ret.deref();
+			m_ret = address_t( ret ).get();
 		}
 
 		/// <summary>
@@ -72,7 +70,7 @@ namespace shared
 		/// </summary>
 		void previous()
 		{
-			m_fp.deref();
+			m_fp.self_get();
 		}
 
 		/// <summary>
@@ -82,7 +80,7 @@ namespace shared
 		template< typename t = uintptr_t >
 		t get_var( std::ptrdiff_t offset )
 		{
-			return reinterpret_cast< t >( m_fp.as<uintptr_t>() + offset );
+			return m_fp.offset( offset ).get();
 		}
 	};
 }

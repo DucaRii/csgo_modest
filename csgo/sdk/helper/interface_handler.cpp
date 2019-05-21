@@ -27,7 +27,7 @@ namespace interface_handler
 			auto module_address = GetModuleHandleA( mod );
 
 			/// Find internal CreateInterface function and walk the context
-			auto create_interface_fn = shared::address_t( GetProcAddress( module_address, "CreateInterface" ) );
+			auto create_interface_fn = shared::address_t( uintptr_t( GetProcAddress( module_address, "CreateInterface" ) ) );
 			if ( !create_interface_fn )
 				return nullptr;
 
@@ -37,12 +37,12 @@ namespace interface_handler
 			/// .text:108C25F3 5D                                pop     ebp
 			/// .text:108C25F4 E9 87 FF FF FF                    jmp     sub_108C2580    ; Jump
 			///                ^ Check for this byte
-			if ( create_interface_fn.offset( 0x4 ).deref().compare( 0xE9 ) )
+			if ( create_interface_fn.offset( 0x4 ).get().compare( 0xE9 ) )
 				return nullptr;
 
 			/// Now that we know that there is a jump we will follow that jump
 			/// After that get the interface_reg_list
-			/// .text:108C2580 55                                push    ebp
+			/// .text : 108C2580 55                                push    ebp
 			///	.text : 108C2581 8B EC                           mov     ebp, esp
 			///	.text : 108C2583 56                              push    esi
 			///	.text : 108C2584 8B 35 64 CA 14 13               mov     esi, interface_reg_list
@@ -67,7 +67,7 @@ namespace interface_handler
 		for ( auto& cur : entry )
 		{
 			if ( std::string( cur.first ).find( interface_name ) != std::string::npos )
-				return cur.second.as<uintptr_t*>();
+				return cur.second.cast<uintptr_t*>();
 		}
 
 		/// No valid interface found

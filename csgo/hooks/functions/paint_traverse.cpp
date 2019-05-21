@@ -17,11 +17,6 @@ void __fastcall hook_handler_t::paint_traverse( REGISTERS, int vguiPanel, bool f
 	
 	shared::address_t addr{ ctx::csgo.engine() };
 
-	auto aa = addr.as<IVEngineClient*>();
-	int x, y;
-	aa->GetScreenSize( x, y );
-
-	LOG( shared::fmt::format( "{} - {}", x, y ) );
 	ctx::csgo.surface()->DrawSetColor( 255, 0, 255, 255 );
 	ctx::csgo.surface()->DrawFilledRect( 200, 200, 200 + size.x, 200 + size.y );
 
