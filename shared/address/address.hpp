@@ -116,7 +116,7 @@ namespace shared
 		template< typename t = address_t >
 		inline address_t & self_rel( std::ptrdiff_t offset = 0 )
 		{
-			m_ptr = rel( offset );
+			m_ptr = jmp( offset );
 		}
 
 		/// <summary>
@@ -179,7 +179,7 @@ namespace shared
 		/// <param name="offset">Offset at which the function address is</param>
 		/// <returns>Address object</returns>
 		template< typename t = address_t >
-		inline t rel( std::ptrdiff_t offset = 0 )
+		inline t jmp( std::ptrdiff_t offset = 1 )
 		{
 			/// Example:
 			/// E9 ? ? ? ?
@@ -191,11 +191,13 @@ namespace shared
 			uintptr_t base = m_ptr + offset;
 
 			/// Store the function pointer
-			auto rel_jump = *reinterpret_cast< uintptr_t* >( base );
+			/// Note: Displacement addresses can be signed, thanks dex
+			auto rel_jump = *reinterpret_cast< int32_t* >( base );
 
 			/// The JMP is based on the instruction after the address
 			/// so the address size has to be added
-			base += sizeof( uintptr_t );
+			/// Note: This is always 4 bytes, regardless of architecture, thanks dex
+			base += sizeof( uint32_t );
 
 			/// Now finally do the JMP by adding the function address
 			base += rel_jump;
