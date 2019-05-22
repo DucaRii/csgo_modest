@@ -14,6 +14,7 @@ namespace ctx
 			shared::address_t GetFontTall = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 8B 45 08 8D 0C C5 ? ? ? ? 2B C8 A1 ? ? ? ? 83 7C 88 ? ? 8D 04 88" } ); /// 74
 			shared::address_t GetCharacterWidth = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 8B 45 08 0F B7 55 0C" } ); /// 78
 			shared::address_t DrawOutlinedCircle = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 EC 50 57 8B F9 89 7D F0 80 7F 2F 00 0F 84 ? ? ? ? 8B 0D ? ? ? ? 53 8B 9F ? ? ? ? 56 8B 01 FF 90 ? ? ? ? 8B F0 85 F6 74 07 8B 06 8B CE FF 50 08 8B 06 8B CE 53 6A 00 6A 00 6A 01 FF 90 ? ? ? ? 89 47 3C 8B CE 8B 06 FF 50 0C 8B 06 8B CE FF 50 04 FF 75 14" } ); /// 103
+			shared::address_t DrawTexturedPolygon = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 8B 45 08 89 81 ? ? ? ? 8B 45 0C 89 81 ? ? ? ? 8B 45 10" } ); /// 109
 			shared::address_t DrawFilledRectFade = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 EC 4C 53 57" } ); /// 123
 			shared::address_t GetClipRect = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 B9 ? ? ? ? ? 74 39" } ); /// 146
 			shared::address_t SetClipRect = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 56 8B F1 83 BE ? ? ? ? ? 74 7F" } ); /// 147
