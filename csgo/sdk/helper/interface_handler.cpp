@@ -47,7 +47,7 @@ namespace interface_handler
 			///	.text : 108C2583 56                              push    esi
 			///	.text : 108C2584 8B 35 64 CA 14 13               mov     esi, interface_reg_list
 			///                        ^_________^ Get this address ( interface_reg_list )
-			auto list = create_interface_fn.rel( 0x5 ).offset( 0x6 ).get< InterfaceReg* >( 2 );
+			auto list = create_interface_fn.jmp( 0x5 ).offset( 0x6 ).get< InterfaceReg* >( 2 );
 			if ( !list )
 				return nullptr;
 

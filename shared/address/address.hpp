@@ -191,12 +191,12 @@ namespace shared
 			uintptr_t base = m_ptr + offset;
 
 			/// Store the function pointer
-			/// Note: Displacement addresses can be signed, thanks dex
+			/// Note: Displacement addresses can be signed, thanks d3x
 			auto rel_jump = *reinterpret_cast< int32_t* >( base );
 
 			/// The JMP is based on the instruction after the address
 			/// so the address size has to be added
-			/// Note: This is always 4 bytes, regardless of architecture, thanks dex
+			/// Note: This is always 4 bytes, regardless of architecture, thanks d3x
 			base += sizeof( uint32_t );
 
 			/// Now finally do the JMP by adding the function address
