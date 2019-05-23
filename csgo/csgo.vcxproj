@@ -158,12 +158,12 @@
     <ClInclude Include="sdk\helper\render.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\source_engine\CFontManager.hpp" />
-    <ClInclude Include="sdk\source_engine\ConVar.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\ConVar.hpp" />
     <ClInclude Include="sdk\source_engine\ICVar.hpp" />
     <ClInclude Include="sdk\source_engine\ISurface.hpp" />
     <ClInclude Include="sdk\source_engine\IVEngineClient.hpp" />
     <ClInclude Include="sdk\source_engine\IVEngineVGui.hpp" />
-    <ClInclude Include="sdk\source_engine\player_info_t.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\player_info_t.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
