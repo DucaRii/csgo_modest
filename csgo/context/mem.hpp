@@ -51,6 +51,11 @@ namespace ctx
 			shared::address_t StartDrawing = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 E4 ? 83 EC ? 80 3D ? ? ? ? 00 56 57 8B F9" } ); /// unk
 			shared::address_t FinishDrawing = shared::mem::find_ida_sig( "vguimatsurface.dll", { "8B 0D ? ? ? ? 56 C6 05 ? ? ? ? 00 8B 01 FF 90" } ); /// unk
 		} IVEngineVGui;
+
+		struct ICVar_t
+		{
+			shared::address_t FindVar = shared::mem::find_ida_sig( "vstdlib.dll", { "55 8B EC 8B 01 56 FF 75 08 FF 50 38 8B F0 85 F6 74 1E" } ); /// 16
+		} ICVar;
 	};
 
 	extern mem_t mem;

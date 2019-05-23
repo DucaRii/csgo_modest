@@ -56,9 +56,6 @@
     <ClInclude Include="context\mem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\source_engine\IPanel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\source_engine\ISurface.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,6 +78,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\source_engine\IVEngineVGui.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\source_engine\ICVar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\source_engine\ConVar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,15 +14,9 @@ BOOL WINAPI detach()
 
 	shared::input::undo();
 
-	LOG( "1" );
-
 	hooks::undo();
 
-	LOG( "2" );
-
 	shared::log::detach();
-
-	MessageBoxA( NULL, "fgf", "fgfg", 0 );
 
 	return TRUE;
 }
@@ -39,6 +33,8 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 	LOG( "Initialized Hooks!" );
 
 	LOG( "Cheat Attached!" );
+
+	LOG( shared::fmt::format( "0x{:08X}", reinterpret_cast< uintptr_t >( ctx::csgo.cvar->FindVar( "sv_party_mode" ) ) ) );
 
 	while ( !shared::input::get_key_info( VK_END ).m_state )
 		std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
