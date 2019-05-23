@@ -38,7 +38,7 @@ namespace render
 
 	void triangle_filled( const shared::math::vec2_t& pos1, const shared::math::vec2_t& pos2, const shared::math::vec2_t& pos3, const shared::col_t& col );
 
-	void polygon( int count, vert_t* vertices, const shared::col_t& col );
+	void polygon( int count, shared::math::vert_t* vertices, const shared::col_t& col );
 
 	void set_color( const shared::col_t& col );
 	void set_color( const int r, const int g, const int b, const int a = 255 );

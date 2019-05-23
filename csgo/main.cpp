@@ -10,8 +10,6 @@ namespace ctx
 
 BOOL WINAPI detach()
 {
-	LOG( "Cheat Detached!" );
-
 	shared::input::undo();
 
 	hooks::undo();
@@ -34,13 +32,19 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 
 	LOG( "Cheat Attached!" );
 
+	ctx::csgo.cvar->FindVar( "sv_party_mode" )->SetValue( true );
+
 	while ( !shared::input::get_key_info( VK_END ).m_state )
 		std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
 
 DETACH:
+	LOG( "Cheat Detached!" );
+
+	std::this_thread::sleep_for( std::chrono::milliseconds( 150 ) );
+
 	detach();
 
-	FreeLibraryAndExitThread( static_cast< HMODULE >( lpThreadParameter ), 1 );
+	FreeLibraryAndExitThread( static_cast< HMODULE >( lpThreadParameter ), EXIT_SUCCESS );
 }
 
 BOOL APIENTRY DllMain( _In_ HINSTANCE hinstDLL,
@@ -51,7 +55,7 @@ BOOL APIENTRY DllMain( _In_ HINSTANCE hinstDLL,
 	{
 		DisableThreadLibraryCalls( hinstDLL );
 
-		if ( auto handle = CreateThread( nullptr, NULL, entry, nullptr, NULL, nullptr ) )
+		if ( auto handle = CreateThread( nullptr, NULL, entry, hinstDLL, NULL, nullptr ) )
 		{
 			CloseHandle( handle );
 		}
