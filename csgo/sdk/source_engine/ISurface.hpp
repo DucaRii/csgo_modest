@@ -25,25 +25,6 @@ enum FontFlags
 	FONTFLAG_BITMAP = 0x800,
 };
 
-struct vert_t
-{
-	vert_t() = default;
-
-	vert_t( const shared::math::vec2_t& pos, const shared::math::vec2_t& coord = shared::math::vec2_t( 0, 0 ) )
-		: m_pos( pos ), m_coord( coord )
-	{};
-
-	void Init( const shared::math::vec2_t& pos, const shared::math::vec2_t& coord = shared::math::vec2_t( 0, 0 ) )
-	{
-		m_pos = pos;
-		m_coord = coord;
-	};
-
-	shared::math::vec2_t m_pos;
-	shared::math::vec2_t m_coord;
-};
-
-
 struct ISurface
 {
 	CUSTOM_VFUNC( DrawSetColor( int r, int g, int b, int a ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.DrawSetColor )( r, g, b, a );
@@ -64,17 +45,6 @@ struct ISurface
 	CUSTOM_VFUNC( DrawColoredCircle( int x, int y, float radius, int r, int g, int b, int a ), void( __thiscall* )( void*, int, int, float, int, int, int, int ), ctx::mem.ISurface.DrawColoredCircle )( x, y, radius, r, g, b, a );
 	CUSTOM_VFUNC( DrawColoredText( HFont font, int x, int y, int r, int g, int b, int a, const char* txt ),
 				  void( __thiscall* )( void*, HFont, int, int, int, int, int, int, const char*, const char* ), ctx::mem.ISurface.DrawColoredText )( font, x, y, r, g, b, a, txt, nullptr );
-
-	unsigned long font_create()
-	{
-		using original_fn = unsigned int( __thiscall* )( void* );
-		return ( *( original_fn * * )this )[ 71 ]( this );
-	}
-	void set_font_glyph( unsigned long font, const char* windowsFontName, int tall, int weight, int blur, int scanlines, int flags )
-	{
-		using original_fn = void( __thiscall* )( void*, unsigned long, const char*, int, int, int, int, int, int, int );
-		return ( *( original_fn * * )this )[ 72 ]( this, font, windowsFontName, tall, weight, blur, scanlines, flags, 0, 0 );
-	}
 
 	OFFSET( bool, m_bClippingEnabled, ctx::mem.ISurface.m_bClippingEnabled );
 };

@@ -7,6 +7,7 @@
 #include "datatypes/angle_t.hpp"
 #include "datatypes/vec4_t.hpp"
 #include "datatypes/matrix3x4_t.hpp"
+#include "datatypes/vert_t.h"
 
 namespace shared::math
 {

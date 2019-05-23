@@ -34,8 +34,6 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 
 	LOG( "Cheat Attached!" );
 
-	LOG( shared::fmt::format( "0x{:08X}", reinterpret_cast< uintptr_t >( ctx::csgo.cvar->FindVar( "sv_party_mode" ) ) ) );
-
 	while ( !shared::input::get_key_info( VK_END ).m_state )
 		std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
 

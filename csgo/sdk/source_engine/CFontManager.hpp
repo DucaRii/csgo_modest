@@ -1,6 +1,5 @@
 #pragma once
 
-
 struct CFontManager
 {
 	CUSTOM_VFUNC( CreateFont( int unk ), HFont( __thiscall* )( void*, int ), ctx::mem.CFontManager.CreateFont_ )( unk );
