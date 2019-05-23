@@ -8,7 +8,7 @@ namespace render
 		{
 			FONT_RIGHT = 1 << 0,
 			FONT_CENTER_X = 1 << 1,
-			FONT_CENTER_Y = 1 << 2
+			FONT_CENTER_Y = 1 << 2,
 		};
 
 		void init();
