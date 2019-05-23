@@ -25,17 +25,39 @@ enum FontFlags
 	FONTFLAG_BITMAP = 0x800,
 };
 
+struct vert_t
+{
+	vert_t() = default;
+
+	vert_t( const shared::math::vec2_t& pos, const shared::math::vec2_t& coord = shared::math::vec2_t( 0, 0 ) )
+		: m_pos( pos ), m_coord( coord )
+	{};
+
+	void Init( const shared::math::vec2_t& pos, const shared::math::vec2_t& coord = shared::math::vec2_t( 0, 0 ) )
+	{
+		m_pos = pos;
+		m_coord = coord;
+	};
+
+	shared::math::vec2_t m_pos;
+	shared::math::vec2_t m_coord;
+};
+
+
 struct ISurface
 {
 	CUSTOM_VFUNC( DrawSetColor( int r, int g, int b, int a ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.DrawSetColor )( r, g, b, a );
 	CUSTOM_VFUNC( DrawFilledRect( int x, int y, int x1, int y1 ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.DrawFilledRect )( x, y, x1, y1 );
 	CUSTOM_VFUNC( DrawOutlinedRect( int x, int y, int x1, int y1 ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.DrawOutlinedRect )( x, y, x1, y1 );
 	CUSTOM_VFUNC( DrawLine( int x, int y, int x1, int y1 ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.DrawLine )( x, y, x1, y1 );
-	CUSTOM_VFUNC( CreateFont(), HFont( __thiscall* )( void* ), ctx::mem.ISurface.CreateFont_ )( );
+	CUSTOM_VFUNC( DrawSetTexture( int id ), void( __thiscall* )( void*, int ), ctx::mem.ISurface.DrawSetTexture )( id );
+	CUSTOM_VFUNC( CreateNewTextureID(), int( __thiscall* )( void* ), ctx::mem.ISurface.CreateNewTextureID )( );
+	CUSTOM_VFUNC( IsTextureIDValid( int id ), bool( __thiscall* )( void*, int ), ctx::mem.ISurface.IsTextureIDValid )( id );
 	CUSTOM_VFUNC( GetFontTall( HFont font ), int( __thiscall* )( void*, HFont ), ctx::mem.ISurface.GetFontTall )( font );
 	CUSTOM_VFUNC( GetCharacterWidth( HFont font, char ch ), int( __thiscall* )( void*, HFont, char ), ctx::mem.ISurface.GetCharacterWidth )( font, ch );
 	CUSTOM_VFUNC( DrawOutlinedCircle( int x, int y, int radius, int segments ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.DrawOutlinedCircle )( x, y, radius, segments );
 	CUSTOM_VFUNC( DrawFilledRectFade( int x, int y, int x1, int y1, uint32_t alpha, uint32_t alpha1, bool horizontal ), void( __thiscall* )( void*, int, int, int, int, size_t, size_t, bool ), ctx::mem.ISurface.DrawFilledRectFade )( x, y, x1, y1, alpha, alpha1, horizontal );
+	CUSTOM_VFUNC( DrawTexturedPolygon( int count, vert_t* vertices, bool clip = true ), void( __thiscall* )( void*, int, vert_t*, bool ), ctx::mem.ISurface.DrawTexturedPolygon )( count, vertices, clip );
 	CUSTOM_VFUNC( GetClipRect( int& x, int& y, int& x1, int& y1 ), void( __thiscall* )( void*, int&, int&, int&, int& ), ctx::mem.ISurface.GetClipRect )( x, y, x1, y1 );
 	CUSTOM_VFUNC( SetClipRect( int x, int y, int x1, int y1 ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.SetClipRect )( x, y, x1, y1 );
 	CUSTOM_VFUNC( DrawColoredCircle( int x, int y, float radius, int r, int g, int b, int a ), void( __thiscall* )( void*, int, int, float, int, int, int, int ), ctx::mem.ISurface.DrawColoredCircle )( x, y, radius, r, g, b, a );

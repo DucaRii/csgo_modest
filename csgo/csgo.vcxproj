@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="hooks\functions\paint_traverse.cpp" />
+    <ClCompile Include="hooks\functions\paint.cpp" />
     <ClCompile Include="hooks\hook_handler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sdk\entities.cpp" />
@@ -161,6 +161,7 @@
     <ClInclude Include="sdk\source_engine\IPanel.hpp" />
     <ClInclude Include="sdk\source_engine\ISurface.hpp" />
     <ClInclude Include="sdk\source_engine\IVEngineClient.hpp" />
+    <ClInclude Include="sdk\source_engine\IVEngineVGui.hpp" />
     <ClInclude Include="sdk\source_engine\player_info_t.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

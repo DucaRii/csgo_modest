@@ -73,8 +73,8 @@ struct hook_handler_t
 	~hook_handler_t() = default;
 
 	/// Functions
-	static void __fastcall paint_traverse( REGISTERS, int vguiPanel, bool forceRepaint, bool allowForce );
+	static void __fastcall paint( REGISTERS, int mode );
 
 	/// Hooks
-	CREATE_HOOK( ctx::csgo.panel, 41, paint_traverse );
+	CREATE_HOOK( ctx::csgo.enginevgui, 14, paint );
 };

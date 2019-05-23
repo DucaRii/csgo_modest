@@ -10,6 +10,8 @@ namespace shared::input
 
 	mouse_info_t m_mouse_info;
 
+	bool m_enabled = true;
+
 	bool init( const std::string& window )
 	{
 		/// Input was already initialized ?
@@ -167,6 +169,11 @@ namespace shared::input
 		return changed_state;
 	}
 
+	void set_input_enable( bool state )
+	{
+		m_enabled = state;
+	}
+
 	/// Mouse info
 	void update_mouse()
 	{
@@ -233,6 +240,9 @@ namespace shared::input
 		const auto handled_keyboard = handle_keyboard( msg, wparam );
 
 		const auto ret = CallWindowProc( m_original_wndproc, hwnd, msg, wparam, lparam );
+
+		if ( !m_enabled )
+			return false;
 
 		return ret && !handled_keyboard && !handled_mouse;
 	}

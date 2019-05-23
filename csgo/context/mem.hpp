@@ -10,11 +10,13 @@ namespace ctx
 			shared::address_t DrawFilledRect = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 EC 40 53 8B D9" } ); /// 16
 			shared::address_t DrawOutlinedRect = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 51 56 8B F1 89 75 FC" } ); /// 18
 			shared::address_t DrawLine = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 EC 20 57" } ); /// 19
-			shared::address_t CreateFont_ = shared::mem::find_ida_sig( "vguimatsurface.dll", { "FF 35 ? ? ? ? B9 ? ? ? ? E8 ? ? ? ? C3" } ); /// 71
+			shared::address_t DrawSetTexture = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 56 8B 75 08 57 8B F9 3B B7 ? ? ? ?" } ); /// 38
+			shared::address_t IsTextureIDValid = shared::mem::find_ida_sig( "vguimatsurface.dll", { "B0 01 C2 04 00" } ); /// 42
+			shared::address_t CreateNewTextureID = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC B9 ? ? ? ? A1 ? ? ? ? 5D FF 20" } ); /// 43
 			shared::address_t GetFontTall = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 8B 45 08 8D 0C C5 ? ? ? ? 2B C8 A1 ? ? ? ? 83 7C 88 ? ? 8D 04 88" } ); /// 74
 			shared::address_t GetCharacterWidth = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 8B 45 08 0F B7 55 0C" } ); /// 78
 			shared::address_t DrawOutlinedCircle = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 EC 50 57 8B F9 89 7D F0 80 7F 2F 00 0F 84 ? ? ? ? 8B 0D ? ? ? ? 53 8B 9F ? ? ? ? 56 8B 01 FF 90 ? ? ? ? 8B F0 85 F6 74 07 8B 06 8B CE FF 50 08 8B 06 8B CE 53 6A 00 6A 00 6A 01 FF 90 ? ? ? ? 89 47 3C 8B CE 8B 06 FF 50 0C 8B 06 8B CE FF 50 04 FF 75 14" } ); /// 103
-			shared::address_t DrawTexturedPolygon = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 8B 45 08 89 81 ? ? ? ? 8B 45 0C 89 81 ? ? ? ? 8B 45 10" } ); /// 109
+			shared::address_t DrawTexturedPolygon = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 56 57 8B 7D 08 8B F1 85 FF 0F 84 ? ? ? ?" } ); /// 106
 			shared::address_t DrawFilledRectFade = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 EC 4C 53 57" } ); /// 123
 			shared::address_t GetClipRect = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 B9 ? ? ? ? ? 74 39" } ); /// 146
 			shared::address_t SetClipRect = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 56 8B F1 83 BE ? ? ? ? ? 74 7F" } ); /// 147
@@ -42,6 +44,12 @@ namespace ctx
 			shared::address_t SetViewAngles = shared::mem::find_ida_sig( "engine.dll", { "55 8B EC 83 E4 C0 83 EC 3C 56 8B 75 08 8B 06" } ); /// 19
 			shared::address_t ClientCmd_Unrestricted = shared::mem::find_ida_sig( "engine.dll", { "55 8B EC 8B 0D ? ? ? ? 81 F9 ? ? ? ? 75 0C A1 ? ? ? ? 35 ? ? ? ? EB 05 8B 01 FF 50 34 50" } ); /// 114
 		} IVEngineClient;
+
+		struct IVEngineVGui_t
+		{
+			shared::address_t StartDrawing = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 E4 ? 83 EC ? 80 3D ? ? ? ? 00 56 57 8B F9" } ); /// unk
+			shared::address_t FinishDrawing = shared::mem::find_ida_sig( "vguimatsurface.dll", { "8B 0D ? ? ? ? 56 C6 05 ? ? ? ? 00 8B 01 FF 90" } ); /// unk
+		} IVEngineVGui;
 	};
 
 	extern mem_t mem;

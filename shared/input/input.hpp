@@ -94,6 +94,12 @@ namespace shared::input
 	bool handle_keyboard( const UINT msg, const WPARAM param );
 
 	/// <summary>
+	/// Enables/Disabled Input
+	/// </summary>
+	/// <param name="state">New state</param>
+	void set_input_enable( bool state );
+
+	/// <summary>
 	/// All Windows input goes through this function so it can just be yoinked from there
 	/// </summary>
 	/// <param name="hwnd">A handle to the window</param>

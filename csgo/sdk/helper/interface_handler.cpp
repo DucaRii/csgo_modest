@@ -47,7 +47,9 @@ namespace interface_handler
 			///	.text : 108C2583 56                              push    esi
 			///	.text : 108C2584 8B 35 64 CA 14 13               mov     esi, interface_reg_list
 			///                        ^_________^ Get this address ( interface_reg_list )
-			auto list = create_interface_fn.self_find_opcode( 0xE9 ) /// Find JMP opcode
+
+			auto list =
+				create_interface_fn.self_find_opcode( 0xE9 ) /// Find JMP opcode
 				.self_jmp() /// Jump to relative function
 				.self_find_opcode( 0x35, 0x1 ).get< InterfaceReg* >( 2 ); /// Find opcode where interface_reg_list is moved and add 0x1 to get to the address
 

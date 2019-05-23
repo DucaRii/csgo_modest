@@ -33,8 +33,12 @@ namespace render
 
 	void line( const shared::math::vec2_t& pos1, const shared::math::vec2_t& pos2, const shared::col_t& col );
 
-	void circle_filled( const shared::math::vec2_t& pos, const int radius, const shared::col_t& col );
+	void circle_filled( const shared::math::vec2_t& pos, const int radius, const int segments, const shared::col_t& col );
 	void circle( const shared::math::vec2_t& pos, const int radius, const int segments, const shared::col_t& col );
+
+	void triangle_filled( const shared::math::vec2_t& pos1, const shared::math::vec2_t& pos2, const shared::math::vec2_t& pos3, const shared::col_t& col );
+
+	void polygon( int count, vert_t* vertices, const shared::col_t& col );
 
 	void set_color( const shared::col_t& col );
 	void set_color( const int r, const int g, const int b, const int a = 255 );

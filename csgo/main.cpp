@@ -10,7 +10,19 @@ namespace ctx
 
 BOOL WINAPI detach()
 {
+	LOG( "Cheat Detached!" );
+
+	shared::input::undo();
+
+	LOG( "1" );
+
+	hooks::undo();
+
+	LOG( "2" );
+
 	shared::log::detach();
+
+	MessageBoxA( NULL, "fgf", "fgfg", 0 );
 
 	return TRUE;
 }
@@ -29,17 +41,9 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 	LOG( "Cheat Attached!" );
 
 	while ( !shared::input::get_key_info( VK_END ).m_state )
-		std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
+		std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
 
 DETACH:
-	LOG( "Cheat Detached!" );
-
-	shared::input::undo();
-
-	hooks::undo();
-
-	std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
-
 	detach();
 
 	FreeLibraryAndExitThread( static_cast< HMODULE >( lpThreadParameter ), 1 );

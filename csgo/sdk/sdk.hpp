@@ -6,6 +6,7 @@
 #include "source_engine/player_info_t.hpp"
 #include "source_engine/IVEngineClient.hpp"
 #include "source_engine/CFontManager.hpp"
+#include "source_engine/IVEngineVGui.hpp"
 
 /// Helper
 #include "helper/render.hpp"

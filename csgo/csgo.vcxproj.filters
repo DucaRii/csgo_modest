@@ -30,7 +30,7 @@
     <ClCompile Include="hooks\hook_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hooks\functions\paint_traverse.cpp">
+    <ClCompile Include="hooks\functions\paint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\source_engine\CFontManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\source_engine\IVEngineVGui.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

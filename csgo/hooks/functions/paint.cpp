@@ -1,0 +1,32 @@
+#include "../../csgo.hpp"
+
+void __fastcall hook_handler_t::paint( REGISTERS, int mode )
+{
+	hooks::get().orig_paint( ecx, edx, mode );
+
+	static auto start_drawing = ctx::mem.IVEngineVGui.StartDrawing.cast<void( __thiscall* )( void* )>();
+	static auto finish_drawing = ctx::mem.IVEngineVGui.FinishDrawing.cast<void( __thiscall* )( void* )>();
+
+	if ( mode & PAINT_UIPANELS )
+	{
+		start_drawing( ctx::csgo.surface );
+
+		render::init();
+
+		render::text( render::fonts::m_main, { 100, 100 }, shared::col_t( 255, 255, 255, 255 ), {}, "Example Text" );
+
+		render::rect_filled( { 100, 120 }, { 50, 50 }, shared::col_t( 255, 0, 0 ) );
+
+		render::rect( { 160, 120 }, { 50, 50 }, shared::col_t( 255, 0, 0 ) );
+
+		render::line( { 220, 120 }, { 220, 170 }, shared::col_t( 255, 0, 0 ) );
+
+		render::circle( { 255, 145 }, 25, 128, shared::col_t( 0, 255, 0 ) );
+
+		render::circle_filled( { 315, 145 }, 25,128,  shared::col_t( 0, 0, 255 ) );
+
+		shared::input::update_mouse();
+
+		finish_drawing( ctx::csgo.surface );
+	}
+}

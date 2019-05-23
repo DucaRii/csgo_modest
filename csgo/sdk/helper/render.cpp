@@ -120,12 +120,19 @@ namespace render
 									 static_cast< int >( pos2.y ) );
 	}
 
-	void circle_filled( const shared::math::vec2_t & pos, const int radius, const shared::col_t & col )
+	void circle_filled( const shared::math::vec2_t & pos, const int radius, const int segments, const shared::col_t & col )
 	{
-		ctx::csgo.surface->DrawColoredCircle( static_cast< int >( pos.x ),
-											  static_cast< int >( pos.y ),
-											  static_cast< float >( radius ),
-											  col.r(), col.g(), col.b(), col.a() );
+		static std::vector<vert_t> vertices{};
+
+		float step = static_cast<float>( M_PI ) * 2.0f / segments;
+
+		for ( float a = 0; a < M_PI * 2.0f; a += step )
+			vertices.push_back( vert_t( shared::math::vec2_t( radius * cosf( a ) + pos.x,
+															  radius * sinf( a ) + pos.y ) ) );
+
+		polygon( segments, vertices.data(), col );
+
+		vertices.clear();
 	}
 
 	void circle( const shared::math::vec2_t & pos, const int radius, const int segments, const shared::col_t & col )
@@ -135,6 +142,29 @@ namespace render
 											   static_cast< int >( pos.y ),
 											   radius,
 											   segments );
+	}
+
+	void triangle_filled( const shared::math::vec2_t& pos1, const shared::math::vec2_t& pos2, const shared::math::vec2_t& pos3, const shared::col_t& col )
+	{
+		static vert_t triangle_vert[ 3 ];
+
+		triangle_vert[ PITCH ].Init( pos1 );
+		triangle_vert[ YAW ].Init( pos2 );
+		triangle_vert[ ROLL ].Init( pos3 );
+
+		polygon( 3, triangle_vert, col );
+	}
+
+	void polygon( int count, vert_t* vertices, const shared::col_t& col )
+	{
+		static int texture_id;
+
+		if ( !ctx::csgo.surface->IsTextureIDValid( texture_id ) )
+			texture_id = ctx::csgo.surface->CreateNewTextureID();
+
+		set_color( col );
+		ctx::csgo.surface->DrawSetTexture( texture_id );
+		ctx::csgo.surface->DrawTexturedPolygon( count, vertices );
 	}
 
 	inline shared::math::vec2_t text_size( const HFont & font, const char* txt )
