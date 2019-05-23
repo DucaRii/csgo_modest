@@ -10,7 +10,7 @@ namespace render
 		{
 			const auto font = [ & ]( HFont & font, const char* name, const int size, const int weight, const int flags ) -> void
 			{
-				font = ctx::csgo.font_manager->CreateFont( ( *( ( int32_t* ) & ( *ctx::csgo.font_manager ) + 1 ) ) );
+				font = ctx::csgo.surface->CreateFont_();
 				ctx::csgo.font_manager->SetFontGlyphSet( font, name, size, weight, NULL, NULL, flags );
 			};
 
@@ -45,12 +45,12 @@ namespace render
 		return m_screen;
 	}
 
-	void get_screen_size( shared::math::vec2_t & size )
+	void get_screen_size( shared::math::vec2_t& size )
 	{
 		size = get_screen_size();
 	}
 
-	void text( const HFont & font, const shared::math::vec2_t & pos, const shared::col_t & col, shared::bitflag_t flags, const char* txt )
+	void text( const HFont& font, const shared::math::vec2_t& pos, const shared::col_t& col, shared::bitflag_t flags, const char* txt )
 	{
 		/// Hey laxol I knew you would come here, fuck you.
 		auto text_pos = pos;
@@ -75,12 +75,12 @@ namespace render
 											col.r(), col.g(), col.b(), col.a(), txt );
 	}
 
-	void text( const HFont & font, const shared::math::vec2_t & pos, const shared::col_t & col, shared::bitflag_t flags, const std::string & txt )
+	void text( const HFont& font, const shared::math::vec2_t& pos, const shared::col_t& col, shared::bitflag_t flags, const std::string& txt )
 	{
 		text( font, pos, col, flags, txt.c_str() );
 	}
 
-	shared::math::vec2_t text_size( const HFont & font, const std::string & txt )
+	shared::math::vec2_t text_size( const HFont& font, const std::string& txt )
 	{
 		auto width = 0,
 			height = 0;
@@ -93,7 +93,7 @@ namespace render
 									 static_cast< float >( height ) );
 	}
 
-	void rect_filled( const shared::math::vec2_t & pos, const shared::math::vec2_t & size, const shared::col_t & col )
+	void rect_filled( const shared::math::vec2_t& pos, const shared::math::vec2_t& size, const shared::col_t& col )
 	{
 		set_color( col );
 		ctx::csgo.surface->DrawFilledRect( static_cast< int >( pos.x ),
@@ -124,7 +124,7 @@ namespace render
 	{
 		static std::vector<vert_t> vertices{};
 
-		float step = static_cast<float>( M_PI ) * 2.0f / segments;
+		float step = static_cast< float >( M_PI ) * 2.0f / segments;
 
 		for ( float a = 0; a < M_PI * 2.0f; a += step )
 			vertices.push_back( vert_t( shared::math::vec2_t( radius * cosf( a ) + pos.x,
@@ -144,7 +144,7 @@ namespace render
 											   segments );
 	}
 
-	void triangle_filled( const shared::math::vec2_t& pos1, const shared::math::vec2_t& pos2, const shared::math::vec2_t& pos3, const shared::col_t& col )
+	void triangle_filled( const shared::math::vec2_t & pos1, const shared::math::vec2_t & pos2, const shared::math::vec2_t & pos3, const shared::col_t & col )
 	{
 		static vert_t triangle_vert[ 3 ];
 
@@ -155,7 +155,7 @@ namespace render
 		polygon( 3, triangle_vert, col );
 	}
 
-	void polygon( int count, vert_t* vertices, const shared::col_t& col )
+	void polygon( int count, vert_t * vertices, const shared::col_t & col )
 	{
 		static int texture_id;
 

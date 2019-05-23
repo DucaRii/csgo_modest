@@ -53,6 +53,7 @@ struct ISurface
 	CUSTOM_VFUNC( DrawSetTexture( int id ), void( __thiscall* )( void*, int ), ctx::mem.ISurface.DrawSetTexture )( id );
 	CUSTOM_VFUNC( CreateNewTextureID(), int( __thiscall* )( void* ), ctx::mem.ISurface.CreateNewTextureID )( );
 	CUSTOM_VFUNC( IsTextureIDValid( int id ), bool( __thiscall* )( void*, int ), ctx::mem.ISurface.IsTextureIDValid )( id );
+	CUSTOM_VFUNC( CreateFont_(), HFont( __thiscall* )( void* ), ctx::mem.ISurface.CreateFont_ )( );
 	CUSTOM_VFUNC( GetFontTall( HFont font ), int( __thiscall* )( void*, HFont ), ctx::mem.ISurface.GetFontTall )( font );
 	CUSTOM_VFUNC( GetCharacterWidth( HFont font, char ch ), int( __thiscall* )( void*, HFont, char ), ctx::mem.ISurface.GetCharacterWidth )( font, ch );
 	CUSTOM_VFUNC( DrawOutlinedCircle( int x, int y, int radius, int segments ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.DrawOutlinedCircle )( x, y, radius, segments );
@@ -63,6 +64,17 @@ struct ISurface
 	CUSTOM_VFUNC( DrawColoredCircle( int x, int y, float radius, int r, int g, int b, int a ), void( __thiscall* )( void*, int, int, float, int, int, int, int ), ctx::mem.ISurface.DrawColoredCircle )( x, y, radius, r, g, b, a );
 	CUSTOM_VFUNC( DrawColoredText( HFont font, int x, int y, int r, int g, int b, int a, const char* txt ),
 				  void( __thiscall* )( void*, HFont, int, int, int, int, int, int, const char*, const char* ), ctx::mem.ISurface.DrawColoredText )( font, x, y, r, g, b, a, txt, nullptr );
+
+	unsigned long font_create()
+	{
+		using original_fn = unsigned int( __thiscall* )( void* );
+		return ( *( original_fn * * )this )[ 71 ]( this );
+	}
+	void set_font_glyph( unsigned long font, const char* windowsFontName, int tall, int weight, int blur, int scanlines, int flags )
+	{
+		using original_fn = void( __thiscall* )( void*, unsigned long, const char*, int, int, int, int, int, int, int );
+		return ( *( original_fn * * )this )[ 72 ]( this, font, windowsFontName, tall, weight, blur, scanlines, flags, 0, 0 );
+	}
 
 	OFFSET( bool, m_bClippingEnabled, ctx::mem.ISurface.m_bClippingEnabled );
 };
