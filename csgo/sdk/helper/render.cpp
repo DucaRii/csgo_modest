@@ -122,12 +122,12 @@ namespace render
 
 	void circle_filled( const shared::math::vec2_t & pos, const int radius, const int segments, const shared::col_t & col )
 	{
-		static std::vector<vert_t> vertices{};
+		static std::vector<shared::math::vert_t> vertices{};
 
 		float step = static_cast< float >( M_PI ) * 2.0f / segments;
 
 		for ( float a = 0; a < M_PI * 2.0f; a += step )
-			vertices.push_back( vert_t( shared::math::vec2_t( radius * cosf( a ) + pos.x,
+			vertices.push_back( shared::math::vert_t( shared::math::vec2_t( radius * cosf( a ) + pos.x,
 															  radius * sinf( a ) + pos.y ) ) );
 
 		polygon( segments, vertices.data(), col );
@@ -146,16 +146,16 @@ namespace render
 
 	void triangle_filled( const shared::math::vec2_t & pos1, const shared::math::vec2_t & pos2, const shared::math::vec2_t & pos3, const shared::col_t & col )
 	{
-		static vert_t triangle_vert[ 3 ];
+		static shared::math::vert_t triangle_vert[ 3 ];
 
-		triangle_vert[ PITCH ].Init( pos1 );
-		triangle_vert[ YAW ].Init( pos2 );
-		triangle_vert[ ROLL ].Init( pos3 );
+		triangle_vert[ PITCH ].init( pos1 );
+		triangle_vert[ YAW ].init( pos2 );
+		triangle_vert[ ROLL ].init( pos3 );
 
 		polygon( 3, triangle_vert, col );
 	}
 
-	void polygon( int count, vert_t * vertices, const shared::col_t & col )
+	void polygon( int count, shared::math::vert_t* vertices, const shared::col_t & col )
 	{
 		static int texture_id;
 

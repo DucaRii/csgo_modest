@@ -32,6 +32,10 @@ namespace shared::log
 
 	void detach()
 	{
+		/// Sanity check
+		if ( !m_init )
+			return;
+
 		/// Close used handles first
 		fclose( stdout );
 
