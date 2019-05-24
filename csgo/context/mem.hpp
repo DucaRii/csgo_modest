@@ -24,6 +24,9 @@ namespace ctx
 			shared::address_t DrawColoredCircle = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 EC 0C 8A 45 14" } ); /// 163
 			shared::address_t DrawColoredText = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 81 EC ? ? ? ? 56 57 FF 75 10" } ); /// 164 
 
+			shared::address_t StartDrawing = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 E4 ? 83 EC ? 80 3D ? ? ? ? 00 56 57 8B F9" } ); /// unk
+			shared::address_t FinishDrawing = shared::mem::find_ida_sig( "vguimatsurface.dll", { "8B 0D ? ? ? ? 56 C6 05 ? ? ? ? 00 8B 01 FF 90" } ); /// unk
+			
 			shared::address_t m_bClippingEnabled = shared::mem::find_ida_sig( "vguimatsurface.dll", { "83 B9 ? ? ? ? ? 74 39" } ).self_offset( 0x2 ).self_get();
 		} ISurface;
 
@@ -45,12 +48,6 @@ namespace ctx
 			shared::address_t SetViewAngles = shared::mem::find_ida_sig( "engine.dll", { "55 8B EC 83 E4 C0 83 EC 3C 56 8B 75 08 8B 06" } ); /// 19
 			shared::address_t ClientCmd_Unrestricted = shared::mem::find_ida_sig( "engine.dll", { "55 8B EC 8B 0D ? ? ? ? 81 F9 ? ? ? ? 75 0C A1 ? ? ? ? 35 ? ? ? ? EB 05 8B 01 FF 50 34 50" } ); /// 114
 		} IVEngineClient;
-
-		struct IVEngineVGui_t
-		{
-			shared::address_t StartDrawing = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 E4 ? 83 EC ? 80 3D ? ? ? ? 00 56 57 8B F9" } ); /// unk
-			shared::address_t FinishDrawing = shared::mem::find_ida_sig( "vguimatsurface.dll", { "8B 0D ? ? ? ? 56 C6 05 ? ? ? ? 00 8B 01 FF 90" } ); /// unk
-		} IVEngineVGui;
 
 		struct ICVar_t
 		{

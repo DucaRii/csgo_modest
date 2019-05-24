@@ -143,8 +143,10 @@
     <ClCompile Include="hooks\hook_handler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sdk\entities.cpp" />
+    <ClCompile Include="sdk\helper\classid_helper.cpp" />
     <ClCompile Include="sdk\helper\interface_handler.cpp" />
     <ClCompile Include="sdk\helper\render.cpp" />
+    <ClCompile Include="sdk\helper\weaponid_handler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="context\client.hpp" />
@@ -154,8 +156,10 @@
     <ClInclude Include="csgo.hpp" />
     <ClInclude Include="hooks\hook_handler.hpp" />
     <ClInclude Include="sdk\entities.hpp" />
+    <ClInclude Include="sdk\helper\classid_helper.hpp" />
     <ClInclude Include="sdk\helper\interface_handler.hpp" />
     <ClInclude Include="sdk\helper\render.hpp" />
+    <ClInclude Include="sdk\helper\weaponid_handler.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\source_engine\CFontManager.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\ConVar.hpp" />

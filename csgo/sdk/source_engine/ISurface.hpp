@@ -46,5 +46,8 @@ struct ISurface
 	CUSTOM_VFUNC( DrawColoredText( HFont font, int x, int y, int r, int g, int b, int a, const char* txt ),
 				  void( __thiscall* )( void*, HFont, int, int, int, int, int, int, const char*, const char* ), ctx::mem.ISurface.DrawColoredText )( font, x, y, r, g, b, a, txt, nullptr );
 
+	CUSTOM_VFUNC( StartDrawing(), void( __thiscall* )( void* ), ctx::mem.ISurface.StartDrawing )( );
+	CUSTOM_VFUNC( FinishDrawing(), void( __thiscall* )( void* ), ctx::mem.ISurface.FinishDrawing )( );
+
 	OFFSET( bool, m_bClippingEnabled, ctx::mem.ISurface.m_bClippingEnabled );
 };
