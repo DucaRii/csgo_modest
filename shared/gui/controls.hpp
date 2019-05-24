@@ -45,8 +45,6 @@ namespace shared::gui::controls
 
 		void set_parent( c_group* parent );
 		c_group* get_parent();
-
-		void reset_state();
 	private:
 		math::vec2_t m_pos = {};
 		math::vec2_t m_size = {};

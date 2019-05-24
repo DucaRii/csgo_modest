@@ -31,9 +31,6 @@ namespace shared::gui::controls
 			break;
 		}
 
-		if ( !is_ok && menu::get_focus().m_control && menu::get_focus().m_control == shared_from_this() )
-			reset_state();
-
 		return is_ok;
 	}
 
@@ -45,14 +42,6 @@ namespace shared::gui::controls
 	c_group* c_control::get_parent()
 	{
 		return m_parent;
-	}
-
-	void c_control::reset_state()
-	{
-		if ( menu::get_focus().m_control && menu::get_focus().m_control == shared_from_this() )
-			menu::get_focus().m_control = nullptr;
-
-		m_state = IDLE;
 	}
 
 	void c_control::set_name( std::string_view name )

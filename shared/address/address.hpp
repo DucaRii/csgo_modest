@@ -2,53 +2,55 @@
 
 namespace shared
 {
-	class address_t
+	/// Sometimes you need different sizes than your architecture
+	/// For example 64 bit addresses on 32 bit programs
+	template< typename ptr_type = uintptr_t >
+	struct address_base_t
 	{
-	public:
 		/// <summary>
 		/// Inner pointer
 		/// </summary>
-		uintptr_t m_ptr;
+		ptr_type m_ptr;
 
 		/// <summary>
 		/// Creates a NULL address object
 		/// </summary>
-		address_t() : m_ptr{} {};
+		address_base_t() : m_ptr{} {};
 
 		/// <summary>
 		/// Creates an address object with the given pointer
 		/// </summary>
 		/// <param name="ptr">The address on which the object will be based on</param>
-		address_t( uintptr_t ptr ) : m_ptr( ptr ) {};
+		address_base_t( ptr_type ptr ) : m_ptr( ptr ) {};
 
 		/// <summary>
 		/// Creates an address object with the given pointer
 		/// </summary>
 		/// <param name="ptr">The address on which the object will be based on</param>
-		address_t( uintptr_t* ptr ) : m_ptr( uintptr_t( ptr ) ) {};
+		address_base_t( ptr_type* ptr ) : m_ptr( ptr_type( ptr ) ) {};
 
 		/// <summary>
 		/// Creates an address object with the given pointer
 		/// </summary>
 		/// <param name="ptr">The address on which the object will be based on</param>
-		address_t( void* ptr ) : m_ptr( uintptr_t( ptr ) ) {};
+		address_base_t( void* ptr ) : m_ptr( ptr_type( ptr ) ) {};
 
 		/// <summary>
 		/// Creates an address object with the given pointer
 		/// </summary>
 		/// <param name="ptr">The address on which the object will be based on</param>
-		address_t( const void* ptr ) : m_ptr( uintptr_t( ptr ) ) {};
+		address_base_t( const void* ptr ) : m_ptr( ptr_type( ptr ) ) {};
 
 		/// <summary>
 		/// Destroys the address object
 		/// </summary>
-		~address_t() = default;
+		~address_base_t() = default;
 
 		/// <summary>
 		/// Whenever an address object is being passed into a function but it requires
 		/// a uintptr this function will be called
 		/// </summary>
-		inline operator uintptr_t() const
+		inline operator ptr_type() const
 		{
 			return m_ptr;
 		}
@@ -66,7 +68,7 @@ namespace shared
 		/// Returns the inner pointer
 		/// </summary>
 		/// <returns>Inner pointer</returns>
-		inline uintptr_t get_inner() const
+		inline ptr_type get_inner() const
 		{
 			return m_ptr;
 		}
@@ -76,10 +78,10 @@ namespace shared
 		/// </summary>
 		/// <param name=in>Address that will be compared</param>
 		/// <returns>True if the addresses match</returns>
-		template< typename t = address_t >
+		template< typename t = address_base_t<ptr_type> >
 		inline bool compare( t in ) const
 		{
-			return m_ptr == uintptr_t( in );
+			return m_ptr == ptr_type( in );
 		}
 
 		/// Actions performed on self
@@ -89,9 +91,9 @@ namespace shared
 		/// </summary>
 		/// <param name="in">Times the pointer will be deref'd</param>
 		/// <returns>Current address object</returns>
-		inline address_t& self_get( uint8_t in = 1 )
+		inline address_base_t<ptr_type>& self_get( uint8_t in = 1 )
 		{
-			m_ptr = get<uintptr_t>( in );
+			m_ptr = get<ptr_type>( in );
 
 			return *this;
 		}
@@ -101,7 +103,7 @@ namespace shared
 		/// </summary>
 		/// <param name="in">Offset that will be added</param>
 		/// <returns>Current address object</returns>
-		inline address_t& self_offset( ptrdiff_t offset )
+		inline address_base_t<ptr_type>& self_offset( ptrdiff_t offset )
 		{
 			m_ptr += offset;
 
@@ -113,8 +115,8 @@ namespace shared
 		/// </summary>
 		/// <param name="offset">Offset at which the function address is</param>
 		/// <returns>Address object</returns>
-		template< typename t = address_t >
-		inline address_t & self_jmp( ptrdiff_t offset = 0x1 )
+		template< typename t = address_base_t<ptr_type> >
+		inline address_base_t<ptr_type>& self_jmp( ptrdiff_t offset = 0x1 )
 		{
 			m_ptr = jmp( offset );
 
@@ -127,7 +129,7 @@ namespace shared
 		/// <param name="opcode">Offset at which the function address is</param>
 		/// <param name="offset">Offset that should be added to the resulting address</param>
 		/// <returns>Address object</returns>
-		inline address_t& self_find_opcode( byte opcode, ptrdiff_t offset = 0x0 )
+		inline address_base_t<ptr_type>& self_find_opcode( byte opcode, ptrdiff_t offset = 0x0 )
 		{
 			m_ptr = find_opcode( opcode, offset );
 
@@ -139,10 +141,10 @@ namespace shared
 		/// </summary>
 		/// <param name="in">Offset that will be added</param>
 		/// <returns>Current address object</returns>
-		template< typename t = address_t >
-		inline address_t & set( t in )
+		template< typename t = address_base_t<ptr_type> >
+		inline address_base_t<ptr_type>& set( t in )
 		{
-			m_ptr = uintptr_t( in );
+			m_ptr = ptr_type( in );
 
 			return *this;
 		}
@@ -153,7 +155,7 @@ namespace shared
 		/// Returns a casted version of the inner pointer
 		/// </summary>
 		/// <returns>Current address object</returns>
-		template< typename t = uintptr_t >
+		template< typename t = ptr_type >
 		inline t cast()
 		{
 			return t( m_ptr );
@@ -164,15 +166,15 @@ namespace shared
 		/// </summary>
 		/// <param name="in">Times the pointer will be deref'd</param>
 		/// <returns>Current address object</returns>
-		template< typename t = address_t >
+		template< typename t = address_base_t<ptr_type> >
 		inline t get( uint8_t in = 1 )
 		{
-			uintptr_t dummy = m_ptr;
+			ptr_type dummy = m_ptr;
 
 			while ( in-- )
 				/// Check if pointer is still valid
 				if ( dummy )
-					dummy = *reinterpret_cast< uintptr_t* >( dummy );
+					dummy = *reinterpret_cast< ptr_type* >( dummy );
 
 			return t( dummy );
 		}
@@ -182,7 +184,7 @@ namespace shared
 		/// </summary>
 		/// <param name="in">Offset that will be added</param>
 		/// <returns>Address object</returns>
-		template< typename t = address_t >
+		template< typename t = address_base_t<ptr_type> >
 		inline t offset( ptrdiff_t offset )
 		{
 			return t( m_ptr + offset );
@@ -193,7 +195,7 @@ namespace shared
 		/// </summary>
 		/// <param name="offset">Offset at which the function address is</param>
 		/// <returns>Address object</returns>
-		template< typename t = address_t >
+		template< typename t = address_base_t<ptr_type> >
 		inline t jmp( ptrdiff_t offset = 0x1 )
 		{
 			/// Example:
@@ -203,7 +205,7 @@ namespace shared
 			/// Since the relative JMP is based on the next instruction after the address it has to be skipped
 
 			/// Base address is the address that follows JMP ( 0xE9 ) instruction
-			uintptr_t base = m_ptr + offset;
+			ptr_type base = m_ptr + offset;
 
 			/// Store the function pointer
 			/// Note: Displacement addresses can be signed, thanks d3x
@@ -226,7 +228,7 @@ namespace shared
 		/// <param name="opcode">Offset at which the function address is</param>
 		/// <param name="offset">Offset that should be added to the resulting address</param>
 		/// <returns>Address object</returns>
-		template< typename t = address_t >
+		template< typename t = address_base_t<ptr_type> >
 		inline t find_opcode( byte opcode, ptrdiff_t offset = 0x0 )
 		{
 			auto base = m_ptr;
@@ -250,4 +252,13 @@ namespace shared
 			return t( base );
 		}
 	};
+
+	/// Adjusted size to architecture
+	using address_t = address_base_t<uintptr_t>;
+
+	/// 32 bit
+	using address_32_t = address_base_t<uint32_t>;
+
+	/// 64 bit
+	using address_64_t = address_base_t<uint64_t>;
 }
