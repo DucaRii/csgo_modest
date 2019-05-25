@@ -1,6 +1,6 @@
 #pragma once
 
-struct classids_t
+struct IClientMode
 {
 
 };

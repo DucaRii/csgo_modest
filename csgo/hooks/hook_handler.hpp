@@ -74,7 +74,9 @@ struct hook_handler_t
 
 	/// Functions
 	static void __fastcall paint( REGISTERS, int mode );
+	static bool __fastcall create_move( REGISTERS, float flInputSampleTime, CUserCmd* cmd );
 
 	/// Hooks
 	CREATE_HOOK( ctx::csgo.enginevgui, 14, paint );
+	CREATE_HOOK( ctx::csgo.clientmode, 24, create_move );
 };

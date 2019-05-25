@@ -104,7 +104,7 @@ namespace shared::mem
 		return dummy;
 	}
 
-	address_t call_vfunc( address_t table, uint16_t index )
+	address_t get_vfunc( address_t table, uint16_t index )
 	{
 		return table.get<uintptr_t*>()[ index ];
 	}

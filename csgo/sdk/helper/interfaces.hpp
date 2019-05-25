@@ -1,6 +1,6 @@
 #pragma once
 
-namespace interface_handler
+namespace interfaces
 {
 	uintptr_t* get( const char* mod, const char* interface_name );
 }

@@ -24,9 +24,6 @@
     <ClCompile Include="sdk\helper\render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sdk\helper\interface_handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="hooks\hook_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="menu.cpp">
+    <ClCompile Include="hooks\functions\create_move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\helper\interfaces.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,9 +72,6 @@
     <ClInclude Include="sdk\source_engine\ISurface.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\helper\interface_handler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="context\config.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -98,9 +96,6 @@
     <ClInclude Include="sdk\source_engine\datatypes\player_info_t.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\helper\netvars.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\helper\weaponids.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -114,6 +109,28 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="menu.hpp">
+    <ClInclude Include="sdk\source_engine\IClientEntity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\helper\netvars.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\source_engine\IClientMode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\source_engine\datatypes\datamap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\source_engine\datatypes\CUserCmd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\source_engine\IClientEntityList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\source_engine\CItemSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\helper\interfaces.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

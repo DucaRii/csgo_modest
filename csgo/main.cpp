@@ -32,6 +32,10 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 
 	LOG( "Initialized Hooks!" );
 
+	netvars::init();
+
+	LOG( "Initialized Netvars!" );
+
 	LOG( "Cheat Attached!" );
 
 	while ( !shared::input::get_key_info( VK_END ).m_state )
