@@ -6,6 +6,7 @@
 #include "source_engine/datatypes/ClientClass.hpp"
 #include "source_engine/datatypes/datamap.hpp"
 #include "source_engine/datatypes/CUserCmd.h"
+#include "source_engine/datatypes/ServerClass.hpp"
 
 #include "source_engine/ISurface.hpp"
 #include "source_engine/IVEngineClient.hpp"
@@ -17,6 +18,7 @@
 #include "source_engine/IClientMode.hpp"
 #include "source_engine/IClientEntityList.h"
 #include "source_engine/CItemSystem.hpp"
+#include "source_engine/IServer.hpp"
 
 /// Helper
 #include "helper/render.hpp"
@@ -24,5 +26,6 @@
 #include "helper/netvars.hpp"
 #include "helper/classids.hpp"
 #include "helper/weaponids.hpp"
+#include "helper/game.hpp"
 
 #include "entities.hpp"

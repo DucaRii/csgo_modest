@@ -1,137 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="hooks\functions\create_move.cpp" />
+    <ClCompile Include="hooks\functions\paint.cpp" />
+    <ClCompile Include="hooks\hook_handler.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="sdk\entities.cpp" />
+    <ClCompile Include="sdk\helper\classids.cpp" />
+    <ClCompile Include="sdk\helper\interfaces.cpp" />
+    <ClCompile Include="sdk\helper\render.cpp" />
+    <ClCompile Include="sdk\helper\netvars.cpp" />
+    <ClCompile Include="sdk\helper\weaponids.cpp" />
+    <ClCompile Include="sdk\helper\game.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sdk\entities.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sdk\helper\render.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\hook_handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\functions\paint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sdk\helper\netvars.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sdk\helper\weaponids.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sdk\helper\classids.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="menu.cpp">
-    <ClCompile Include="hooks\functions\create_move.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sdk\helper\interfaces.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="csgo.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\sdk.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\entities.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\helper\render.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="context\csgo.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="context\client.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="context\mem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\ISurface.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="context\config.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="hooks\hook_handler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\IVEngineClient.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\CFontManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\IVEngineVGui.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\ICVar.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\datatypes\ConVar.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\datatypes\player_info_t.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\helper\weaponids.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\helper\classids.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\CHLClient.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\datatypes\ClientClass.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="menu.hpp">
-    <ClInclude Include="sdk\source_engine\IClientEntity.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\helper\netvars.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\IClientMode.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\datatypes\datamap.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\datatypes\CUserCmd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\IClientEntityList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\source_engine\CItemSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\helper\interfaces.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="context\client.hpp" />
+    <ClInclude Include="context\config.hpp" />
+    <ClInclude Include="context\csgo.hpp" />
+    <ClInclude Include="context\mem.hpp" />
+    <ClInclude Include="csgo.hpp" />
+    <ClInclude Include="hooks\hook_handler.hpp" />
+    <ClInclude Include="menu.hpp" />
+    <ClInclude Include="sdk\entities.hpp" />
+    <ClInclude Include="sdk\helper\classids.hpp" />
+    <ClInclude Include="sdk\helper\interfaces.hpp" />
+    <ClInclude Include="sdk\helper\netvars.hpp" />
+    <ClInclude Include="sdk\helper\render.hpp" />
+    <ClInclude Include="sdk\helper\weaponids.hpp" />
+    <ClInclude Include="sdk\sdk.hpp" />
+    <ClInclude Include="sdk\source_engine\CFontManager.hpp" />
+    <ClInclude Include="sdk\source_engine\CHLClient.hpp" />
+    <ClInclude Include="sdk\source_engine\CItemSystem.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\ClientClass.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\ConVar.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\CUserCmd.h" />
+    <ClInclude Include="sdk\source_engine\datatypes\datamap.hpp" />
+    <ClInclude Include="sdk\source_engine\IClientEntity.hpp" />
+    <ClInclude Include="sdk\source_engine\IClientEntityList.h" />
+    <ClInclude Include="sdk\source_engine\IClientMode.hpp" />
+    <ClInclude Include="sdk\source_engine\ICVar.hpp" />
+    <ClInclude Include="sdk\source_engine\ISurface.hpp" />
+    <ClInclude Include="sdk\source_engine\IVEngineClient.hpp" />
+    <ClInclude Include="sdk\source_engine\IVEngineVGui.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\player_info_t.hpp" />
+    <ClInclude Include="sdk\helper\game.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\ServerClass.hpp" />
+    <ClInclude Include="sdk\source_engine\IServer.hpp" />
   </ItemGroup>
 </Project>

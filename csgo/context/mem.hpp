@@ -62,6 +62,8 @@ namespace ctx
 
 		struct CItemSystem_t
 		{		
+			shared::address_t Get = shared::mem::find_ida_sig( "client_panorama.dll", { "A1 ? ? ? ? 85 C0 75 53 A1 ? ? ? ? 56 68 ? ? ? ? 8B 08" } );
+
 			shared::address_t GetItemDefinitionByName = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 57 8B F9 80 BF ? ? ? ? ? 74 07" } ); /// 42
 
 			shared::address_t m_Map = shared::mem::find_ida_sig( "client_panorama.dll", { "8B 87 ? ? ? ? 83 7C 88 ? ? 7C 0A 8B 44 88 04 5F 5E 5D C2 04 00 8B 87 ? ? ? ?" } ).self_offset( 0x2 ).self_get( 1 ).self_offset( -0x4 );

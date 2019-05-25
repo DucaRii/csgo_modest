@@ -146,6 +146,7 @@
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="sdk\entities.cpp" />
     <ClCompile Include="sdk\helper\classids.cpp" />
+    <ClCompile Include="sdk\helper\game.cpp" />
     <ClCompile Include="sdk\helper\interfaces.cpp" />
     <ClCompile Include="sdk\helper\render.cpp" />
     <ClCompile Include="sdk\helper\netvars.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="menu.hpp" />
     <ClInclude Include="sdk\entities.hpp" />
     <ClInclude Include="sdk\helper\classids.hpp" />
+    <ClInclude Include="sdk\helper\game.hpp" />
     <ClInclude Include="sdk\helper\interfaces.hpp" />
     <ClInclude Include="sdk\helper\netvars.hpp" />
     <ClInclude Include="sdk\helper\render.hpp" />
@@ -173,10 +175,12 @@
     <ClInclude Include="sdk\source_engine\datatypes\ConVar.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\CUserCmd.h" />
     <ClInclude Include="sdk\source_engine\datatypes\datamap.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\ServerClass.hpp" />
     <ClInclude Include="sdk\source_engine\IClientEntity.hpp" />
     <ClInclude Include="sdk\source_engine\IClientEntityList.h" />
     <ClInclude Include="sdk\source_engine\IClientMode.hpp" />
     <ClInclude Include="sdk\source_engine\ICVar.hpp" />
+    <ClInclude Include="sdk\source_engine\IServer.hpp" />
     <ClInclude Include="sdk\source_engine\ISurface.hpp" />
     <ClInclude Include="sdk\source_engine\IVEngineClient.hpp" />
     <ClInclude Include="sdk\source_engine\IVEngineVGui.hpp" />

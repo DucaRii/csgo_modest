@@ -34,6 +34,14 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 
 	LOG( "Initialized Menu!" );
 
+	weaponids.init();
+
+	LOG( "Initialized Weapon IDs!" );
+
+	classids.init();
+
+	LOG( "Initialized Class IDs!" );
+
 	hooks::init();
 
 	LOG( "Initialized Hooks!" );
