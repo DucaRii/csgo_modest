@@ -232,14 +232,14 @@ namespace shared::input
 		const auto handled_mouse = handle_mouse( msg );
 		const auto handled_keyboard = handle_keyboard( msg, wparam );
 
-		/*gui::toggle();
+		gui::toggle();
 
 		if ( gui::is_open() && ( handled_mouse || handled_keyboard ) )
 		{
 			gui::process_input();
 
 			return false;
-		}*/
+		}
 
 		const auto ret = CallWindowProc( m_original_wndproc, hwnd, msg, wparam, lparam );
 
