@@ -78,12 +78,15 @@ namespace shared::gui
 		if ( !m_elements.empty() )
 		{
 			if ( input::get_mouse().m_scroll != 0 )
-				m_element_idx += input::get_mouse().m_scroll;
+			{
+				m_element_idx -= input::get_mouse().m_scroll;
+				input::get_mouse().reset_scroll();
+			}
 
 			if ( m_element_idx < 0 )
 				m_element_idx = m_elements.size() - 1;
 			else if ( m_element_idx > static_cast< int >( m_elements.size() - 1 ) )
-				m_element_idx = static_cast< int >( m_elements.size() - 1 );
+				m_element_idx = 0;
 
 			gui_element_t& active = m_elements.at( m_element_idx );
 
@@ -94,7 +97,7 @@ namespace shared::gui
 			{
 				case TOGGLE:
 					if ( input::get_mouse().m_state == input::PRESSED || input::get_mouse().m_state_right == input::PRESSED )
-						( *active.m_slider.m_value_ptr ) = !( *active.m_slider.m_value_ptr );
+						( *active.m_toggle.m_value_ptr ) = !( *active.m_toggle.m_value_ptr );
 
 					break;
 
