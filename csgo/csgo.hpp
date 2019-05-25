@@ -10,3 +10,5 @@
 #include "context/config.hpp"
 
 #include "hooks/hook_handler.hpp"
+
+#include "menu.h"

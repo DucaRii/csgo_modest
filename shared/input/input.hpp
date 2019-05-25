@@ -69,7 +69,7 @@ namespace shared::input
 	/// </summary>
 	/// <param name="window">Window class name</param>
 	/// <returns>Returns true if it was successful</returns>
-	bool init( const std::string& window );
+	bool init( std::string_view window );
 
 	/// <summary>
 	/// Restores original WndProc
@@ -92,12 +92,6 @@ namespace shared::input
 	/// <param name="param">Additional message info dependent on the msg parameter</param>
 	/// <returns>Returns true if keyboard input was handled</returns>
 	bool handle_keyboard( const UINT msg, const WPARAM param );
-
-	/// <summary>
-	/// Enables/Disabled Input
-	/// </summary>
-	/// <param name="state">New state</param>
-	void set_input_enable( bool state );
 
 	/// <summary>
 	/// All Windows input goes through this function so it can just be yoinked from there
@@ -155,7 +149,7 @@ namespace shared::input
 	/// </summary>
 	/// <param name="key">Virtual key code of wished key name</param>
 	/// <returns>Returns key name</returns>
-	std::string get_key_name( const int key );
+	std::string_view get_key_name( const int key );
 
 	/// <summary>
 	/// Returns last char input by keyboard

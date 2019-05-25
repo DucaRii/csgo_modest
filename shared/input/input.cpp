@@ -10,15 +10,13 @@ namespace shared::input
 
 	mouse_info_t m_mouse_info;
 
-	bool m_enabled = true;
-
-	bool init( const std::string& window )
+	bool init( std::string_view window )
 	{
 		/// Input was already initialized ?
 		if ( m_window )
 			return false;
 
-		m_window = FindWindowA( window.c_str(), NULL );
+		m_window = FindWindowA( window.data(), NULL );
 		if ( !m_window )
 			return false;
 
@@ -169,11 +167,6 @@ namespace shared::input
 		return changed_state;
 	}
 
-	void set_input_enable( bool state )
-	{
-		m_enabled = state;
-	}
-
 	/// Mouse info
 	void update_mouse()
 	{
@@ -219,7 +212,7 @@ namespace shared::input
 		return m_key_info.at( key );
 	}
 
-	std::string get_key_name( const int key )
+	std::string_view get_key_name( const int key )
 	{
 		return "TODO";
 	}
@@ -239,10 +232,16 @@ namespace shared::input
 		const auto handled_mouse = handle_mouse( msg );
 		const auto handled_keyboard = handle_keyboard( msg, wparam );
 
-		const auto ret = CallWindowProc( m_original_wndproc, hwnd, msg, wparam, lparam );
+		gui::toggle();
 
-		if ( !m_enabled )
+		if ( gui::is_open() && ( handled_mouse || handled_keyboard ) )
+		{
+			gui::handle_input();
+
 			return false;
+		}
+
+		const auto ret = CallWindowProc( m_original_wndproc, hwnd, msg, wparam, lparam );
 
 		return ret && !handled_keyboard && !handled_mouse;
 	}

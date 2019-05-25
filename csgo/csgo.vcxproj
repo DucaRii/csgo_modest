@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="hooks\functions\paint.cpp" />
     <ClCompile Include="hooks\hook_handler.cpp" />
     <ClCompile Include="main.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="context\csgo.hpp" />
     <ClInclude Include="context\mem.hpp" />
     <ClInclude Include="csgo.hpp" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="hooks\hook_handler.hpp" />
     <ClInclude Include="sdk\entities.hpp" />
     <ClInclude Include="sdk\helper\classid_helper.hpp" />

@@ -14,6 +14,7 @@ namespace render
 		void init();
 
 		extern HFont m_main;
+		extern HFont m_menu;
 	}
 
 	void init();
@@ -23,10 +24,10 @@ namespace render
 	void get_screen_size( shared::math::vec2_t& size );
 
 	void text( const HFont& font, const shared::math::vec2_t& pos, const shared::col_t& col, shared::bitflag_t flags, const char* txt );
-	void text( const HFont& font, const shared::math::vec2_t& pos, const shared::col_t& col, shared::bitflag_t flags, const std::string& txt );
+	void text( const HFont& font, const shared::math::vec2_t& pos, const shared::col_t& col, shared::bitflag_t flags, std::string_view txt );
 
 	shared::math::vec2_t text_size( const HFont& font, const char* txt );
-	shared::math::vec2_t text_size( const HFont& font, const std::string& txt );
+	shared::math::vec2_t text_size( const HFont& font, std::string_view txt );
 
 	void rect_filled( const shared::math::vec2_t& pos, const shared::math::vec2_t& size, const shared::col_t& col );
 	void rect( const shared::math::vec2_t& pos, const shared::math::vec2_t& size, const shared::col_t& col );

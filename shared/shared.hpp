@@ -33,8 +33,6 @@
 
 #include "fmt/format.hpp"
 
-#include "gui/gui.hpp"
-
 #include "hash/hash.hpp"
 
 #include "hook/hook.hpp"

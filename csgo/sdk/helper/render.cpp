@@ -5,6 +5,7 @@ namespace render
 	namespace fonts
 	{
 		HFont m_main;
+		HFont m_menu;
 
 		void init()
 		{
@@ -15,6 +16,7 @@ namespace render
 			};
 
 			font( m_main, "Arial", 18, 400, FONTFLAG_DROPSHADOW );
+			font( m_menu, "Arial", 14, 400, FONTFLAG_DROPSHADOW );
 		}
 	}
 
@@ -75,12 +77,12 @@ namespace render
 											col.r(), col.g(), col.b(), col.a(), txt );
 	}
 
-	void text( const HFont& font, const shared::math::vec2_t& pos, const shared::col_t& col, shared::bitflag_t flags, const std::string& txt )
+	void text( const HFont& font, const shared::math::vec2_t& pos, const shared::col_t& col, shared::bitflag_t flags, std::string_view txt )
 	{
-		text( font, pos, col, flags, txt.c_str() );
+		text( font, pos, col, flags, txt.data() );
 	}
 
-	shared::math::vec2_t text_size( const HFont& font, const std::string& txt )
+	shared::math::vec2_t text_size( const HFont& font, std::string_view txt )
 	{
 		auto width = 0,
 			height = 0;
