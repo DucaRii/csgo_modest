@@ -26,15 +26,17 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 
 	LOG( "Initialized Input!" );
 
+	netvars::init();
+
+	LOG( "Initialized Netvars!" );
+
 	menu::init();
+
+	LOG( "Initialized Menu!" );
 
 	hooks::init();
 
 	LOG( "Initialized Hooks!" );
-
-	netvars::init();
-
-	LOG( "Initialized Netvars!" );
 
 	LOG( "Cheat Attached!" );
 
