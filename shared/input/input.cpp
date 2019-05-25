@@ -236,7 +236,7 @@ namespace shared::input
 
 		if ( gui::is_open() && ( handled_mouse || handled_keyboard ) )
 		{
-			gui::handle_input();
+			gui::process_input();
 
 			return false;
 		}

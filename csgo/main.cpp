@@ -26,6 +26,8 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 
 	LOG( "Initialized Input!" );
 
+	menu::init();
+
 	hooks::init();
 
 	LOG( "Initialized Hooks!" );
