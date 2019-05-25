@@ -139,15 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="menu.cpp" />
     <ClCompile Include="hooks\functions\paint.cpp" />
     <ClCompile Include="hooks\hook_handler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sdk\entities.cpp" />
-    <ClCompile Include="sdk\helper\classid_helper.cpp" />
+    <ClCompile Include="sdk\helper\classids.cpp" />
     <ClCompile Include="sdk\helper\interface_handler.cpp" />
     <ClCompile Include="sdk\helper\render.cpp" />
-    <ClCompile Include="sdk\helper\weaponid_handler.cpp" />
+    <ClCompile Include="sdk\helper\netvars.cpp" />
+    <ClCompile Include="sdk\helper\weaponids.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="context\client.hpp" />
@@ -155,15 +155,17 @@
     <ClInclude Include="context\csgo.hpp" />
     <ClInclude Include="context\mem.hpp" />
     <ClInclude Include="csgo.hpp" />
-    <ClInclude Include="menu.h" />
     <ClInclude Include="hooks\hook_handler.hpp" />
     <ClInclude Include="sdk\entities.hpp" />
-    <ClInclude Include="sdk\helper\classid_helper.hpp" />
+    <ClInclude Include="sdk\helper\classids.hpp" />
     <ClInclude Include="sdk\helper\interface_handler.hpp" />
+    <ClInclude Include="sdk\helper\netvars.h" />
     <ClInclude Include="sdk\helper\render.hpp" />
-    <ClInclude Include="sdk\helper\weaponid_handler.hpp" />
+    <ClInclude Include="sdk\helper\weaponids.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\source_engine\CFontManager.hpp" />
+    <ClInclude Include="sdk\source_engine\CHLClient.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\ClientClass.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\ConVar.hpp" />
     <ClInclude Include="sdk\source_engine\ICVar.hpp" />
     <ClInclude Include="sdk\source_engine\ISurface.hpp" />

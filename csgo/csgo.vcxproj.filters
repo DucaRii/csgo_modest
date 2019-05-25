@@ -33,13 +33,13 @@
     <ClCompile Include="hooks\functions\paint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sdk\helper\weaponid_handler.cpp">
+    <ClCompile Include="sdk\helper\netvars.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sdk\helper\classid_helper.cpp">
+    <ClCompile Include="sdk\helper\weaponids.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="menu.cpp">
+    <ClCompile Include="sdk\helper\classids.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,13 +95,19 @@
     <ClInclude Include="sdk\source_engine\datatypes\player_info_t.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\helper\weaponid_handler.hpp">
+    <ClInclude Include="sdk\helper\netvars.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\helper\classid_helper.hpp">
+    <ClInclude Include="sdk\helper\weaponids.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="menu.h">
+    <ClInclude Include="sdk\helper\classids.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\source_engine\CHLClient.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\source_engine\datatypes\ClientClass.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
