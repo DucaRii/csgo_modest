@@ -39,6 +39,7 @@
     <ClCompile Include="sdk\helper\classids.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="menu.cpp">
     <ClCompile Include="hooks\functions\create_move.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -107,6 +108,7 @@
     <ClInclude Include="sdk\source_engine\datatypes\ClientClass.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="menu.hpp">
     <ClInclude Include="sdk\source_engine\IClientEntity.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

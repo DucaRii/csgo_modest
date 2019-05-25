@@ -159,7 +159,7 @@ namespace shared::input
 
 				/// Mouse wheel
 			case WM_MOUSEWHEEL:
-				m_mouse_info.m_scroll = GET_WHEEL_DELTA_WPARAM( param );
+				m_mouse_info.m_scroll = GET_WHEEL_DELTA_WPARAM( param ) / WHEEL_DELTA;
 				return true;
 			default:;
 		}
@@ -236,7 +236,7 @@ namespace shared::input
 
 		if ( gui::is_open() && ( handled_mouse || handled_keyboard ) )
 		{
-			gui::handle_input();
+			gui::process_input();
 
 			return false;
 		}*/

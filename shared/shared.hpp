@@ -21,6 +21,7 @@
 #include <libloaderapi.h>
 #include <cmath>
 #include <memory>
+#include <stack>
 
 /// Our stuff ( keep in alphabetical order )
 #include "address/address.hpp"
@@ -32,6 +33,8 @@
 #include "easing/easing.hpp"
 
 #include "fmt/format.hpp"
+
+#include "gui/gui.hpp"
 
 #include "hash/hash.hpp"
 

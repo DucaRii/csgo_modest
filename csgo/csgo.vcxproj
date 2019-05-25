@@ -143,6 +143,7 @@
     <ClCompile Include="hooks\functions\paint.cpp" />
     <ClCompile Include="hooks\hook_handler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="sdk\entities.cpp" />
     <ClCompile Include="sdk\helper\classids.cpp" />
     <ClCompile Include="sdk\helper\interfaces.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="context\mem.hpp" />
     <ClInclude Include="csgo.hpp" />
     <ClInclude Include="hooks\hook_handler.hpp" />
+    <ClInclude Include="menu.hpp" />
     <ClInclude Include="sdk\entities.hpp" />
     <ClInclude Include="sdk\helper\classids.hpp" />
     <ClInclude Include="sdk\helper\interfaces.hpp" />
