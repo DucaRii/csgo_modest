@@ -53,6 +53,19 @@ namespace ctx
 		{
 			shared::address_t FindVar = shared::mem::find_ida_sig( "vstdlib.dll", { "55 8B EC 8B 01 56 FF 75 08 FF 50 38 8B F0 85 F6 74 1E" } ); /// 16
 		} ICVar;
+
+		struct IClientEntityList_t
+		{
+			shared::address_t GetClientEntity = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 8B 45 08 85 C0 78 17 05 ? ? ? ?" } ); /// 3
+			shared::address_t GetClientEntityFromHandle = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 8B 45 08 51 8B D4 89 02 8B 01 FF 50 08 8B C8 85 C9 74 09 8B 01 FF 50 18" } ); /// 4
+		} IClientEntityList;
+
+		struct CItemSystem_t
+		{		
+			shared::address_t GetItemDefinitionByName = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 57 8B F9 80 BF ? ? ? ? ? 74 07" } ); /// 42
+
+			shared::address_t m_Map = shared::mem::find_ida_sig( "client_panorama.dll", { "8B 87 ? ? ? ? 83 7C 88 ? ? 7C 0A 8B 44 88 04 5F 5E 5D C2 04 00 8B 87 ? ? ? ?" } ).self_offset( 0x2 ).self_get( 1 ).self_offset( -0x4 );
+		} CItemSystem;
 	};
 
 	extern mem_t mem;

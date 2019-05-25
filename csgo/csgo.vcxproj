@@ -139,12 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="hooks\functions\create_move.cpp" />
     <ClCompile Include="hooks\functions\paint.cpp" />
     <ClCompile Include="hooks\hook_handler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sdk\entities.cpp" />
     <ClCompile Include="sdk\helper\classids.cpp" />
-    <ClCompile Include="sdk\helper\interface_handler.cpp" />
+    <ClCompile Include="sdk\helper\interfaces.cpp" />
     <ClCompile Include="sdk\helper\render.cpp" />
     <ClCompile Include="sdk\helper\netvars.cpp" />
     <ClCompile Include="sdk\helper\weaponids.cpp" />
@@ -158,15 +159,21 @@
     <ClInclude Include="hooks\hook_handler.hpp" />
     <ClInclude Include="sdk\entities.hpp" />
     <ClInclude Include="sdk\helper\classids.hpp" />
-    <ClInclude Include="sdk\helper\interface_handler.hpp" />
-    <ClInclude Include="sdk\helper\netvars.h" />
+    <ClInclude Include="sdk\helper\interfaces.hpp" />
+    <ClInclude Include="sdk\helper\netvars.hpp" />
     <ClInclude Include="sdk\helper\render.hpp" />
     <ClInclude Include="sdk\helper\weaponids.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\source_engine\CFontManager.hpp" />
     <ClInclude Include="sdk\source_engine\CHLClient.hpp" />
+    <ClInclude Include="sdk\source_engine\CItemSystem.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\ClientClass.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\ConVar.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\CUserCmd.h" />
+    <ClInclude Include="sdk\source_engine\datatypes\datamap.hpp" />
+    <ClInclude Include="sdk\source_engine\IClientEntity.hpp" />
+    <ClInclude Include="sdk\source_engine\IClientEntityList.h" />
+    <ClInclude Include="sdk\source_engine\IClientMode.hpp" />
     <ClInclude Include="sdk\source_engine\ICVar.hpp" />
     <ClInclude Include="sdk\source_engine\ISurface.hpp" />
     <ClInclude Include="sdk\source_engine\IVEngineClient.hpp" />

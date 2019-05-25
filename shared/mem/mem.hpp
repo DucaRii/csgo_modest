@@ -24,7 +24,7 @@ namespace shared::mem
 	/// <param name="table">Pointer of which the vtable will be retrieved and searched (not the actual vtable)</param>
 	/// <param name="index">Index of the virtual function</param>
 	/// <returns>Address of the virtual function, if it was found</returns>
-	address_t call_vfunc( address_t table, uint16_t index );
+	address_t get_vfunc( address_t table, uint16_t index );
 
 	/// <summary>
 	/// Will get the length of a given vtable
@@ -35,6 +35,6 @@ namespace shared::mem
 }
 
 #define MEMBER_FUNC_ARGS(...) ( this, __VA_ARGS__ ); }
-#define VFUNC( index, func, sig ) auto func { return shared::mem::call_vfunc( this, index ).cast< sig >() MEMBER_FUNC_ARGS
+#define VFUNC( index, func, sig ) auto func { return shared::mem::get_vfunc( this, index ).cast< sig >() MEMBER_FUNC_ARGS
 #define CUSTOM_VFUNC( func, sig, addr ) auto func { return addr.cast< sig >() MEMBER_FUNC_ARGS
 #define OFFSET( type, func, offset ) type& func() { return *reinterpret_cast< type* >( reinterpret_cast< uintptr_t >( this ) + offset.cast() ); }
