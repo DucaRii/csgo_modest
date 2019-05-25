@@ -238,6 +238,8 @@ namespace shared::input
 		{
 			gui::process_input();
 
+			get_mouse().reset_scroll();
+
 			return false;
 		}
 

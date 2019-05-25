@@ -10,5 +10,8 @@ struct IVEngineClient
 	CUSTOM_VFUNC( GetLocalPlayer(), int32_t( __thiscall* )( void* ), ctx::mem.IVEngineClient.GetLocalPlayer )( );
 	CUSTOM_VFUNC( GetViewAngles( shared::math::angle_t& ang ), void( __thiscall* )( void*, shared::math::angle_t& ), ctx::mem.IVEngineClient.GetViewAngles )( ang );
 	CUSTOM_VFUNC( SetViewAngles( shared::math::angle_t& ang ), void( __thiscall* )( void*, shared::math::angle_t& ), ctx::mem.IVEngineClient.SetViewAngles )( ang );
+	CUSTOM_VFUNC( IsInGame(), bool( __thiscall* )( void* ), ctx::mem.IVEngineClient.IsInGame )( );
+	CUSTOM_VFUNC( IsConnected(), bool( __thiscall* )( void* ), ctx::mem.IVEngineClient.IsConnected )( );
+	CUSTOM_VFUNC( WorldToScreenMatrix(), const shared::math::view_matrix_t&( __thiscall* )( void* ), ctx::mem.IVEngineClient.WorldToScreenMatrix )( );
 	CUSTOM_VFUNC( ClientCmd_Unrestricted( const char* cmd, const char* unk_flag = nullptr ), void( __thiscall* )( void*, const char*, const char* ), ctx::mem.IVEngineClient.ClientCmd_Unrestricted )( cmd, unk_flag );
 };

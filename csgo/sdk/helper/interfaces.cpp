@@ -73,7 +73,11 @@ namespace interfaces
 		for ( auto& cur : entry )
 		{
 			if ( std::string( cur.first ).find( interface_name ) != std::string::npos )
+			{
+				LOG( shared::fmt::format( "Found interface: {}", cur.first ) );
+
 				return cur.second.cast<uintptr_t*>();
+			}
 		}
 
 		/// No valid interface found

@@ -26,7 +26,7 @@ namespace ctx
 
 			shared::address_t StartDrawing = shared::mem::find_ida_sig( "vguimatsurface.dll", { "55 8B EC 83 E4 ? 83 EC ? 80 3D ? ? ? ? 00 56 57 8B F9" } ); /// unk
 			shared::address_t FinishDrawing = shared::mem::find_ida_sig( "vguimatsurface.dll", { "8B 0D ? ? ? ? 56 C6 05 ? ? ? ? 00 8B 01 FF 90" } ); /// unk
-			
+
 			shared::address_t m_bClippingEnabled = shared::mem::find_ida_sig( "vguimatsurface.dll", { "83 B9 ? ? ? ? ? 74 39" } ).self_offset( 0x2 ).self_get();
 		} ISurface;
 
@@ -46,6 +46,9 @@ namespace ctx
 			shared::address_t GetLocalPlayer = shared::mem::find_ida_sig( "engine.dll", { "A1 ? ? ? ? B9 ? ? ? ? FF 50 14 8B 04 85 ? ? ? ? 8B 80 ? ? ? ? 40 C3" } ); /// 12
 			shared::address_t GetViewAngles = shared::mem::find_ida_sig( "engine.dll", { "55 8B EC A1 ? ? ? ? B9 ? ? ? ? FF 50 14 8B 4D 08" } ); /// 18
 			shared::address_t SetViewAngles = shared::mem::find_ida_sig( "engine.dll", { "55 8B EC 83 E4 C0 83 EC 3C 56 8B 75 08 8B 06" } ); /// 19
+			shared::address_t IsInGame = shared::mem::find_ida_sig( "engine.dll", { "A1 ? ? ? ? 83 B8 ? ? ? ? ? 0F 94 C0 C3 A0 ? ? ? ?" } ); /// 26
+			shared::address_t IsConnected = shared::mem::find_ida_sig( "engine.dll", { "A1 ? ? ? ? 83 B8 ? ? ? ? ? 0F 9D C0 C3 55" } ); /// 27
+			shared::address_t WorldToScreenMatrix = shared::mem::find_ida_sig( "engine.dll", { "B9 ? ? ? ? A1 ? ? ? ? FF 60 38" } ); /// 37
 			shared::address_t ClientCmd_Unrestricted = shared::mem::find_ida_sig( "engine.dll", { "55 8B EC 8B 0D ? ? ? ? 81 F9 ? ? ? ? 75 0C A1 ? ? ? ? 35 ? ? ? ? EB 05 8B 01 FF 50 34 50" } ); /// 114
 		} IVEngineClient;
 
@@ -61,13 +64,48 @@ namespace ctx
 		} IClientEntityList;
 
 		struct CItemSystem_t
-		{		
+		{
 			shared::address_t Get = shared::mem::find_ida_sig( "client_panorama.dll", { "A1 ? ? ? ? 85 C0 75 53 A1 ? ? ? ? 56 68 ? ? ? ? 8B 08" } );
 
 			shared::address_t GetItemDefinitionByName = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 57 8B F9 80 BF ? ? ? ? ? 74 07" } ); /// 42
 
 			shared::address_t m_Map = shared::mem::find_ida_sig( "client_panorama.dll", { "8B 87 ? ? ? ? 83 7C 88 ? ? 7C 0A 8B 44 88 04 5F 5E 5D C2 04 00 8B 87 ? ? ? ?" } ).self_offset( 0x2 ).self_get( 1 ).self_offset( -0x4 );
 		} CItemSystem;
+
+		struct CBaseEntity_t
+		{
+			shared::address_t SetAbsOrigin = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 83 E4 F8 51 53 56 57 8B F1 E8 ? ?" } );
+			shared::address_t SetAbsAngles = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 83 E4 F8 83 EC 64 53 56 57 8B F1 E8 ?" } );
+			shared::address_t Think = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 83 E4 F8 83 EC 64 53 56 57 8B F1 E8 ?" } );
+			shared::address_t ShouldCollide = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 83 B9 ? ? ? ? ? 75 0F" } );
+		} CBaseEntity;
+
+		struct CBasePlayer_t
+		{
+			shared::address_t PreThink = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 83 E4 F8 51 56 8B F1 8B 06" } );
+			shared::address_t PostThink = shared::mem::find_ida_sig( "client_panorama.dll", { "56 8B 35 ? ? ? ? 57 8B F9 8B CE 8B 06 FF 90 ? ? ? ? 8B 07" } );
+		} CBasePlayer;
+
+		struct CCSPlayer_t
+		{
+			shared::address_t UpdateClientSideAnimations = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 51 56 8B F1 80 BE ? ? ? ? ? 74 36" } );
+			shared::address_t Weapon_Shootpos = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 56 8B 75 08 57 8B F9 56 8B 07 FF 90 ? ? ? ?" } );
+		} CCSPlayer;
+
+		struct CWeaponCSBase_t
+		{
+			shared::address_t GetInaccuracy = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 83 E4 F8 83 EC 10 56 8B F1 57 8B 96 ? ? ? ? 83 FA FF 74 25 0F B7 C2 C1 E0 04 05 ? ? ? ? C1 EA 10 39 50 04 75 12 8B 08 85 C9 74 0C 8B 01 8B 80 ? ? ? ? FF D0 EB 02 33 C0 6A 00 68 ? ? ? ? 68 ? ? ? ? 6A 00 50 E8 ? ? ? ? 8B F8 83 C4 14 85 FF 75 08" } );
+			shared::address_t UpdateAccuracy = shared::mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 83 E4 F8 83 EC 18 56 57 8B F9 8B 8F ? ? ? ?" } ); 
+			shared::address_t GetCSWpnData = shared::mem::find_ida_sig( "client_panorama.dll", { "8B 81 ? ? ? ? 85 C0 0F 84 ? ? ? ? C3" } );
+		} CWeaponCSBase;
+
+		/// Unused, but works
+		/*struct CGlobalVarsBase_t
+		{
+			byte curtime_offset = shared::mem::find_ida_sig( "client_panorama.dll", { "8B 40 ? 89 86 ? ? ? ? E8 ? ? ? ? 80 BE ? ? ? ? ? 74 48" } ).self_offset( 0x2 ).self_get( 1 ).cast<byte>(); /// 0x10
+			byte frametime_offset = shared::mem::find_ida_sig( "client_panorama.dll", { "F3 0F 10 40 ? 0F 2F C1 76 06" } ).self_offset( 0x4 ).self_get( 1 ).cast<byte>(); /// 0x14
+			byte ipt_offset = shared::mem::find_ida_sig( "client_panorama.dll", { "	F3 0F 10 43 ? F3 0F 11 43 ? A1 ? ? ? ?" } ).self_offset( 0x4 ).self_get( 1 ).cast<byte>(); /// 0x20
+		} CGlobalVarsBase;*/
 	};
 
 	extern mem_t mem;

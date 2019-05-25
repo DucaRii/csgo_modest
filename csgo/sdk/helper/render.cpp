@@ -15,7 +15,7 @@ namespace render
 				ctx::csgo.font_manager->SetFontGlyphSet( font, name, size, weight, NULL, NULL, flags );
 			};
 
-			font( m_main, "Arial", 18, 400, FONTFLAG_DROPSHADOW );
+			font( m_main, "Arial", 13, 400, FONTFLAG_OUTLINE );
 			font( m_menu, "Arial", 14, 400, FONTFLAG_DROPSHADOW );
 		}
 	}

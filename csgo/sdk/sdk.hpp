@@ -7,6 +7,7 @@
 #include "source_engine/datatypes/datamap.hpp"
 #include "source_engine/datatypes/CUserCmd.h"
 #include "source_engine/datatypes/ServerClass.hpp"
+#include "source_engine/datatypes/CCSWeaponData.hpp"
 
 #include "source_engine/ISurface.hpp"
 #include "source_engine/IVEngineClient.hpp"
@@ -19,6 +20,7 @@
 #include "source_engine/IClientEntityList.h"
 #include "source_engine/CItemSystem.hpp"
 #include "source_engine/IServer.hpp"
+#include "source_engine/CGlobalVarsBase.hpp"
 
 /// Helper
 #include "helper/render.hpp"

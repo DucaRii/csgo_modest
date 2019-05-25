@@ -63,6 +63,7 @@ enum
 
 struct CUserCmd
 {
+	char pad_vtable[ 0x4 ];
 	// For matching server and client commands for debugging
 	int		command_number;
 

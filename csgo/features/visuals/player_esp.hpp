@@ -1,7 +1,6 @@
 #pragma once
 
-namespace menu
+namespace player_esp
 {
-	void init();
 	void render();
 }

@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="features\misc\movement.cpp" />
+    <ClCompile Include="features\visuals\player_esp.cpp" />
     <ClCompile Include="hooks\functions\create_move.cpp" />
     <ClCompile Include="hooks\functions\paint.cpp" />
     <ClCompile Include="hooks\hook_handler.cpp" />
@@ -158,6 +160,9 @@
     <ClInclude Include="context\csgo.hpp" />
     <ClInclude Include="context\mem.hpp" />
     <ClInclude Include="csgo.hpp" />
+    <ClInclude Include="features\features.hpp" />
+    <ClInclude Include="features\misc\movement.hpp" />
+    <ClInclude Include="features\visuals\player_esp.hpp" />
     <ClInclude Include="hooks\hook_handler.hpp" />
     <ClInclude Include="menu.hpp" />
     <ClInclude Include="sdk\entities.hpp" />
@@ -169,8 +174,10 @@
     <ClInclude Include="sdk\helper\weaponids.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\source_engine\CFontManager.hpp" />
+    <ClInclude Include="sdk\source_engine\CGlobalVarsBase.hpp" />
     <ClInclude Include="sdk\source_engine\CHLClient.hpp" />
     <ClInclude Include="sdk\source_engine\CItemSystem.hpp" />
+    <ClInclude Include="sdk\source_engine\datatypes\CCSWeaponData.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\ClientClass.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\ConVar.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\CUserCmd.h" />

@@ -7,12 +7,12 @@ namespace netvars
 	uint16_t get( uint32_t table, uint32_t field );
 	uint16_t get( std::string_view table, std::string_view field );
 
-	uint16_t find_in_datamap( datamap_t* map, const char* name );
+	uint16_t find_in_datamap( datamap_t* map, uint32_t name );
 }
 
 #define DATAMAPVAR(funcname, type, datamapname) type& funcname() \
 { \
-	static auto offset = find_in_data_map( this->get_pred_desc_map(), datamapname ); \
+	static auto offset = netvars::find_in_datamap( this->get_pred_desc_map(), CT_HASH( datamapname ) ); \
     return *reinterpret_cast< type* >( uintptr_t( this ) + offset ); \
 }
 

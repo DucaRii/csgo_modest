@@ -25,7 +25,9 @@ void __fastcall hook_handler_t::paint( REGISTERS, int mode )
 
 			render::triangle_filled( { 340, 170 }, { 365, 120 }, { 390, 170 }, shared::col_t( 0, 255, 255 ) );*/
 
-			menu::frame();
+			player_esp::render();
+
+			menu::render();
 
 			shared::input::update_mouse();
 		}

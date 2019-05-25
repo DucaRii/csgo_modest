@@ -22,10 +22,14 @@ namespace menu
 	float m_test_slider = 25.0f;
 	int m_test_select = 0;
 
-	void frame()
+	void render()
 	{
 		if ( shared::gui::begin( "csgo_modest" ) )
 		{
+			shared::gui::toggle( "Bunnyhop", &ctx::config.bhop );
+			shared::gui::toggle( "Name ESP", &ctx::config.name_esp );
+			shared::gui::toggle( "Health ESP", &ctx::config.health_esp );
+
 			shared::gui::toggle( "Test toggle", &m_test_toggle );
 			shared::gui::slider( "Test slider", &m_test_slider, 0.0f, 100.0f );
 			shared::gui::select( "Test select", &m_test_select, { "Option 1", "Option 2", "Option 3" }, "Selected: {}" );

@@ -65,7 +65,7 @@ namespace netvars
 		return m_offsets[ HASH( table.data() ) ][ HASH( field.data() ) ].m_offset;
 	}
 
-	uint16_t find_in_datamap( datamap_t* map, const char* name )
+	uint16_t find_in_datamap( datamap_t* map, uint32_t name )
 	{
 		while ( map )
 		{
@@ -74,7 +74,7 @@ namespace netvars
 				if ( map->dataDesc[ i ].fieldName == nullptr )
 					continue;
 
-				if ( strcmp( name, map->dataDesc[ i ].fieldName ) == 0 )
+				if ( name == HASH( map->dataDesc[ i ].fieldName ) )
 					return map->dataDesc[ i ].fieldOffset[ TD_OFFSET_NORMAL ];
 
 				if ( map->dataDesc[ i ].fieldType == FIELD_EMBEDDED )

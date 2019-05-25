@@ -116,7 +116,7 @@ namespace shared
 		/// <param name="offset">Offset at which the function address is</param>
 		/// <returns>Address object</returns>
 		template< typename t = address_base_t<ptr_type> >
-		inline address_base_t<ptr_type>& self_jmp( ptrdiff_t offset = 0x1 )
+		inline address_base_t<ptr_type> & self_jmp( ptrdiff_t offset = 0x1 )
 		{
 			m_ptr = jmp( offset );
 
@@ -126,7 +126,7 @@ namespace shared
 		/// <summary>
 		/// Finds a specific opcode
 		/// </summary>
-		/// <param name="opcode">Offset at which the function address is</param>
+		/// <param name="opcode">Opcode that is being searched for</param>
 		/// <param name="offset">Offset that should be added to the resulting address</param>
 		/// <returns>Address object</returns>
 		inline address_base_t<ptr_type>& self_find_opcode( byte opcode, ptrdiff_t offset = 0x0 )
@@ -137,12 +137,25 @@ namespace shared
 		}
 
 		/// <summary>
+		/// Finds a specific opcode sequence
+		/// </summary>
+		/// <param name="opcodes">Opcodes to be searched</param>
+		/// <param name="offset">Offset that should be added to the resulting address</param>
+		/// <returns>Address object</returns>
+		inline address_base_t<ptr_type>& self_find_opcode_seq( std::vector<byte> opcodes, ptrdiff_t offset = 0x0 )
+		{
+			m_ptr = find_opcode_seq( opcodes, offset );
+
+			return *this;
+		}
+
+		/// <summary>
 		/// Set inner pointer to given value
 		/// </summary>
 		/// <param name="in">Offset that will be added</param>
 		/// <returns>Current address object</returns>
 		template< typename t = address_base_t<ptr_type> >
-		inline address_base_t<ptr_type>& set( t in )
+		inline address_base_t<ptr_type> & set( t in )
 		{
 			m_ptr = ptr_type( in );
 
@@ -225,7 +238,7 @@ namespace shared
 		/// <summary>
 		/// Finds a specific opcode
 		/// </summary>
-		/// <param name="opcode">Offset at which the function address is</param>
+		/// <param name="opcode">Opcode to be searched</param>
 		/// <param name="offset">Offset that should be added to the resulting address</param>
 		/// <returns>Address object</returns>
 		template< typename t = address_base_t<ptr_type> >
@@ -242,6 +255,44 @@ namespace shared
 				if ( opcode == opcode_at_address )
 					break;
 
+				/// Continue searching
+				base += 1;
+			}
+
+			/// Add additional offset
+			base += offset;
+
+			return t( base );
+		}
+
+		/// <summary>
+		/// Finds a specific opcode sequence
+		/// </summary>
+		/// <param name="opcode">Opcodes to be searched</param>
+		/// <param name="offset">Offset that should be added to the resulting address</param>
+		/// <returns>Address object</returns>
+		template< typename t = address_base_t<ptr_type> >
+		inline t find_opcode_seq( std::vector<byte> opcodes, ptrdiff_t offset = 0x0 )
+		{
+			auto base = m_ptr;
+
+			auto opcode_at_address = byte();
+
+			/// Continue looping as long as address is valid
+			while ( opcode_at_address = *reinterpret_cast< byte* >( base ) )
+			{
+				/// Check if we found the opcode begin
+				if ( opcodes.at( 0 ) == opcode_at_address )
+				{
+					/// Check if all following opcodes match too
+					for ( auto i = 0u; i < opcodes.size(); i++ )
+						if ( opcodes.at( i ) != *reinterpret_cast< byte* >( base + i ) )
+							goto CONT;
+
+					/// We found it!
+					break;
+				}
+CONT:
 				/// Continue searching
 				base += 1;
 			}

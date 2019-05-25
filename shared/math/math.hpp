@@ -8,6 +8,7 @@
 #include "datatypes/vec4_t.hpp"
 #include "datatypes/matrix3x4_t.hpp"
 #include "datatypes/vert_t.h"
+#include "datatypes/view_matrix_t.hpp"
 
 namespace shared::math
 {

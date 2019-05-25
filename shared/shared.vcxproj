@@ -161,6 +161,7 @@
     <ClInclude Include="math\datatypes\vec3_t.hpp" />
     <ClInclude Include="math\datatypes\vec4_t.hpp" />
     <ClInclude Include="math\datatypes\vert_t.h" />
+    <ClInclude Include="math\datatypes\view_matrix_t.hpp" />
     <ClInclude Include="math\math.hpp" />
     <ClInclude Include="math\math_definitions.hpp" />
     <ClInclude Include="mem\mem.hpp" />

@@ -114,6 +114,9 @@
     <ClInclude Include="gui\gui.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="math\datatypes\view_matrix_t.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mem\mem.cpp">

@@ -20,14 +20,17 @@ namespace shared::gui
 	{
 		m_elements.clear();
 
-		if ( m_open )
+		/// Either toggled or ALT held
+		bool open = is_open(); 
+
+		if ( open )
 		{
 			math::vec2_t title_size = get_functions().m_text_size( title );
 
 			get_functions().m_text( m_pos, col_t( 255, 180, 50 ), title );
 		}
 
-		return m_open;
+		return open;
 	}
 
 	void end()
@@ -77,11 +80,11 @@ namespace shared::gui
 	{
 		if ( !m_elements.empty() )
 		{
-			if ( input::get_mouse().m_scroll != 0 )
-			{
-				m_element_idx -= input::get_mouse().m_scroll;
-				input::get_mouse().reset_scroll();
-			}
+			if ( input::get_mouse().m_scroll < 0 )
+				m_element_idx += 1;
+
+			if ( input::get_mouse().m_scroll > 0 )
+				m_element_idx -= 1;
 
 			if ( m_element_idx < 0 )
 				m_element_idx = m_elements.size() - 1;
@@ -178,6 +181,6 @@ namespace shared::gui
 
 	bool is_open()
 	{
-		return m_open;
+		return m_open || input::get_key_info( VK_MENU ).m_state != input::IDLE;
 	}
 }

@@ -80,7 +80,7 @@ namespace shared
 		template< typename t = uintptr_t >
 		t get_var( std::ptrdiff_t offset )
 		{
-			return m_fp.offset( offset ).get();
+			return m_fp.offset( offset ).cast<t>();
 		}
 	};
 }

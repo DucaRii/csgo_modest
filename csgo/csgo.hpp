@@ -10,4 +10,7 @@
 #include "context/config.hpp"
 
 #include "hooks/hook_handler.hpp"
+
+#include "features/features.hpp"
+
 #include "menu.hpp"
