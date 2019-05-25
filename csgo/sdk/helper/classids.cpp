@@ -294,13 +294,7 @@ uint32_t classids_t::get( uint32_t name )
 		if ( auto server_class_list = ctx::csgo.server->GetAllClasses() )
 		{
 			for ( ; server_class_list; server_class_list = server_class_list->m_pNext )
-			{
-				
-
 				m_classids[ HASH( server_class_list->m_pNetworkName ) ] = ++cur_id;
-
-				LOG( shared::fmt::format( "{} - {}", server_class_list->m_pNetworkName, cur_id ) );
-			}
 		}
 	}
 
