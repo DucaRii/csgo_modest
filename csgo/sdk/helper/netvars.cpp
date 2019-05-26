@@ -1,5 +1,7 @@
 #include "../../csgo.hpp"
 
+/// credits to deadcell for some shit here
+
 namespace netvars
 {
 	struct netvar_t
