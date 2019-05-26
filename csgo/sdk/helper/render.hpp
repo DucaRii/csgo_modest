@@ -20,27 +20,27 @@ namespace render
 	void init();
 	void undo();
 
-	shared::math::vec2_t get_screen_size();
-	void get_screen_size( shared::math::vec2_t& size );
+	math::vec2_t get_screen_size();
+	void get_screen_size( math::vec2_t& size );
 
-	void text( const HFont& font, const shared::math::vec2_t& pos, const shared::col_t& col, shared::bitflag_t flags, const char* txt );
-	void text( const HFont& font, const shared::math::vec2_t& pos, const shared::col_t& col, shared::bitflag_t flags, std::string_view txt );
+	void text( const HFont& font, const math::vec2_t& pos, const col_t& col, bitflag_t flags, const char* txt );
+	void text( const HFont& font, const math::vec2_t& pos, const col_t& col, bitflag_t flags, std::string_view txt );
 
-	shared::math::vec2_t text_size( const HFont& font, const char* txt );
-	shared::math::vec2_t text_size( const HFont& font, std::string_view txt );
+	math::vec2_t text_size( const HFont& font, const char* txt );
+	math::vec2_t text_size( const HFont& font, std::string_view txt );
 
-	void rect_filled( const shared::math::vec2_t& pos, const shared::math::vec2_t& size, const shared::col_t& col );
-	void rect( const shared::math::vec2_t& pos, const shared::math::vec2_t& size, const shared::col_t& col );
+	void rect_filled( const math::vec2_t& pos, const math::vec2_t& size, const col_t& col );
+	void rect( const math::vec2_t& pos, const math::vec2_t& size, const col_t& col );
 
-	void line( const shared::math::vec2_t& pos1, const shared::math::vec2_t& pos2, const shared::col_t& col );
+	void line( const math::vec2_t& pos1, const math::vec2_t& pos2, const col_t& col );
 
-	void circle_filled( const shared::math::vec2_t& pos, const int radius, const int segments, const shared::col_t& col );
-	void circle( const shared::math::vec2_t& pos, const int radius, const int segments, const shared::col_t& col );
+	void circle_filled( const math::vec2_t& pos, const int radius, const int segments, const col_t& col );
+	void circle( const math::vec2_t& pos, const int radius, const int segments, const col_t& col );
 
-	void triangle_filled( const shared::math::vec2_t& pos1, const shared::math::vec2_t& pos2, const shared::math::vec2_t& pos3, const shared::col_t& col );
+	void triangle_filled( const math::vec2_t& pos1, const math::vec2_t& pos2, const math::vec2_t& pos3, const col_t& col );
 
-	void polygon( int count, shared::math::vert_t* vertices, const shared::col_t& col );
+	void polygon( int count, math::vert_t* vertices, const col_t& col );
 
-	void set_color( const shared::col_t& col );
+	void set_color( const col_t& col );
 	void set_color( const int r, const int g, const int b, const int a = 255 );
 }

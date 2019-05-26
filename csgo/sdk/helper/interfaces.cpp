@@ -16,7 +16,7 @@ namespace interfaces
 	uintptr_t* get( const char* mod, const char* interface_name )
 	{
 		static std::unordered_map< uint32_t,
-			std::vector< std::pair< const char*, shared::address_t >>> m_interfaces{};
+			std::vector< std::pair< const char*, address_t >>> m_interfaces{};
 
 		auto& entry = m_interfaces[ HASH( mod ) ];
 
@@ -29,7 +29,7 @@ namespace interfaces
 				return nullptr;
 
 			/// Find internal CreateInterface function and walk the context
-			auto create_interface_fn = shared::address_t( uintptr_t( GetProcAddress( module_address, "CreateInterface" ) ) );
+			auto create_interface_fn = address_t( uintptr_t( GetProcAddress( module_address, "CreateInterface" ) ) );
 			if ( !create_interface_fn )
 				return nullptr;
 
@@ -74,7 +74,7 @@ namespace interfaces
 		{
 			if ( std::string( cur.first ).find( interface_name ) != std::string::npos )
 			{
-				LOG( shared::fmt::format( "Found interface: {}", cur.first ) );
+				LOG( fmt::format( "Found interface: {}", cur.first ) );
 
 				return cur.second.cast<uintptr_t*>();
 			}

@@ -32,7 +32,7 @@ struct CCStrike15ItemSchema
 
 	uintptr_t GetItemDefinitionMap()
 	{
-		return shared::address_t( uintptr_t( this ) + ctx::mem.CItemSystem.m_Map ).get( 1 );
+		return address_t( uintptr_t( this ) + ctx::mem.CItemSystem.m_Map ).get( 1 );
 	}
 
 	/// This is inlined on Windows so it needs to be rebuilt

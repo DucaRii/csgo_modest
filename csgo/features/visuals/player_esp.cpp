@@ -11,7 +11,7 @@ namespace player_esp
 			[]( player_t * pl ) -> bool
 			{
 				auto pos = pl->GetRenderOrigin(),
-					screen_pos = shared::math::vec3_t{};
+					screen_pos = math::vec3_t{};
 
 				/// Player position is out of screen
 				if ( !game::world_to_screen( pos, screen_pos ) )
@@ -26,7 +26,7 @@ namespace player_esp
 
 				if ( ctx::config.health_esp )
 				{
-					render::text( render::fonts::m_main, { screen_pos.x, screen_pos.y }, { 255,255,255 }, { render::fonts::FONT_CENTER_Y }, shared::fmt::format( " - [{:d}]", pl->get_health() ) );
+					render::text( render::fonts::m_main, { screen_pos.x, screen_pos.y }, { 255,255,255 }, { render::fonts::FONT_CENTER_Y }, fmt::format( " - [{:d}]", pl->get_health() ) );
 				}
 
 				return false;

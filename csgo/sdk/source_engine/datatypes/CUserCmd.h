@@ -71,9 +71,9 @@ struct CUserCmd
 	int		tick_count;
 
 	// Player instantaneous view angles.
-	shared::math::angle_t	viewangles;
+	math::angle_t	viewangles;
 
-	shared::math::vec3_t	aim_direction;
+	math::vec3_t	aim_direction;
 	// Intended velocities
 	//	forward velocity.
 	float	forwardmove;
@@ -82,7 +82,7 @@ struct CUserCmd
 	//  upward velocity.
 	float	upmove;
 	// Attack button states
-	shared::bitflag_t		buttons;
+	bitflag_t		buttons;
 	// Impulse command issued.
 	byte    impulse;
 	// Current weapon id

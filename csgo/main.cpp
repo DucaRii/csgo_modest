@@ -10,18 +10,18 @@ namespace ctx
 
 BOOL WINAPI detach()
 {
-	shared::input::undo();
+	input::undo();
 
 	hooks::undo();
 
-	shared::log::detach();
+	log::detach();
 
 	return TRUE;
 }
 
 DWORD WINAPI entry( LPVOID lpThreadParameter )
 {
-	if ( !shared::input::init( "Valve001" ) )
+	if ( !input::init( "Valve001" ) )
 		goto DETACH;
 
 	LOG( "Initialized Input!" );
@@ -48,7 +48,7 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 
 	LOG( "Cheat Attached!" );
 
-	while ( !shared::input::get_key_info( VK_END ).m_state )
+	while ( !input::get_key_info( VK_END ).m_state )
 		std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
 
 DETACH:

@@ -27,15 +27,15 @@ struct entity_t : public IClientEntity
 	}
 
 	NETVAR( int, get_team, "DT_BaseEntity", "m_iTeamNum" );
-	NETVAR( shared::math::vec3_t, get_origin, "DT_BaseEntity", "m_vecOrigin" );
-	NETVAR( shared::math::vec3_t, get_mins, "DT_BaseEntity", "m_vecMins" );
-	NETVAR( shared::math::vec3_t, get_maxs, "DT_BaseEntity", "m_vecMaxs" );
+	NETVAR( math::vec3_t, get_origin, "DT_BaseEntity", "m_vecOrigin" );
+	NETVAR( math::vec3_t, get_mins, "DT_BaseEntity", "m_vecMins" );
+	NETVAR( math::vec3_t, get_maxs, "DT_BaseEntity", "m_vecMaxs" );
 	NETVAR( float, get_simtime, "DT_BaseEntity", "m_flSimulationTime" );
 
 	VFUNC( 17, get_pred_desc_map(), datamap_t * ( __thiscall* )( void* ) )( );
 
-	CUSTOM_VFUNC( set_abs_origin( shared::math::vec3_t origin ), void( __thiscall* )( void*, const shared::math::vec3_t& ), ctx::mem.CBaseEntity.SetAbsOrigin )( origin );
-	CUSTOM_VFUNC( set_abs_angles( shared::math::angle_t origin ), void( __thiscall* )( void*, const shared::math::angle_t& ), ctx::mem.CBaseEntity.SetAbsAngles )( origin );
+	CUSTOM_VFUNC( set_abs_origin( math::vec3_t origin ), void( __thiscall* )( void*, const math::vec3_t& ), ctx::mem.CBaseEntity.SetAbsOrigin )( origin );
+	CUSTOM_VFUNC( set_abs_angles( math::angle_t origin ), void( __thiscall* )( void*, const math::angle_t& ), ctx::mem.CBaseEntity.SetAbsAngles )( origin );
 	CUSTOM_VFUNC( think(), void( __thiscall* )( void* ), ctx::mem.CBaseEntity.Think )( );
 	CUSTOM_VFUNC( should_collide( int collision_group, int contents_mask ), bool( __thiscall* )( void*, int, int ), ctx::mem.CBaseEntity.ShouldCollide )( collision_group, contents_mask );
 
@@ -78,19 +78,19 @@ struct player_t : public combat_character_t
 	NETVAR( int, get_health, "DT_BasePlayer", "m_iHealth" );
 	NETVAR( short, get_lifestate, "DT_BasePlayer", "m_lifeState" );
 	NETVAR( CBaseHandle, get_weapon_handle, "DT_BasePlayer", "m_hActiveWeapon" );
-	NETVAR( shared::math::vec3_t, get_velocity, "DT_BasePlayer", "m_vecVelocity[0]" );
-	NETVAR( shared::math::vec3_t, get_view_offset, "DT_BasePlayer", "m_vecViewOffset[0]" );
-	NETVAR( shared::math::vec3_t, get_punch_angle, "DT_BasePlayer", "m_aimPunchAngle" );
-	NETVAR( shared::bitflag_t, get_flags, "DT_BasePlayer", "m_fFlags" );
+	NETVAR( math::vec3_t, get_velocity, "DT_BasePlayer", "m_vecVelocity[0]" );
+	NETVAR( math::vec3_t, get_view_offset, "DT_BasePlayer", "m_vecViewOffset[0]" );
+	NETVAR( math::vec3_t, get_punch_angle, "DT_BasePlayer", "m_aimPunchAngle" );
+	NETVAR( bitflag_t, get_flags, "DT_BasePlayer", "m_fFlags" );
 
 	DATAMAPVAR( get_water_level, char, "m_nWaterLevel" );
 
 	CUSTOM_VFUNC( pre_think(), void( __thiscall* )( void* ), ctx::mem.CBasePlayer.PreThink )( );
 	CUSTOM_VFUNC( post_think(), void( __thiscall* )( void* ), ctx::mem.CBasePlayer.PostThink )( );
 	CUSTOM_VFUNC( update_animations(), void( __thiscall* )( void* ), ctx::mem.CCSPlayer.UpdateClientSideAnimations )( );
-	CUSTOM_VFUNC( weapon_shootpos( shared::math::vec3_t* in ), float* ( __thiscall* )( void*, shared::math::vec3_t* ), ctx::mem.CCSPlayer.Weapon_Shootpos )( in );
+	CUSTOM_VFUNC( weapon_shootpos( math::vec3_t* in ), float* ( __thiscall* )( void*, math::vec3_t* ), ctx::mem.CCSPlayer.Weapon_Shootpos )( in );
 
-	shared::math::vec3_t get_eye_pos();
+	math::vec3_t get_eye_pos();
 
 	bool is_alive();
 	bool is_enemy();

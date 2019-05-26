@@ -12,13 +12,13 @@ struct hook_info_t
 struct hook_t
 {
 	hook_t() = default;
-	hook_t( void* table ) : m_table( table ), m_hook( shared::hook::hook_t( uintptr_t( table ) ) )
+	hook_t( void* table ) : m_table( table ), m_hook( hook::hook_t( uintptr_t( table ) ) )
 	{
 		m_hook.init();
 	}
 
 	void* m_table;
-	shared::hook::hook_t m_hook;
+	hook::hook_t m_hook;
 
 	std::vector<hook_info_t> m_hook_info;
 };

@@ -13,9 +13,9 @@ namespace game
 		return get_item_system()->GetItemSchemaInterface();
 	}
 
-	bool world_to_screen( const shared::math::vec3_t& origin, shared::math::vec3_t& screen )
+	bool world_to_screen( const math::vec3_t& origin, math::vec3_t& screen )
 	{
-		const auto screen_transform = [ & ]( const shared::math::vec3_t & in, shared::math::vec3_t & out ) -> bool
+		const auto screen_transform = [ & ]( const math::vec3_t & in, math::vec3_t & out ) -> bool
 		{
 			const auto& w2_s_matrix = ctx::csgo.engine->WorldToScreenMatrix();
 			out.x = w2_s_matrix[ 0 ][ 0 ] * in.x + w2_s_matrix[ 0 ][ 1 ] * in.y + w2_s_matrix[ 0 ][ 2 ] * in.z + w2_s_matrix[ 0 ][ 3 ];
@@ -40,7 +40,7 @@ namespace game
 
 		if ( screen_transform( origin, screen ) )
 		{
-			shared::math::vec2_t screen_size = render::get_screen_size();
+			math::vec2_t screen_size = render::get_screen_size();
 
 			screen.x = ( screen_size.x / 2.0f ) + ( screen.x * screen_size.x ) / 2.0f;
 			screen.y = ( screen_size.y / 2.0f ) - ( screen.y * screen_size.y ) / 2.0f;
@@ -50,7 +50,7 @@ namespace game
 		return false;
 	}
 
-	void for_every_player( const std::function<bool( player_t * pl )> & func, shared::bitflag_t flags )
+	void for_every_player( const std::function<bool( player_t * pl )> & func, bitflag_t flags )
 	{
 		for ( auto i = 1; i <= ctx::csgo.globals->maxClients; i++ )
 		{
@@ -75,7 +75,7 @@ namespace game
 		}
 	}
 
-	void for_every_entity( const std::function<void( entity_t * ent )> & func, shared::bitflag_t flags, int classid )
+	void for_every_entity( const std::function<void( entity_t * ent )> & func, bitflag_t flags, int classid )
 	{
 		for ( auto i = ctx::csgo.globals->maxClients + 1; i < ctx::csgo.entlist->GetHighestEntityIndex(); i++ )
 		{

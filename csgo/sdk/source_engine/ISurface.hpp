@@ -39,7 +39,7 @@ struct ISurface
 	CUSTOM_VFUNC( GetCharacterWidth( HFont font, char ch ), int( __thiscall* )( void*, HFont, char ), ctx::mem.ISurface.GetCharacterWidth )( font, ch );
 	CUSTOM_VFUNC( DrawOutlinedCircle( int x, int y, int radius, int segments ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.DrawOutlinedCircle )( x, y, radius, segments );
 	CUSTOM_VFUNC( DrawFilledRectFade( int x, int y, int x1, int y1, uint32_t alpha, uint32_t alpha1, bool horizontal ), void( __thiscall* )( void*, int, int, int, int, size_t, size_t, bool ), ctx::mem.ISurface.DrawFilledRectFade )( x, y, x1, y1, alpha, alpha1, horizontal );
-	CUSTOM_VFUNC( DrawTexturedPolygon( int count, shared::math::vert_t* vertices, bool clip = true ), void( __thiscall* )( void*, int, shared::math::vert_t*, bool ), ctx::mem.ISurface.DrawTexturedPolygon )( count, vertices, clip );
+	CUSTOM_VFUNC( DrawTexturedPolygon( int count, math::vert_t* vertices, bool clip = true ), void( __thiscall* )( void*, int, math::vert_t*, bool ), ctx::mem.ISurface.DrawTexturedPolygon )( count, vertices, clip );
 	CUSTOM_VFUNC( GetClipRect( int& x, int& y, int& x1, int& y1 ), void( __thiscall* )( void*, int&, int&, int&, int& ), ctx::mem.ISurface.GetClipRect )( x, y, x1, y1 );
 	CUSTOM_VFUNC( SetClipRect( int x, int y, int x1, int y1 ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.SetClipRect )( x, y, x1, y1 );
 	CUSTOM_VFUNC( DrawColoredCircle( int x, int y, float radius, int r, int g, int b, int a ), void( __thiscall* )( void*, int, int, float, int, int, int, int ), ctx::mem.ISurface.DrawColoredCircle )( x, y, radius, r, g, b, a );

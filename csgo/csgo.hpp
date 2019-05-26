@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../shared/shared.hpp"
+using namespace shared;
 
 #include "sdk/sdk.hpp"
 

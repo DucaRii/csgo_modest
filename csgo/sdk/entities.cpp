@@ -10,9 +10,9 @@ player_info_t entity_t::get_player_info()
 	return info;
 }
 
-shared::math::vec3_t player_t::get_eye_pos()
+math::vec3_t player_t::get_eye_pos()
 {
-	auto pos = shared::math::vec3_t{};
+	auto pos = math::vec3_t{};
 
 	weapon_shootpos( &pos );
 

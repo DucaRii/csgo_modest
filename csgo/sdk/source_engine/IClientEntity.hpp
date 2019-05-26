@@ -33,8 +33,8 @@ class IClientRenderable
 {
 public:
 	virtual IClientUnknown* GetIClientUnknown() = 0;
-	virtual shared::math::vec3_t& GetRenderOrigin( void ) = 0;
-	virtual shared::math::vec3_t& GetRenderAngles( void ) = 0;
+	virtual math::vec3_t& GetRenderOrigin( void ) = 0;
+	virtual math::vec3_t& GetRenderAngles( void ) = 0;
 	virtual bool ShouldDraw( void ) = 0;
 	virtual int GetRenderFlags( void ) = 0;
 	virtual void Unused( void ) const {}
@@ -45,17 +45,17 @@ public:
 	virtual int GetBody() = 0;
 	virtual void GetColorModulation( float* color ) = 0;
 	virtual bool LODTest() = 0;
-	virtual bool SetupBones( shared::math::matrix3x4_t* pBoneToWorldOut, int nMaxBones, int boneMask, float currentTime ) = 0;
-	virtual void SetupWeights( const shared::math::matrix3x4_t* pBoneToWorld, int nFlexWeightCount, float* pFlexWeights,
+	virtual bool SetupBones( math::matrix3x4_t* pBoneToWorldOut, int nMaxBones, int boneMask, float currentTime ) = 0;
+	virtual void SetupWeights( const math::matrix3x4_t* pBoneToWorld, int nFlexWeightCount, float* pFlexWeights,
 							   float* pFlexDelayedWeights ) = 0;
 	virtual void DoAnimationEvents( void ) = 0;
 	virtual void* GetPVSNotifyInterface() = 0;
-	virtual void GetRenderBounds( shared::math::vec3_t& mins, shared::math::vec3_t& maxs ) = 0;
-	virtual void GetRenderBoundsWorldspace( shared::math::vec3_t& mins, shared::math::vec3_t& maxs ) = 0;
-	virtual void GetShadowRenderBounds( shared::math::vec3_t& mins, shared::math::vec3_t& maxs, int shadowType ) = 0;
+	virtual void GetRenderBounds( math::vec3_t& mins, math::vec3_t& maxs ) = 0;
+	virtual void GetRenderBoundsWorldspace( math::vec3_t& mins, math::vec3_t& maxs ) = 0;
+	virtual void GetShadowRenderBounds( math::vec3_t& mins, math::vec3_t& maxs, int shadowType ) = 0;
 	virtual bool ShouldReceiveProjectedTextures( int flags ) = 0;
 	virtual bool GetShadowCastDistance( float* pDist, int shadowType ) const = 0;
-	virtual bool GetShadowCastDirection( shared::math::vec3_t* pDirection, int shadowType ) const = 0;
+	virtual bool GetShadowCastDirection( math::vec3_t* pDirection, int shadowType ) const = 0;
 	virtual bool IsShadowDirty() = 0;
 	virtual void MarkShadowDirty( bool bDirty ) = 0;
 	virtual IClientRenderable* GetShadowParent() = 0;
@@ -64,10 +64,10 @@ public:
 	virtual int ShadowCastType() = 0;
 	virtual void CreateModelInstance() = 0;
 	virtual ModelInstanceHandle_t GetModelInstance() = 0;
-	virtual const shared::math::matrix3x4_t& RenderableToWorldTransform() = 0;
+	virtual const math::matrix3x4_t& RenderableToWorldTransform() = 0;
 	virtual int LookupAttachment( const char* pAttachmentName ) = 0;
-	virtual bool GetAttachment( int number, shared::math::vec3_t& origin, shared::math::vec3_t& angles ) = 0;
-	virtual bool GetAttachment( int number, shared::math::matrix3x4_t& matrix ) = 0;
+	virtual bool GetAttachment( int number, math::vec3_t& origin, math::vec3_t& angles ) = 0;
+	virtual bool GetAttachment( int number, math::matrix3x4_t& matrix ) = 0;
 	virtual float* GetRenderClipPlane( void ) = 0;
 	virtual int GetSkin() = 0;
 	virtual void OnThreadedDrawSetup() = 0;
@@ -99,8 +99,8 @@ class ICollideable
 {
 public:
 	virtual void pad0();
-	virtual shared::math::vec3_t& OBBMins() const;
-	virtual shared::math::vec3_t& OBBMaxs() const;
+	virtual math::vec3_t& OBBMins() const;
+	virtual math::vec3_t& OBBMaxs() const;
 };
 
 class IClientUnknown : public IHandleEntity
