@@ -95,6 +95,11 @@ namespace render
 									 static_cast< float >( height ) );
 	}
 
+	inline shared::math::vec2_t text_size( const HFont& font, const char* txt )
+	{
+		return text_size( font, std::string_view( txt ) );
+	}
+
 	void rect_filled( const shared::math::vec2_t& pos, const shared::math::vec2_t& size, const shared::col_t& col )
 	{
 		set_color( col );
@@ -167,11 +172,6 @@ namespace render
 		set_color( col );
 		ctx::csgo.surface->DrawSetTexture( texture_id );
 		ctx::csgo.surface->DrawTexturedPolygon( count, vertices );
-	}
-
-	inline shared::math::vec2_t text_size( const HFont & font, const char* txt )
-	{
-		return text_size( font, std::string( txt ) );
 	}
 
 	void set_color( const shared::col_t & col )
