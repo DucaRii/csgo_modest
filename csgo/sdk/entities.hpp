@@ -14,13 +14,25 @@ struct entity_t : public IClientEntity
 		return reinterpret_cast< t* >( ctx::csgo.entlist->GetClientEntityFromHandle( handle ) );
 	}
 
+	template<typename t = uintptr_t>
+	void write( ptrdiff_t offset, t in )
+	{
+		*reinterpret_cast< t* >( uintptr_t( this ) + offset ) = in;
+	}
+
+	template<typename t = uintptr_t>
+	t read( ptrdiff_t offset )
+	{
+		return *reinterpret_cast< t* >( uintptr_t( this ) + offset );
+	}
+
 	NETVAR( int, get_team, "DT_BaseEntity", "m_iTeamNum" );
 	NETVAR( shared::math::vec3_t, get_origin, "DT_BaseEntity", "m_vecOrigin" );
 	NETVAR( shared::math::vec3_t, get_mins, "DT_BaseEntity", "m_vecMins" );
 	NETVAR( shared::math::vec3_t, get_maxs, "DT_BaseEntity", "m_vecMaxs" );
 	NETVAR( float, get_simtime, "DT_BaseEntity", "m_flSimulationTime" );
 
-	VFUNC( 17, get_pred_desc_map(), datamap_t* ( __thiscall* )( void* ) )( );
+	VFUNC( 17, get_pred_desc_map(), datamap_t * ( __thiscall* )( void* ) )( );
 
 	CUSTOM_VFUNC( set_abs_origin( shared::math::vec3_t origin ), void( __thiscall* )( void*, const shared::math::vec3_t& ), ctx::mem.CBaseEntity.SetAbsOrigin )( origin );
 	CUSTOM_VFUNC( set_abs_angles( shared::math::angle_t origin ), void( __thiscall* )( void*, const shared::math::angle_t& ), ctx::mem.CBaseEntity.SetAbsAngles )( origin );
