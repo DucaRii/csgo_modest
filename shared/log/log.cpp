@@ -14,10 +14,11 @@ namespace shared::log
 			/// Allocate console
 			auto is_console_allocated = AllocConsole();
 
+			FILE* m_file;
 			/// Redirect stdout to console
-			auto file = freopen( "CONOUT$", "w", stdout );
+			freopen_s( &m_file, "CONOUT$", "w", stdout );
 
-			m_init = is_console_allocated && file;
+			m_init = is_console_allocated && m_file;
 		}
 
 		/// Print text
