@@ -34,8 +34,10 @@ namespace shared::gui::controls
 		/// Render items only when tab is active
 		if ( m_is_active )
 		{
+			auto control_pos = gui::get_pos() - gui::get_size() * 0.5f + math::vec2_t( 1, 0 );
+
 			/// Now render our controls
-			auto base_pos = math::vec2_t( m_pos.x, m_pos.y + m_size.y );
+			auto base_pos = math::vec2_t( control_pos.x, control_pos.y + m_size.y );
 			auto scaled_window_size = gui::get_size().x - 2;
 			for ( auto& item : m_items )
 			{
