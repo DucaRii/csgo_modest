@@ -171,7 +171,11 @@
     <ClInclude Include="stack_frame\stack_frame.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gui\controls.cpp" />
+    <ClCompile Include="gui\controls\checkbox.cpp" />
+    <ClCompile Include="gui\controls\combo.cpp" />
+    <ClCompile Include="gui\controls\separator.cpp" />
+    <ClCompile Include="gui\controls\slider.cpp" />
+    <ClCompile Include="gui\controls\tab.cpp" />
     <ClCompile Include="gui\gui.cpp" />
     <ClCompile Include="input\input.cpp" />
     <ClCompile Include="log\log.cpp" />

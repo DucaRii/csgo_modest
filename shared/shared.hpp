@@ -3,6 +3,7 @@
 #define _USE_MATH_DEFINES
 #define _CRT_SECURE_NO_WARNINGS
 #define FMT_HEADER_ONLY
+#define NOMINMAX
 
 /// Common includes
 #include <Windows.h>
@@ -22,6 +23,7 @@
 #include <cmath>
 #include <memory>
 #include <stack>
+#include <iostream>
 
 /// Our stuff ( keep in alphabetical order )
 #include "address/address.hpp"

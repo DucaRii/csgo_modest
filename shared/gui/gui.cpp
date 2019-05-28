@@ -2,185 +2,239 @@
 
 namespace shared::gui
 {
-	render_functions_t m_functions = {};
+	int m_toggle_key = VK_INSERT;
+	int m_hold_key = VK_MENU;
 
-	math::vec2_t m_pos = { 64.0f, 24.0f };
+	size_t m_active_tab = 0;
 
 	bool m_open = false;
-	int m_element_idx = 0;
 
-	std::vector<gui_element_t> m_elements;
+	std::string_view m_name = "";
 
-	render_functions_t& get_functions()
+	math::vec2_t m_pos = {};
+	math::vec2_t m_size = {};
+
+	std::vector<std::shared_ptr<controls::c_tab>> m_tabs = {};
+
+	struct style_t
 	{
-		return m_functions;
-	}
+		col_t m_col_title_text;
 
-	bool begin( std::string_view title )
+		col_t m_col_frame_border;
+		col_t m_col_frame_border_outline;
+
+		col_t m_col_frame_inner;
+
+		int m_border_size;
+		int m_header_height;
+	} m_style;
+
+	void render()
 	{
-		m_elements.clear();
+		if ( !is_open() )
+			return;
 
-		/// Either toggled or ALT held
-		bool open = is_open(); 
+		auto window_pos = m_pos - m_size * 0.5f;
 
-		if ( open )
+		/// Border
+		rect_filled( { window_pos.x - m_style.m_border_size, window_pos.y - m_style.m_header_height },
+					 { m_size.x + m_style.m_border_size * 2, m_size.y + m_style.m_border_size + m_style.m_header_height },
+					 m_style.m_col_frame_border );
+
+		/// Outline
+		rect( { window_pos.x - m_style.m_border_size, window_pos.y - m_style.m_header_height },
+			  { m_size.x + m_style.m_border_size * 2, m_size.y + m_style.m_border_size + m_style.m_header_height },
+			  m_style.m_col_frame_border_outline );
+
+		/// Draw window title
+		text( window_pos - math::vec2_t( 0.f, m_style.m_header_height - 2.f ), m_style.m_col_title_text, m_name );
+
+		/// Inner frame
+		rect_filled( window_pos, m_size, m_style.m_col_frame_inner );
+
+		/// Inner outline
+		rect( window_pos, m_size, m_style.m_col_frame_border_outline );
+
+		/// Render tabs
+		const auto scaled_size = m_size.x - 2;
+		const auto tab_size = scaled_size / m_tabs.size();
+		auto pos = window_pos + math::vec2_t( 1, 0 );
+		for ( auto& tab : m_tabs )
 		{
-			math::vec2_t title_size = get_functions().m_text_size( title );
-
-			get_functions().m_text( m_pos, col_t( 255, 180, 50 ), title );
-		}
-
-		return open;
-	}
-
-	void end()
-	{
-		int elem_idx = 0;
-		math::vec2_t draw_pos = m_pos + math::vec2_t( 8.0f, 24.0f );
-
-		for ( const gui_element_t& elem : m_elements )
-		{
-			if ( elem.m_type == UNKNOWN )
-				continue;
-
-			bool element_active = elem_idx++ == m_element_idx;
-
-			math::vec2_t label_size = get_functions().m_text_size( elem.m_label );
-			col_t text_color = element_active ? col_t( 255, 220, 50 ) : col_t( 255, 255, 255 );
-
-			get_functions().m_text( draw_pos, text_color, elem.m_label );
-
-			switch ( elem.m_type )
-			{
-				case TOGGLE:
-					get_functions().m_text( draw_pos + math::vec2_t( label_size.x + 8.0f, 0.0f ), text_color,
-											*elem.m_toggle.m_value_ptr ? elem.m_toggle.m_enabled_str : elem.m_toggle.m_disabled_str );
-
-					break;
-
-				case SLIDER:
-					get_functions().m_text( draw_pos + math::vec2_t( label_size.x + 8.0f, 0.0f ), text_color,
-											fmt::format( elem.m_slider.m_display_format, *elem.m_slider.m_value_ptr ) );
-
-					break;
-
-				case SELECT:
-					get_functions().m_text( draw_pos + math::vec2_t( label_size.x + 8.0f, 0.0f ), text_color,
-											fmt::format( elem.m_select.m_display_format, elem.m_select.m_options.at( *elem.m_select.m_value_ptr ) ) );
-
-					break;
-
-			}
-
-			draw_pos += math::vec2_t( 0.0f, label_size.y + 4.0f );
+			tab->set_size( math::vec2_t( tab_size, static_cast< float >( get_item_size() ) ) );
+			tab->render( pos );
 		}
 	}
 
-	void process_input()
+	void handle_input()
 	{
-		if ( !m_elements.empty() )
-		{
-			if ( input::get_mouse().m_scroll < 0 )
-				m_element_idx += 1;
-
-			if ( input::get_mouse().m_scroll > 0 )
-				m_element_idx -= 1;
-
-			if ( m_element_idx < 0 )
-				m_element_idx = m_elements.size() - 1;
-			else if ( m_element_idx > static_cast< int >( m_elements.size() - 1 ) )
-				m_element_idx = 0;
-
-			gui_element_t& active = m_elements.at( m_element_idx );
-
-			if ( active.m_type == UNKNOWN )
-				return;
-
-			switch ( active.m_type )
-			{
-				case TOGGLE:
-					if ( input::get_mouse().m_state == input::PRESSED || input::get_mouse().m_state_right == input::PRESSED )
-						( *active.m_toggle.m_value_ptr ) = !( *active.m_toggle.m_value_ptr );
-
-					break;
-
-				case SLIDER:
-					if ( input::get_mouse().m_state == input::PRESSED )
-						( *active.m_slider.m_value_ptr )--;
-					else if ( input::get_mouse().m_state_right == input::PRESSED )
-						( *active.m_slider.m_value_ptr )++;
-
-					*active.m_slider.m_value_ptr = std::clamp( *active.m_slider.m_value_ptr, active.m_slider.m_min_value, active.m_slider.m_max_value );
-
-					break;
-
-				case SELECT:
-					if ( input::get_mouse().m_state == input::PRESSED )
-						( *active.m_select.m_value_ptr )--;
-					else if ( input::get_mouse().m_state_right == input::PRESSED )
-						( *active.m_select.m_value_ptr )++;
-
-					if ( *active.m_select.m_value_ptr < 0 )
-						( *active.m_select.m_value_ptr ) = static_cast< int >( active.m_select.m_options.size() - 1 );
-					else if ( *active.m_select.m_value_ptr > static_cast< int >( active.m_select.m_options.size() - 1 ) )
-						( *active.m_select.m_value_ptr ) = 0;
-
-					break;
-
-			}
-		}
+		for ( const auto& tab : m_tabs )
+			tab->handle_input();
 	}
 
-	void toggle( std::string_view label, bool* value_ptr, std::string_view enabled_str, std::string_view disabled_str )
+	void setup_style()
 	{
-		gui_element_t elem;
+		m_style.m_col_title_text = col_t( 230, 230, 230 );
 
-		elem.m_type = TOGGLE;
-		elem.m_label = label;
-		elem.m_toggle.m_value_ptr = value_ptr;
-		elem.m_toggle.m_enabled_str = enabled_str;
-		elem.m_toggle.m_disabled_str = disabled_str;
+		m_style.m_col_frame_border = col_t::palette_t::grey();
+		m_style.m_col_frame_border_outline = col_t( 5, 5, 5, 150 );
 
-		m_elements.push_back( elem );
+		m_style.m_col_frame_inner = col_t::palette_t::dark_grey();
+
+		m_style.m_border_size = 6;
+		m_style.m_header_height = 18;
 	}
 
-	void slider( std::string_view label, float* value_ptr, float min_value, float max_value, std::string_view display_format )
+	controls::c_tab* add_tab( std::string_view name )
 	{
-		gui_element_t elem;
+		auto tab = std::make_shared<controls::c_tab>( name );
 
-		elem.m_type = SLIDER;
-		elem.m_label = label;
-		elem.m_slider.m_value_ptr = value_ptr;
-		elem.m_slider.m_min_value = min_value;
-		elem.m_slider.m_max_value = max_value;
-		elem.m_slider.m_display_format = display_format;
+		/// Assign ID to new tab
+		tab->set_id( m_tabs.size() );
 
-		m_elements.push_back( elem );
+		m_tabs.push_back( tab );
+
+		return tab.get();
 	}
 
-	void select( std::string_view label, int* value_ptr, const std::vector<std::string_view>& options, std::string_view display_format )
+	void set_active_tab( int id )
 	{
-		gui_element_t elem;
+		/// Perform "clamping"
+		if ( id < 0 )
+			id = static_cast< int >( m_tabs.size() ) - 1;
+		else if ( id >= static_cast< int >( m_tabs.size() ) )
+			id = 0;
 
-		elem.m_type = SELECT;
-		elem.m_label = label;
-		elem.m_select.m_value_ptr = value_ptr;
-		elem.m_select.m_display_format = display_format;
-		elem.m_select.m_options = options;
+		m_active_tab = id;
+	}
 
-		m_elements.push_back( elem );
+	int get_active_tab()
+	{
+		return m_active_tab;
+	}
+
+	void set_toggle_key( const int vk )
+	{
+		m_toggle_key = vk;
+	}
+
+	void set_hold_key( const int vk )
+	{
+		m_hold_key = vk;
 	}
 
 	void toggle()
 	{
-		if ( input::get_key_info( VK_INSERT ).m_state == input::PRESSED )
-		{
+		if ( input::get_key_info( m_toggle_key ).m_state == input::PRESSED )
 			m_open = !m_open;
-		}
 	}
 
 	bool is_open()
 	{
-		return m_open || input::get_key_info( VK_MENU ).m_state != input::IDLE;
+		return m_open || input::get_key_info( m_hold_key ).m_state != input::IDLE;
+	}
+
+	void set_pos( const math::vec2_t & pos )
+	{
+		m_pos = pos;
+	}
+
+	math::vec2_t get_pos()
+	{
+		return m_pos;
+	}
+
+	void set_size( const math::vec2_t & size )
+	{
+		m_size = { size.x, size.y * get_item_size() };
+	}
+
+	math::vec2_t get_size()
+	{
+		return m_size;
+	}
+
+	void set_name( std::string_view name )
+	{
+		m_name = name;
+	}
+
+	std::string_view get_name()
+	{
+		return m_name;
+	}
+
+	int get_item_size()
+	{
+		return 18;
+	}
+
+	/// Helper functions that have to be externally initialized
+	std::function<float()> m_curtime_fn;
+	std::function<float()> m_frametime_fn;
+	std::function<void( const math::vec2_t&, const math::vec2_t&, const col_t& )> m_rect_filled_fn;
+	std::function<void( const math::vec2_t&, const math::vec2_t&, const col_t& )> m_rect_fn;
+	std::function<void( const math::vec2_t&, const col_t & col, std::string_view )> m_text_fn;
+	std::function<math::vec2_t( std::string_view )> m_text_size_fn;
+	std::function<void()> m_reset_clip_fn;
+	std::function<void( const math::vec2_t&, const math::vec2_t&, bool )> m_clip_fn;
+
+	void setup_helper( const std::function<float()> & curtime,
+					   const std::function<float()> & frametime,
+					   const std::function<void( const math::vec2_t&, const math::vec2_t&, const col_t& )> & rect_filled,
+					   const std::function<void( const math::vec2_t&, const math::vec2_t&, const col_t& )> & rect,
+					   const std::function<void( const math::vec2_t&, const col_t & col, std::string_view )> & text,
+					   const std::function<math::vec2_t( std::string_view )> & text_size,
+					   const std::function<void()> & reset_clip,
+					   const std::function<void( const math::vec2_t&, const math::vec2_t&, bool )> & clip )
+	{
+		m_curtime_fn = curtime;
+		m_frametime_fn = frametime;
+		m_rect_filled_fn = rect_filled;
+		m_rect_fn = rect;
+		m_text_fn = text;
+		m_text_size_fn = text_size;
+		m_reset_clip_fn = reset_clip;
+		m_clip_fn = clip;
+	}
+
+	float get_curtime()
+	{
+		return m_curtime_fn();
+	}
+
+	float get_frametime()
+	{
+		return m_frametime_fn();
+	}
+
+	void rect_filled( const math::vec2_t & pos, const math::vec2_t & size, const col_t & col )
+	{
+		m_rect_filled_fn( pos, size, col );
+	}
+
+	void rect( const math::vec2_t & pos, const math::vec2_t & size, const col_t & col )
+	{
+		m_rect_fn( pos, size, col );
+	}
+
+	void text( const math::vec2_t & pos, const col_t & col, std::string_view text )
+	{
+		m_text_fn( pos, col, text );
+	}
+
+	math::vec2_t text_size( std::string_view text )
+	{
+		return m_text_size_fn( text );
+	}
+
+	void reset_clip()
+	{
+		return m_reset_clip_fn();
+	}
+
+	void clip( const math::vec2_t & pos, const math::vec2_t & size, bool override_clip )
+	{
+		return m_clip_fn( pos, size, override_clip );
 	}
 }

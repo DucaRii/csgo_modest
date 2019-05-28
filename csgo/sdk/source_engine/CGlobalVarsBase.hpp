@@ -15,8 +15,8 @@ struct CGlobalVarsBase
 	int       simTicksThisFrame;            // 0x0028
 	int       network_protocol;             // 0x002C
 	void*	  pSaveData;                    // 0x0030
-	bool      m_bClient;                    // 0x0031
-	bool      m_bRemoteClient;              // 0x0032
-	int       nTimestampNetworkingBase;		// 0x0033
-	int       nTimestampRandomizeWindow;	// 0x0037
+	bool      m_bClient;                    // 0x0034
+	bool      m_bRemoteClient;              // 0x0035
+	int       nTimestampNetworkingBase;		// 0x0036
+	int       nTimestampRandomizeWindow;	// 0x003A
 };

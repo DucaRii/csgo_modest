@@ -9,6 +9,8 @@ namespace ctx
 		ADD_ITEM( bool, bhop ) = false;
 		ADD_ITEM( bool, name_esp ) = false;
 		ADD_ITEM( bool, health_esp ) = false;
+		ADD_ITEM( int, health_style ) = 0;
+		ADD_ITEM( float, some_float ) = 50.f;
 	};
 
 	extern config_t config;

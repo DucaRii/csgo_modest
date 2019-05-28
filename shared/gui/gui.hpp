@@ -1,115 +1,58 @@
 #pragma once
+
 #include "../math/math.hpp"
+#include "controls.hpp"
 
 namespace shared::gui
 {
-	enum e_gui_element_type
-	{
-		UNKNOWN,
-		TOGGLE,
-		SLIDER,
-		SELECT
-	};
+	void render();
+	void handle_input();
 
-	struct gui_element_t
-	{
-		int m_type = UNKNOWN;
-		std::string_view m_label = "";
+	void setup_style();
 
-		struct gui_toggle_element_t
-		{
-			bool* m_value_ptr;
-			std::string_view m_enabled_str = "Enabled";
-			std::string_view m_disabled_str = "Disabled";
+	controls::c_tab* add_tab( std::string_view name );
 
-		} m_toggle;
+	void set_active_tab( int id );
+	int get_active_tab();
 
-		struct gui_slider_element_t
-		{
-			float* m_value_ptr = nullptr;
-			float m_min_value = 0;
-			float m_max_value = 100;
-			std::string_view m_display_format = "{:.0f}%";
+	void set_toggle_key( const int vk );
+	void set_hold_key( const int vk );
 
-		} m_slider;
-
-		struct gui_select_element_t
-		{
-			int* m_value_ptr = nullptr;
-			std::vector<std::string_view> m_options = { "None" };
-			std::string_view m_display_format = "{}";
-
-		} m_select;
-	};
-
-	struct render_functions_t
-	{
-		std::function<void( const math::vec2_t pos, const math::vec2_t size, const col_t& color )> m_fill_rect;
-		std::function<void( const math::vec2_t pos, const math::vec2_t size, const col_t& color )> m_rect;
-		std::function<void( const math::vec2_t start, const math::vec2_t end, const col_t& color )> m_line;
-		std::function<void( const math::vec2_t& pos, const col_t& color, std::string_view text )> m_text;
-		std::function<math::vec2_t( std::string_view text )> m_text_size;
-	};
-
-	/// <summary>
-	/// Get the draw functions needed
-	/// </summary>
-	/// <returns>Draw functions</returns>
-	render_functions_t& get_functions();
-
-	/// <summary>
-	/// Define start of UI group
-	/// </summary>
-	/// <param name="title">Title of UI group</param>
-	/// <returns>State of menu</returns>
-	bool begin( std::string_view title );
-
-	/// <summary>
-	/// Define end of UI group
-	/// </summary>
-	void end();
-
-	/// <summary>
-	/// Process input of the UI group
-	/// </summary>
-	void process_input();
-
-	/// <summary>
-	/// Create a toggle (checkbox kinda thing)
-	/// </summary>
-	/// <param name="label">Name of toggle</param>
-	/// <param name="value_ptr">Var that'll be changed</param>
-	/// <param name="enabled_str">Text that is displayed when it's enabled</param>
-	/// <param name="disabled_str">Text that is displayed when it's disabled</param>
-	void toggle( std::string_view label, bool* value_ptr, std::string_view enabled_str = "Enabled", std::string_view disabled_str = "Disabled" );
-
-	/// <summary>
-	/// Create a slider
-	/// </summary>
-	/// <param name="label">Name of slider</param>
-	/// <param name="value_ptr">Var that'll be changed</param>
-	/// <param name="min_value">Min value</param>
-	/// <param name="max_value">Max value</param>
-	/// <param name="display_format">Value formatting</param>
-	void slider( std::string_view label, float* value_ptr, float min_value, float max_value, std::string_view display_format = "{:.0f}%" );
-
-	/// <summary>
-	/// Create a select box
-	/// </summary>
-	/// <param name="label">Name of select</param>
-	/// <param name="value_ptr">Var that'll be changed</param>
-	/// <param name="options">Option names</param>
-	/// <param name="display_format">Value formatting</param>
-	void select( std::string_view label, int* value_ptr, const std::vector<std::string_view>& options = { "None" }, std::string_view display_format = "{}" );
-
-	/// <summary>
-	/// Toggle gui open state
-	/// </summary>
 	void toggle();
-
-	/// <summary>
-	/// Checks if the gui is open
-	/// </summary>
-	/// <returns>Menu open state</returns>
 	bool is_open();
+
+	void set_pos( const math::vec2_t& pos );
+	math::vec2_t get_pos();
+
+	void set_size( const math::vec2_t& size );
+	math::vec2_t get_size();
+
+	void set_name( std::string_view name );
+	std::string_view get_name();
+
+	int get_item_size();
+
+	/// Helper functions that have to be externally initialized
+	void setup_helper(
+		const std::function<float()>& curtime,
+		const std::function<float()>& frametime,
+		const std::function<void( const math::vec2_t&, const math::vec2_t&, const col_t& )>& rect_filled,
+		const std::function<void( const math::vec2_t&, const math::vec2_t&, const col_t& )>& rect,
+		const std::function<void( const math::vec2_t&, const col_t& col, std::string_view )>& text,
+		const std::function<math::vec2_t( std::string_view )>& text_size,
+		const std::function<void()>& reset_clip,
+		const std::function<void( const math::vec2_t&, const math::vec2_t&, bool )>& clip
+	);
+
+	float get_curtime();
+	float get_frametime();
+
+	void rect_filled( const math::vec2_t& pos, const math::vec2_t& size, const col_t& col );
+	void rect( const math::vec2_t& pos, const math::vec2_t& size, const col_t& col );
+
+	void text( const math::vec2_t& pos, const col_t& col, std::string_view text );
+	math::vec2_t text_size( std::string_view text );
+
+	void reset_clip();
+	void clip( const math::vec2_t& pos, const math::vec2_t& size, bool override_clip = false );
 }

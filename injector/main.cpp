@@ -7,7 +7,7 @@
 
 /// Simple loadlibrary injector
 
-#define DLL_NAME "csgo.dll"
+#define DLL_NAME "csgo_modest.dll"
 #define PROCESS_NAME "csgo.exe"
 
 /// Usage: Either just start the program

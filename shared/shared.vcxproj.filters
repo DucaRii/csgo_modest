@@ -69,9 +69,6 @@
     <ClInclude Include="fmt\time.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="log\log.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="input\input.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -120,12 +117,12 @@
     <ClInclude Include="gui\controls.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="log\log.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mem\mem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="log\log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="input\input.cpp">
@@ -137,7 +134,22 @@
     <ClCompile Include="gui\gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gui\controls.cpp">
+    <ClCompile Include="gui\controls\tab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\controls\checkbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="log\log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\controls\separator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\controls\combo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\controls\slider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

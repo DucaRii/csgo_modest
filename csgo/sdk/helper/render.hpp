@@ -43,4 +43,9 @@ namespace render
 
 	void set_color( const col_t& col );
 	void set_color( const int r, const int g, const int b, const int a = 255 );
+
+	void clip( const math::vec2_t& pos, const math::vec2_t& size, bool override = false );
+	void clip( RECT rec, bool override = false );
+	void reset_clip();
+	RECT get_current_clip();
 }

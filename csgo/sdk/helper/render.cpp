@@ -21,7 +21,10 @@ namespace render
 	}
 
 	math::vec2_t m_screen{};
+
 	bool m_init{};
+
+	std::deque<RECT> m_clip_records = {};
 
 	void init()
 	{
@@ -92,7 +95,7 @@ namespace render
 		ctx::csgo.font_manager->GetTextSize( font, str.c_str(), width, height );
 
 		return math::vec2_t( static_cast< float >( width ),
-									 static_cast< float >( height ) );
+							 static_cast< float >( height ) );
 	}
 
 	inline math::vec2_t text_size( const HFont& font, const char* txt )
@@ -135,7 +138,7 @@ namespace render
 
 		for ( float a = 0; a < M_PI * 2.0f; a += step )
 			vertices.push_back( math::vert_t( math::vec2_t( radius * cosf( a ) + pos.x,
-															  radius * sinf( a ) + pos.y ) ) );
+															radius * sinf( a ) + pos.y ) ) );
 
 		polygon( segments, vertices.data(), col );
 
@@ -162,7 +165,7 @@ namespace render
 		polygon( 3, triangle_vert, col );
 	}
 
-	void polygon( int count, math::vert_t* vertices, const col_t & col )
+	void polygon( int count, math::vert_t * vertices, const col_t & col )
 	{
 		static int texture_id;
 
@@ -182,5 +185,73 @@ namespace render
 	void set_color( const int r, const int g, const int b, const int a )
 	{
 		ctx::csgo.surface->DrawSetColor( r, g, b, a );
+	}
+
+	void clip( const math::vec2_t & pos, const math::vec2_t & size, bool override )
+	{
+		RECT rec;
+		rec.left = static_cast< LONG >( pos.x );
+		rec.top = static_cast< LONG >( pos.y );
+		rec.right = static_cast< LONG >( pos.x + size.x + 1 );
+		rec.bottom = static_cast< LONG >( pos.y + size.y + 1 );
+
+		if ( !override && !m_clip_records.empty() )
+		{
+			auto& last_record = m_clip_records.back();
+			rec.left = std::clamp( rec.left, last_record.left, last_record.right );
+			rec.right = std::clamp( rec.right, last_record.left, last_record.right );
+			rec.top = std::clamp( rec.top, last_record.top, last_record.bottom );
+			rec.bottom = std::clamp( rec.bottom, last_record.top, last_record.bottom );
+		}
+
+		m_clip_records.push_back( rec );
+
+		ctx::csgo.surface->SetClipRect( rec.left, rec.top, rec.right, rec.bottom );
+	}
+
+	void clip( RECT rec, bool override )
+	{
+		if ( !override && !m_clip_records.empty() )
+		{
+			auto& last_record = m_clip_records.back();
+			rec.left = std::clamp( rec.left, last_record.left, last_record.right );
+			rec.right = std::clamp( rec.right, last_record.left, last_record.right );
+			rec.top = std::clamp( rec.top, last_record.top, last_record.bottom );
+			rec.bottom = std::clamp( rec.bottom, last_record.top, last_record.bottom );
+		}
+
+		m_clip_records.push_back( rec );
+
+		ctx::csgo.surface->SetClipRect( rec.left, rec.top, rec.right, rec.bottom );
+	}
+
+	void reset_clip()
+	{
+		m_clip_records.pop_back();
+
+		/// If we have a scissor rect from earlier, use that one
+		if ( !m_clip_records.empty() )
+		{
+			auto& latest_record = m_clip_records.back();
+			ctx::csgo.surface->SetClipRect( latest_record.left, latest_record.top, latest_record.right, latest_record.bottom );
+		}
+		else /// Reset to fullscreen
+			ctx::csgo.surface->SetClipRect( 0, 0, static_cast< int >( m_screen.x ), static_cast< int >( m_screen.y ) );
+	}
+
+	RECT get_current_clip()
+	{
+		if ( m_clip_records.empty() )
+		{
+			RECT rec;
+			rec.left = 0;
+			rec.top = 0;
+			rec.right = static_cast< int >( render::get_screen_size().x );
+			rec.bottom = static_cast< int >( render::get_screen_size().y );
+
+			return rec;
+		}
+
+		return m_clip_records.back();
 	}
 }

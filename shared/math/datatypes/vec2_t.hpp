@@ -18,6 +18,11 @@ namespace shared::math
 			return sqrt( x * x + y * y );
 		}
 
+		inline bool is_zero() const
+		{
+			return x == 0 && y == 0;
+		}
+
 #pragma region assignment
 		inline vec2_t& operator=( const vec2_t& in )
 		{

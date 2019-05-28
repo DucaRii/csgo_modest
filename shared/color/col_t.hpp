@@ -82,6 +82,16 @@ namespace shared
 			return !( operator==( in ) );
 		}
 
+		struct palette_t
+		{
+			static col_t black( int alpha = 255 ) { return col_t( 13, 13, 13, alpha ); }
+			static col_t light_black( int alpha = 255 ) { return col_t( 32, 32, 32, alpha ); }
+			static col_t dark_grey( int alpha = 255 ) { return col_t( 44, 44, 44, alpha ); }
+			static col_t grey( int alpha = 255 ) { return col_t( 60, 60, 60, alpha ); }
+			static col_t light_grey( int alpha = 255 ) { return col_t( 77, 77, 77, alpha ); }
+			static col_t red( int alpha = 255 ) { return col_t( 236, 98, 95, alpha ); }
+		};
+
 		/// <summary>
 		/// Gets the hue of the current color
 		/// </summary>
@@ -92,8 +102,8 @@ namespace shared
 			float g = m_color[ 1 ] / 255.0f;
 			float b = m_color[ 2 ] / 255.0f;
 
-			float mx = max( r, max( g, b ) );
-			float mn = min( r, min( g, b ) );
+			float mx = std::max( r, std::max( g, b ) );
+			float mn = std::min( r, std::min( g, b ) );
 			if ( mx == mn )
 				return 0.f;
 
@@ -124,8 +134,8 @@ namespace shared
 			float g = m_color[ 1 ] / 255.0f;
 			float b = m_color[ 2 ] / 255.0f;
 
-			float mx = max( r, max( g, b ) );
-			float mn = min( r, min( g, b ) );
+			float mx = std::max( r, std::max( g, b ) );
+			float mn = std::min( r, std::min( g, b ) );
 
 			float delta = mx - mn;
 
@@ -145,7 +155,7 @@ namespace shared
 			float g = m_color[ 1 ] / 255.0f;
 			float b = m_color[ 2 ] / 255.0f;
 
-			return max( r, max( g, b ) );
+			return std::max( r, std::max( g, b ) );
 		}
 
 		/// <summary>

@@ -236,7 +236,7 @@ namespace shared::input
 
 		if ( gui::is_open() && ( handled_mouse || handled_keyboard ) )
 		{
-			gui::process_input();
+			gui::handle_input();
 
 			get_mouse().reset_scroll();
 

@@ -30,10 +30,6 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 
 	LOG( "Initialized Netvars!" );
 
-	menu::init();
-
-	LOG( "Initialized Menu!" );
-
 	weaponids.init();
 
 	LOG( "Initialized Weapon IDs!" );
@@ -41,6 +37,14 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 	classids.init();
 
 	LOG( "Initialized Class IDs!" );
+
+	render::init();
+
+	LOG( "Initialized Renderer!" );
+
+	menu::init();
+
+	LOG( "Initialized Menu!" );
 
 	hooks::init();
 
@@ -54,7 +58,7 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 DETACH:
 	LOG( "Cheat Detached!" );
 
-	std::this_thread::sleep_for( std::chrono::milliseconds( 150 ) );
+	std::this_thread::sleep_for( std::chrono::milliseconds( 400 ) );
 
 	detach();
 

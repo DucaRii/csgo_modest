@@ -13,12 +13,15 @@ namespace shared::log
 		{
 			/// Allocate console
 			auto is_console_allocated = AllocConsole();
+			auto is_console_attached = AttachConsole( GetCurrentProcessId() );
 
-			FILE* m_file;
-			/// Redirect stdout to console
-			freopen_s( &m_file, "CONOUT$", "w", stdout );
+			/// Redirect out/in to console
+			freopen_s( reinterpret_cast< FILE * * >( stdin ), "CONIN$", "r", stdin );
+			freopen_s( reinterpret_cast< FILE * * >( stdout ), "CONOUT$", "w", stdout );
 
-			m_init = is_console_allocated && m_file;
+			SetConsoleTitleA( "csgo_modest console" );
+
+			m_init = is_console_allocated && is_console_attached;
 		}
 
 		/// Print text
@@ -39,6 +42,7 @@ namespace shared::log
 
 		/// Close used handles first
 		fclose( stdout );
+		fclose( stdin );
 
 		/// Now close the actual console
 		FreeConsole();
