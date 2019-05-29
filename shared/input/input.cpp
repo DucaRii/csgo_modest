@@ -10,17 +10,17 @@ namespace shared::input
 
 	mouse_info_t m_mouse_info;
 
-	bool init( std::string_view window )
+	bool init( std::wstring_view window )
 	{
 		/// Input was already initialized ?
 		if ( m_window )
 			return false;
 
-		m_window = FindWindowA( window.data(), NULL );
+		m_window = FindWindowW( window.data(), NULL );
 		if ( !m_window )
 			return false;
 
-		m_original_wndproc = reinterpret_cast< WNDPROC >( SetWindowLongA( m_window, GWLP_WNDPROC, reinterpret_cast< LONG_PTR >( hook ) ) );
+		m_original_wndproc = reinterpret_cast< WNDPROC >( SetWindowLongW( m_window, GWLP_WNDPROC, reinterpret_cast< LONG_PTR >( hook ) ) );
 		if ( !m_original_wndproc )
 			return false;
 
@@ -30,7 +30,7 @@ namespace shared::input
 	void undo()
 	{
 		if ( m_original_wndproc )
-			SetWindowLongA( m_window, GWLP_WNDPROC, reinterpret_cast< LONG_PTR >( m_original_wndproc ) );
+			SetWindowLongW( m_window, GWLP_WNDPROC, reinterpret_cast< LONG_PTR >( m_original_wndproc ) );
 
 		m_original_wndproc = NULL;
 	}

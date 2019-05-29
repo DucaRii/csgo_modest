@@ -19,7 +19,7 @@ namespace shared::log
 			freopen_s( reinterpret_cast< FILE * * >( stdin ), "CONIN$", "r", stdin );
 			freopen_s( reinterpret_cast< FILE * * >( stdout ), "CONOUT$", "w", stdout );
 
-			SetConsoleTitleA( "csgo_modest console" );
+			SetConsoleTitleW( L"csgo_modest console" );
 
 			m_init = is_console_allocated && is_console_attached;
 		}
