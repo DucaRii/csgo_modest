@@ -69,7 +69,7 @@ namespace shared::input
 	/// </summary>
 	/// <param name="window">Window class name</param>
 	/// <returns>Returns true if it was successful</returns>
-	bool init( std::wstring_view window );
+	void init( std::wstring_view window );
 
 	/// <summary>
 	/// Restores original WndProc

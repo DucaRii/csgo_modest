@@ -40,7 +40,7 @@ namespace shared::hook
 				return false;
 
 			INIT_MEM_PROTECT_RW( m_vtable, sizeof( uintptr_t ) );
-	
+
 			/// Store old vtable
 			m_orig = *m_vtable;
 
@@ -95,7 +95,7 @@ namespace shared::hook
 		{
 			/// Is index out of bounds?
 			if ( index < 0 || index > m_table_length )
-				return;
+				throw std::out_of_range( fmt::format( "hook_t::hook - Trying to hook at faulty index {} while max index is {}", index, m_table_length ) );
 
 			m_replace[ index + 1 ] = reinterpret_cast< uintptr_t >( replace_function );
 		}
@@ -110,7 +110,7 @@ namespace shared::hook
 		{
 			/// Is index out of bounds?
 			if ( index < 0 || index > m_table_length )
-				return nullptr;
+				throw std::out_of_range( fmt::format( "hook_t::get_original - Trying to get original function of hook at faulty index {} while max index is {}", index, m_table_length ) );
 
 			return reinterpret_cast< t >( m_orig[ index ] );
 		}
@@ -123,7 +123,7 @@ namespace shared::hook
 		{
 			/// Is index out of bounds?
 			if ( index < 0 || index > m_table_length )
-				return;
+				throw std::out_of_range( fmt::format( "hook_t::unhook - Trying to unhook at faulty index {} while max index is {}", index, m_table_length ) );
 
 			m_replace[ index + 1 ] = m_orig[ index ];
 		}

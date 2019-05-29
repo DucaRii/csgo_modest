@@ -21,41 +21,49 @@ BOOL WINAPI detach()
 
 DWORD WINAPI entry( LPVOID lpThreadParameter )
 {
-	if ( !input::init( "Valve001" ) )
-		goto DETACH;
+	try
+	{
+		input::init( L"Valve001" );
 
-	LOG( "Initialized Input!" );
+		LOG( "Initialized Input!" );
 
-	netvars::init();
+		netvars::init();
 
-	LOG( "Initialized Netvars!" );
+		LOG( "Initialized Netvars!" );
 
-	weaponids.init();
+		weaponids.init();
 
-	LOG( "Initialized Weapon IDs!" );
+		LOG( "Initialized Weapon IDs!" );
 
-	classids.init();
+		classids.init();
 
-	LOG( "Initialized Class IDs!" );
+		LOG( "Initialized Class IDs!" );
 
-	render::init();
+		render::init();
 
-	LOG( "Initialized Renderer!" );
+		LOG( "Initialized Renderer!" );
 
-	menu::init();
+		menu::init();
 
-	LOG( "Initialized Menu!" );
+		LOG( "Initialized Menu!" );
 
-	hooks::init();
+		hooks::init();
 
-	LOG( "Initialized Hooks!" );
+		LOG( "Initialized Hooks!" );
 
-	LOG( "Cheat Attached!" );
+		LOG( "Cheat Attached!" );
 
-	while ( !input::get_key_info( VK_END ).m_state )
-		std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
+		while ( !input::get_key_info( VK_END ).m_state )
+			std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
+	}
+	catch ( const std::runtime_error & err )
+	{
+		/// Error while initializing the cheat
+		LOG( err.what() );
 
-DETACH:
+		std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+	}
+
 	LOG( "Cheat Detached!" );
 
 	std::this_thread::sleep_for( std::chrono::milliseconds( 400 ) );

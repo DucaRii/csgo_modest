@@ -48,10 +48,19 @@ inline func_sig create_hook_impl( const uint32_t token, void* table, const uint3
 	auto & map_entry = map[ token ];
 	auto & current_info = map_entry.m_hook_info.emplace_back( index, func );
 
-	/// Hook the function NOW OMG
-	map_entry.m_hook.hook( current_info.m_index, current_info.m_replace );
+	try
+	{
+		/// Hook the function NOW OMG
+		map_entry.m_hook.hook( current_info.m_index, current_info.m_replace );
 
-	return map_entry.m_hook.get_original<func_sig>( current_info.m_index );
+		return map_entry.m_hook.get_original<func_sig>( current_info.m_index );
+	}
+	catch ( const std::out_of_range& err )
+	{
+		LOG( err.what() );
+	}
+
+	return reinterpret_cast< func_sig >( nullptr );
 }
 
 #define REGISTERS uintptr_t ecx, uintptr_t edx

@@ -18,7 +18,7 @@ namespace netvars
 	{
 		/// Nothing we can do if the interface wasn't initialized
 		if ( !ctx::csgo.client )
-			return;
+			throw std::runtime_error( "netvars::init - client pointer not valid" );
 
 		if ( auto client_class_list = ctx::csgo.client->GetAllClasses() )
 		{
@@ -67,7 +67,7 @@ namespace netvars
 		return m_offsets[ HASH( table.data() ) ][ HASH( field.data() ) ].m_offset;
 	}
 
-	uint16_t find_in_datamap( datamap_t* map, uint32_t name )
+	uint16_t find_in_datamap( datamap_t * map, uint32_t name )
 	{
 		while ( map )
 		{
