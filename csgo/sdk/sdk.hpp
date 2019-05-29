@@ -21,6 +21,7 @@
 #include "source_engine/CItemSystem.hpp"
 #include "source_engine/IServer.hpp"
 #include "source_engine/CGlobalVarsBase.hpp"
+#include "source_engine/ISchemeManager.hpp"
 
 /// Helper
 #include "helper/render.hpp"

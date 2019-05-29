@@ -15,6 +15,7 @@
     <ClCompile Include="sdk\helper\game.cpp" />
     <ClCompile Include="features\misc\movement.cpp" />
     <ClCompile Include="features\visuals\player_esp.cpp" />
+    <ClCompile Include="hooks\functions\reload_fonts.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="context\client.hpp" />
@@ -54,5 +55,6 @@
     <ClInclude Include="features\visuals\player_esp.hpp" />
     <ClInclude Include="features\features.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\CCSWeaponData.hpp" />
+    <ClInclude Include="sdk\source_engine\ISchemeManager.hpp" />
   </ItemGroup>
 </Project>
