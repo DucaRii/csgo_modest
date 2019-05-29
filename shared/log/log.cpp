@@ -11,17 +11,38 @@ namespace shared::log
 		/// Check if console was allocated yet
 		if ( !m_init )
 		{
-			/// Allocate console
-			auto is_console_allocated = AllocConsole();
-			auto is_console_attached = AttachConsole( GetCurrentProcessId() );
+			try
+			{
+				/// Allocate console
+				if ( !AllocConsole() )
+					throw std::runtime_error( "Failed to allocate console" );
 
-			/// Redirect out/in to console
-			freopen_s( reinterpret_cast< FILE * * >( stdin ), "CONIN$", "r", stdin );
-			freopen_s( reinterpret_cast< FILE * * >( stdout ), "CONOUT$", "w", stdout );
+				/// Attach console to desired process
+				if ( !AttachConsole( GetCurrentProcessId() ) )
+					throw std::runtime_error( "Failed to attach console" );
 
-			SetConsoleTitleW( L"csgo_modest console" );
+				/// Redirect stdin into console
+				if ( freopen_s( reinterpret_cast< FILE * * >( stdin ), "CONIN$", "r", stdin ) )
+					throw std::runtime_error( "Failed to redirect stdin" );
 
-			m_init = is_console_allocated && is_console_attached;
+				/// Redirect stdout into console
+				if ( freopen_s( reinterpret_cast< FILE * * >( stdout ), "CONIN$", "r", stdout ) )
+					throw std::runtime_error( "Failed to redirect stdout" );
+
+				/// Set console title
+				if ( !SetConsoleTitleW( L"csgo_modest console" ) )
+					throw std::runtime_error( "Failed to set title of console" );
+
+				/// Everything went good! 
+				m_init = true;
+			}
+			catch ( const std::runtime_error& err )
+			{
+				LOG( err.what() );
+
+				/// Let's try that again next time :)
+				m_init = false;
+			}
 		}
 
 		/// Print text
