@@ -78,7 +78,7 @@ namespace shared::gui::controls
 		}
 
 		/// Dont handle anything if we dont have controls
-		if ( m_items.size() <= 1 )
+		if ( m_items.empty() )
 			return;
 
 		bool active_id_increased = false;
