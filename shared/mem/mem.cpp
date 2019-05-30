@@ -2,6 +2,8 @@
 
 namespace shared::mem
 {
+	std::vector<MODULEENTRY32> m_modules;
+
 	address_t find_ida_sig( const char* mod, const char* sig )
 	{
 		/// Credits: MarkHC, although slightly modified by me and also documented
@@ -119,5 +121,30 @@ namespace shared::mem
 				break;
 
 		return length;
+	}
+
+	std::vector<MODULEENTRY32>& get_loaded_modules()
+	{
+		/// Was it already initialized?
+		if ( m_modules.empty() )
+		{
+			auto snapshot = CreateToolhelp32Snapshot( TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, GetCurrentProcessId() );
+			if ( snapshot != INVALID_HANDLE_VALUE )
+			{
+				auto module_entry = MODULEENTRY32{ sizeof( MODULEENTRY32 ) };
+
+				if ( Module32First( snapshot, &module_entry ) )
+				{
+					do
+					{
+						m_modules.push_back( module_entry);
+					} while ( Module32Next( snapshot, &module_entry ) );
+				}
+
+				CloseHandle( snapshot );
+			}
+		}
+
+		return m_modules;
 	}
 }

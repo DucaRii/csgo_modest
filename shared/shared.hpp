@@ -24,6 +24,7 @@
 #include <memory>
 #include <stack>
 #include <iostream>
+#include <TlHelp32.h>
 
 /// Our stuff ( keep in alphabetical order )
 #include "address/address.hpp"
