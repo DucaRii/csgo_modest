@@ -220,9 +220,9 @@ namespace shared
 			/// Base address is the address that follows JMP ( 0xE9 ) instruction
 			ptr_type base = m_ptr + offset;
 
-			/// Store the function pointer
+			/// Store the displacement
 			/// Note: Displacement addresses can be signed, thanks d3x
-			auto rel_jump = *reinterpret_cast< int32_t* >( base );
+			auto displacement = *reinterpret_cast< int32_t* >( base );
 
 			/// The JMP is based on the instruction after the address
 			/// so the address size has to be added
@@ -230,7 +230,7 @@ namespace shared
 			base += sizeof( uint32_t );
 
 			/// Now finally do the JMP by adding the function address
-			base += rel_jump;
+			base += displacement;
 
 			return t( base );
 		}
