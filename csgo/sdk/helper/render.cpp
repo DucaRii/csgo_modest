@@ -28,12 +28,12 @@ namespace render
 
 	void init()
 	{
-		if ( m_init )
-			return;
-
 		int x, y;
 		ctx::csgo.engine->GetScreenSize( x, y );
 		m_screen = math::vec2_t( static_cast< float >( x ), static_cast< float >( y ) );
+
+		if ( m_init )
+			return;
 
 		fonts::init();
 
