@@ -52,11 +52,16 @@ namespace menu
 		/// Now actually do the controls
 		if ( auto tab1 = gui::add_tab( "tab 1" ) )
 		{
-			tab1->add( std::make_shared<gui::controls::c_checkbox>( "Checkbox 1", &ctx::config.bhop ) );
-			tab1->add( std::make_shared<gui::controls::c_separator>( "A section" ) );
+			tab1->add( std::make_shared<gui::controls::c_checkbox>( "Bunnyhop", &ctx::config.bhop ) );
+			tab1->add( std::make_shared<gui::controls::c_separator>( "ESP" ) );
 			{
-				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Checkbox 2", &ctx::config.health_esp ) );
-				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Checkbox 3", &ctx::config.name_esp ) );
+				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Health ESP", &ctx::config.health_esp ) );
+				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Name ESP", &ctx::config.name_esp ) );
+			}
+
+			tab1->add( std::make_shared<gui::controls::c_separator>( "Events" ) );
+			{
+				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Hitmarker", &ctx::config.hitmarker ) );
 			}
 
 			tab1->add( std::make_shared<gui::controls::c_separator>( "Another section" ) );

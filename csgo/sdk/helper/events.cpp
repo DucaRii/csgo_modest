@@ -1,0 +1,34 @@
+#include "../../csgo.hpp"
+
+namespace event_handler
+{
+	std::unique_ptr<listener> m_listener = nullptr;
+	std::vector<std::pair<uint32_t, std::function<void( IGameEvent* )>>> m_callbacks = {};
+
+	void listener::FireGameEvent( IGameEvent* e )
+	{
+		/// Go through all callbacks and check if the event matches
+		for ( const auto& callback : m_callbacks )
+		{
+			/// If callback was found, call it!
+			if ( HASH( e->GetName() ) == callback.first )
+				callback.second( e );
+		}
+	}
+
+	void undo()
+	{
+		ctx::csgo.events->RemoveListener( m_listener.get() );
+	}
+
+	void add( const std::string_view event_name, const std::function<void( IGameEvent * e )> & callback )
+	{
+		if ( !m_listener )
+			m_listener = std::make_unique<listener>();
+
+		m_callbacks.push_back( std::make_pair( HASH( event_name.data() ), callback ) );
+
+		ctx::csgo.events->AddListener( m_listener.get(), event_name.data(), false );
+	}
+}
+

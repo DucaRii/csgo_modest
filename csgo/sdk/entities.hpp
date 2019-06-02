@@ -83,6 +83,7 @@ struct player_t : public combat_character_t
 	NETVAR( math::vec3_t, get_view_offset, "DT_BasePlayer", "m_vecViewOffset[0]" );
 	NETVAR( math::vec3_t, get_punch_angle, "DT_BasePlayer", "m_aimPunchAngle" );
 	NETVAR( bitflag_t, get_flags, "DT_BasePlayer", "m_fFlags" );
+	NETVAR( float, get_health_boost_time, "DT_CSPlayer", "m_flHealthShotBoostExpirationTime" );
 
 	DATAMAPVAR( get_water_level, char, "m_nWaterLevel" );
 

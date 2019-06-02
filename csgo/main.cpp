@@ -10,6 +10,8 @@ namespace ctx
 
 BOOL WINAPI detach()
 {
+	event_handler::undo();
+
 	input::undo();
 
 	hooks::undo();

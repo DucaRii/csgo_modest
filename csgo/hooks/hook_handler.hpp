@@ -63,6 +63,13 @@ inline func_sig create_hook_impl( const uint32_t token, void* table, const uint3
 	return reinterpret_cast< func_sig >( nullptr );
 }
 
+inline bool create_event_callback_impl( std::string_view event_name, const std::function<void( IGameEvent* e )>& callback )
+{
+	event_handler::add( event_name, callback );
+
+	return true;
+}
+
 #define REGISTERS uintptr_t ecx, uintptr_t edx
 
 #define CREATE_HOOK( hooker, index, func ) \
@@ -72,6 +79,8 @@ type_fn_ ## func orig_ ## func = create_hook_impl< type_fn_ ## func >( HASH( #ho
 #define CREATE_HOOK_OVERRIDE( hooker, index, func, type ) \
 using type_fn = type; \
 type_fn_ ## func orig_ ## func = create_hook_impl< type_fn_ ## func >( HASH( #hooker ), hooker, index, reinterpret_cast<void*>(func) ); \
+
+#define CREATE_EVENT_CALLBACK( func ) bool m_event_ ## func = create_event_callback_impl( #func, func );
 
 /// This can't be a namespace since we need to be able
 /// to call the constructor ourselves so the pointers are
@@ -86,8 +95,14 @@ struct hook_handler_t
 	static bool __fastcall create_move( REGISTERS, float flInputSampleTime, CUserCmd* cmd );
 	static void __fastcall reload_fonts( REGISTERS );
 
+	/// Event callbacks
+	static void player_hurt( IGameEvent* e );
+
 	/// Hooks
 	CREATE_HOOK( ctx::csgo.enginevgui, 14, paint );
 	CREATE_HOOK( ctx::csgo.clientmode, 24, create_move );
 	CREATE_HOOK( ctx::csgo.scheme_manager, 4, reload_fonts );
+
+	/// Events
+	CREATE_EVENT_CALLBACK( player_hurt );
 };
