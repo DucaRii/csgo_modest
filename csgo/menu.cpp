@@ -57,6 +57,7 @@ namespace menu
 			{
 				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Health ESP", &ctx::config.health_esp ) );
 				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Name ESP", &ctx::config.name_esp ) );
+				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Box ESP", &ctx::config.box_esp ) );
 			}
 
 			tab1->add( std::make_shared<gui::controls::c_separator>( "Events" ) );
