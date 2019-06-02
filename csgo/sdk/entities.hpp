@@ -26,20 +26,13 @@ struct entity_t : public IClientEntity
 		return *reinterpret_cast< t* >( uintptr_t( this ) + offset );
 	}
 
-	math::matrix3x4_t &get_coord_frame()
-	{
-		const static auto m_CollisionGroup = netvars::get( CT_HASH( "DT_BaseEntity" ), CT_HASH( "m_CollisionGroup" ) );
-
-		auto m_rgflCoordinateFrame = m_CollisionGroup - 0x30;
-
-		return *reinterpret_cast< math::matrix3x4_t * >( reinterpret_cast< uintptr_t >( this ) + m_rgflCoordinateFrame );
-	}
-
 	NETVAR( int, get_team, "DT_BaseEntity", "m_iTeamNum" );
 	NETVAR( math::vec3_t, get_origin, "DT_BaseEntity", "m_vecOrigin" );
 	NETVAR( math::vec3_t, get_mins, "DT_BaseEntity", "m_vecMins" );
 	NETVAR( math::vec3_t, get_maxs, "DT_BaseEntity", "m_vecMaxs" );
 	NETVAR( float, get_simtime, "DT_BaseEntity", "m_flSimulationTime" );
+
+	NETVARADD( math::matrix3x4_t, get_coord_frame, "DT_BaseEntity", "m_CollisionGroup", -0x30 );
 
 	VFUNC( 17, get_pred_desc_map(), datamap_t * ( __thiscall* )( void* ) )( );
 
@@ -51,6 +44,7 @@ struct entity_t : public IClientEntity
 	DATAMAPVAR( get_move_type, int, "m_MoveType" );
 
 	player_info_t get_player_info();
+	bool get_bbox( math::vec4_t& box );
 };
 
 struct animating_t : public entity_t
