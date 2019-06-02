@@ -71,9 +71,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)$(Configuration)_intermediate\$(ProjectName)\</IntDir>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(SolutionDir)$(Configuration)_intermediate\$(ProjectName)\</IntDir>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -137,6 +139,7 @@
     <ClInclude Include="address\address.hpp" />
     <ClInclude Include="bitflag\bitflag.hpp" />
     <ClInclude Include="color\col_t.hpp" />
+    <ClInclude Include="config\config.hpp" />
     <ClInclude Include="easing\easing.hpp" />
     <ClInclude Include="fmt\chrono.hpp" />
     <ClInclude Include="fmt\color.hpp" />
@@ -169,8 +172,10 @@
     <ClInclude Include="mem_protect\mem_protect.hpp" />
     <ClInclude Include="shared.hpp" />
     <ClInclude Include="stack_frame\stack_frame.hpp" />
+    <ClInclude Include="yaml\yaml.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="config\config.cpp" />
     <ClCompile Include="gui\controls\checkbox.cpp" />
     <ClCompile Include="gui\controls\combo.cpp" />
     <ClCompile Include="gui\controls\separator.cpp" />
@@ -181,6 +186,7 @@
     <ClCompile Include="log\log.cpp" />
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="mem\mem.cpp" />
+    <ClCompile Include="yaml\yaml.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
