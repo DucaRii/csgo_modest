@@ -26,6 +26,15 @@ struct entity_t : public IClientEntity
 		return *reinterpret_cast< t* >( uintptr_t( this ) + offset );
 	}
 
+	math::matrix3x4_t &get_coord_frame()
+	{
+		const static auto m_CollisionGroup = netvars::get( CT_HASH( "DT_BaseEntity" ), CT_HASH( "m_CollisionGroup" ) );
+
+		auto m_rgflCoordinateFrame = m_CollisionGroup - 0x30;
+
+		return *reinterpret_cast< math::matrix3x4_t * >( reinterpret_cast< uintptr_t >( this ) + m_rgflCoordinateFrame );
+	}
+
 	NETVAR( int, get_team, "DT_BaseEntity", "m_iTeamNum" );
 	NETVAR( math::vec3_t, get_origin, "DT_BaseEntity", "m_vecOrigin" );
 	NETVAR( math::vec3_t, get_mins, "DT_BaseEntity", "m_vecMins" );
