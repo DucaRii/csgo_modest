@@ -10,7 +10,7 @@ namespace shared::math
 
 		vector_angles( vec_delta, ret );
 
-		return ret.normalize();
+		return ret.clamp();
 	}
 
 	void angle_vectors( const angle_t& ang, vec3_t& out_forward )
