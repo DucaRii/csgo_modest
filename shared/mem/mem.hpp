@@ -19,6 +19,22 @@ namespace shared::mem
 	address_t find_ida_sig( const char* mod, const std::vector< const char* >& sigs );
 
 	/// <summary>
+	/// Tries to find a fizz style signature in the given module
+	/// </summary>
+	/// <param name="mod">Module in which the signature will be searched</param>
+	/// <param name="sig">The fizz style signature that will be searched for</param>
+	/// <returns>Address, if it was found</returns>
+	address_t find_fizz_sig( const char* mod, const char* sig );
+
+	/// <summary>
+	/// Tries to find multiple fizz style signature in the given module
+	/// </summary>
+	/// <param name="mod">Module in which the signature will be searched</param>
+	/// <param name="sig">The fizz style signatures that will be searched for</param>
+	/// <returns>Address, if it was found</returns>
+	address_t find_fizz_sig( const char* mod, const std::vector< const char* >& sigs );
+
+	/// <summary>
 	/// Will get a vfunc from a given vtable + index
 	/// </summary>
 	/// <param name="table">Pointer of which the vtable will be retrieved and searched (not the actual vtable)</param>
