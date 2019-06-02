@@ -21,7 +21,7 @@ namespace shared::math
 			angle_t out{};
 			float l = length();
 
-			if ( l != 0 )
+			if ( l != 0.f )
 			{
 				out.x = x / l;
 				out.y = y / l;
@@ -29,6 +29,17 @@ namespace shared::math
 			}
 			else
 				out.x = out.y = 0.0f; out.z = 1.0f;
+
+			return out;
+		}
+
+		inline angle_t clamp()
+		{
+			angle_t out{};
+			
+			out.x = std::clamp( x, -180.f, 180.f );
+			out.y = std::clamp( y, -89.f, 89.f );
+			out.z = 0.f;
 
 			return out;
 		}
