@@ -58,6 +58,7 @@ struct weapon_t : public econ_entity_t
 {
 	NETVAR( short, get_definition_index, "DT_WeaponBaseItem", "m_iItemDefinitionIndex" );
 	NETVAR( int, get_ammo, "DT_WeaponBaseItem", "m_iClip1" );
+	NETVAR( CBaseHandle, get_owner, "DT_BaseCombatWeapon", "m_hOwner" );
 
 	CUSTOM_VFUNC( get_wpn_data(), CCSWeaponData* ( __thiscall* )( void* ), ctx::mem.CWeaponCSBase.GetCSWpnData )( );
 	CUSTOM_VFUNC( get_inaccuracy(), float( __thiscall* )( void* ), ctx::mem.CWeaponCSBase.GetInaccuracy )( );
@@ -77,7 +78,7 @@ struct player_t : public combat_character_t
 	NETVAR( bool, is_immune, "DT_CSPlayer", "m_bGunGameImmunity" );
 	NETVAR( int, get_health, "DT_BasePlayer", "m_iHealth" );
 	NETVAR( short, get_lifestate, "DT_BasePlayer", "m_lifeState" );
-	NETVAR( CBaseHandle, get_weapon_handle, "DT_BasePlayer", "m_hActiveWeapon" );
+	NETVAR( CBaseHandle, get_weapon_handle, "DT_BaseCombatCharacter", "m_hActiveWeapon" );
 	NETVAR( math::vec3_t, get_velocity, "DT_BasePlayer", "m_vecVelocity[0]" );
 	NETVAR( math::vec3_t, get_view_offset, "DT_BasePlayer", "m_vecViewOffset[0]" );
 	NETVAR( math::vec3_t, get_punch_angle, "DT_BasePlayer", "m_aimPunchAngle" );
