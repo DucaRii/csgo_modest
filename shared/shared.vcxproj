@@ -86,6 +86,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,6 +114,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,6 +160,38 @@
     <ClInclude Include="hash\hash.hpp" />
     <ClInclude Include="hook\hook.hpp" />
     <ClInclude Include="input\input.hpp" />
+    <ClInclude Include="json\adl_serializer.hpp" />
+    <ClInclude Include="json\detail\conversions\from_json.hpp" />
+    <ClInclude Include="json\detail\conversions\to_chars.hpp" />
+    <ClInclude Include="json\detail\conversions\to_json.hpp" />
+    <ClInclude Include="json\detail\exceptions.hpp" />
+    <ClInclude Include="json\detail\input\binary_reader.hpp" />
+    <ClInclude Include="json\detail\input\input_adapters.hpp" />
+    <ClInclude Include="json\detail\input\json_sax.hpp" />
+    <ClInclude Include="json\detail\input\lexer.hpp" />
+    <ClInclude Include="json\detail\input\parser.hpp" />
+    <ClInclude Include="json\detail\input\position_t.hpp" />
+    <ClInclude Include="json\detail\iterators\internal_iterator.hpp" />
+    <ClInclude Include="json\detail\iterators\iteration_proxy.hpp" />
+    <ClInclude Include="json\detail\iterators\iterator_traits.hpp" />
+    <ClInclude Include="json\detail\iterators\iter_impl.hpp" />
+    <ClInclude Include="json\detail\iterators\json_reverse_iterator.hpp" />
+    <ClInclude Include="json\detail\iterators\primitive_iterator.hpp" />
+    <ClInclude Include="json\detail\json_pointer.hpp" />
+    <ClInclude Include="json\detail\json_ref.hpp" />
+    <ClInclude Include="json\detail\macro_scope.hpp" />
+    <ClInclude Include="json\detail\macro_unscope.hpp" />
+    <ClInclude Include="json\detail\meta\cpp_future.hpp" />
+    <ClInclude Include="json\detail\meta\detected.hpp" />
+    <ClInclude Include="json\detail\meta\is_sax.hpp" />
+    <ClInclude Include="json\detail\meta\type_traits.hpp" />
+    <ClInclude Include="json\detail\meta\void_t.hpp" />
+    <ClInclude Include="json\detail\output\binary_writer.hpp" />
+    <ClInclude Include="json\detail\output\output_adapters.hpp" />
+    <ClInclude Include="json\detail\output\serializer.hpp" />
+    <ClInclude Include="json\detail\value_t.hpp" />
+    <ClInclude Include="json\json.hpp" />
+    <ClInclude Include="json\json_fwd.hpp" />
     <ClInclude Include="log\log.hpp" />
     <ClInclude Include="math\datatypes\angle_t.hpp" />
     <ClInclude Include="math\datatypes\matrix3x4_t.hpp" />
@@ -170,9 +204,9 @@
     <ClInclude Include="math\math_definitions.hpp" />
     <ClInclude Include="mem\mem.hpp" />
     <ClInclude Include="mem_protect\mem_protect.hpp" />
+    <ClInclude Include="misc\misc.hpp" />
     <ClInclude Include="shared.hpp" />
     <ClInclude Include="stack_frame\stack_frame.hpp" />
-    <ClInclude Include="yaml\yaml.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="config\config.cpp" />
@@ -186,7 +220,7 @@
     <ClCompile Include="log\log.cpp" />
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="mem\mem.cpp" />
-    <ClCompile Include="yaml\yaml.cpp" />
+    <ClCompile Include="misc\misc.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

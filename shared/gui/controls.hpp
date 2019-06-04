@@ -104,7 +104,7 @@ namespace shared::gui::controls
 		} m_style;
 
 		int m_skip_id;
-		
+
 		int m_max_controls;
 
 		int m_active_control_id = 0;
@@ -115,7 +115,7 @@ namespace shared::gui::controls
 	class c_checkbox : public c_control
 	{
 	public:
-		c_checkbox( std::string_view name, bool* var );
+		c_checkbox( std::string_view name, config::item_t* var );
 
 		void render( math::vec2_t& pos );
 		void handle_input();
@@ -139,7 +139,7 @@ namespace shared::gui::controls
 			int m_checkbox_width;
 		} m_style;
 
-		bool* m_var = nullptr;
+		config::item_t* m_var = nullptr;
 	};
 
 	class c_separator : public c_control
@@ -170,7 +170,7 @@ namespace shared::gui::controls
 	class c_combo : public c_control
 	{
 	public:
-		c_combo( std::string_view name, int* var, std::vector<std::string_view> items );
+		c_combo( std::string_view name, config::item_t* var, std::vector<std::string_view> items );
 
 		void render( math::vec2_t& pos );
 		void handle_input();
@@ -198,13 +198,13 @@ namespace shared::gui::controls
 		std::vector<std::string_view> m_items = {};
 		std::vector<int> m_item_widths = {};
 
-		int* m_var = nullptr;
+		config::item_t* m_var = nullptr;
 	};
 
 	class c_slider : public c_control
 	{
 	public:
-		c_slider( std::string_view name, float* var, float min, float max, float step = 1.f );
+		c_slider( std::string_view name, config::item_t* var, float min, float max, float step = 1.f );
 
 		void render( math::vec2_t& pos );
 		void handle_input();
@@ -235,6 +235,6 @@ namespace shared::gui::controls
 
 		float m_step;
 
-		float* m_var = nullptr;
+		config::item_t* m_var = nullptr;
 	};
 }

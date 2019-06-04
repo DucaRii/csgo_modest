@@ -33,7 +33,7 @@ namespace shared
 				 static_cast< int >( a * 255 ) );
 		}
 
-		col_t( const col_t& col, const int a = 255 ) : m_color( { 0,0,0,0 } )
+		col_t( const col_t& col, const int a ) : m_color( { 0,0,0,0 } )
 		{
 			set( col.r(), col.g(), col.b(), a );
 		}

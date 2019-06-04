@@ -2,7 +2,7 @@
 
 namespace shared::gui::controls
 {
-	c_slider::c_slider( std::string_view name, float* var, float min, float max, float step )
+	c_slider::c_slider( std::string_view name, config::item_t* var, float min, float max, float step )
 		: m_style( {} ), m_min( min ), m_max( max ), m_step( step )
 	{
 		m_name = name;
@@ -23,7 +23,7 @@ namespace shared::gui::controls
 		const auto control_name_pos = math::vec2_t( m_pos.x + m_style.m_inner_padding, m_pos.y + m_size.y * 0.5f - m_name_size.y * 0.5f );
 
 		/// Control name
-		gui::text( control_name_pos, m_is_active ? m_style.m_col_text_hover : m_style.m_col_text, fmt::format( "{} ({})", m_name, *m_var ) );
+		gui::text( control_name_pos, m_is_active ? m_style.m_col_text_hover : m_style.m_col_text, fmt::format( "{} ({})", m_name, static_cast<double>( m_var->get<float>() ) ) );
 
 		/// Render slider
 		render_slider();
@@ -43,7 +43,7 @@ namespace shared::gui::controls
 
 			m_did_increase = false;
 
-			( *m_var )--;
+			m_var->get<float>()--;
 		}
 		/// Increase value
 		else if ( input::get_mouse().m_state_right == input::PRESSED )
@@ -52,11 +52,11 @@ namespace shared::gui::controls
 
 			m_did_increase = true;
 
-			( *m_var )++;
+			m_var->get<float>()++;
 		}
 
 		/// Clamp value
-		*m_var = std::clamp( *m_var, m_min, m_max );
+		m_var->get<float>() = std::clamp( m_var->get<float>(), m_min, m_max );
 	}
 
 	void c_slider::setup_style()
@@ -89,7 +89,7 @@ namespace shared::gui::controls
 			/// Check if mosue was held for at least 200 ms
 			if ( time_delta >= 0.35f )
 			{
-				( *m_var )++;
+				m_var->get<float>()++;
 			}
 		}
 		else
@@ -102,11 +102,11 @@ namespace shared::gui::controls
 			/// Check if mosue was held for at least 200 ms
 			if ( time_delta >= 0.35f )
 			{
-				( *m_var )--;
+				m_var->get<float>()--;
 			}
 		}
 
-		*m_var = std::clamp( *m_var, m_min, m_max );
+		m_var->get<float>() = std::clamp( m_var->get<float>(), m_min, m_max );
 	}
 
 	void c_slider::render_slider()
@@ -117,7 +117,7 @@ namespace shared::gui::controls
 		/// Combobox inner
 		gui::rect_filled( combobox_pos, combobox_size, m_style.m_col_slider_inner );
 
-		const auto factor = ( *m_var - m_min ) / ( m_max - m_min );
+		const auto factor = ( m_var->get<float>() - m_min ) / ( m_max - m_min );
 
 		/// Current selected item
 		gui::rect_filled( combobox_pos, { combobox_size.x * factor, combobox_size.y }, m_style.m_col_slider );

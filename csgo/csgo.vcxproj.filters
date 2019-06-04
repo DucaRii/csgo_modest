@@ -21,7 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="context\client.hpp" />
-    <ClInclude Include="context\config.hpp" />
     <ClInclude Include="context\csgo.hpp" />
     <ClInclude Include="context\mem.hpp" />
     <ClInclude Include="csgo.hpp" />
@@ -61,5 +60,6 @@
     <ClInclude Include="sdk\source_engine\datatypes\IGameEvent.hpp" />
     <ClInclude Include="sdk\source_engine\IGameEventManager.hpp" />
     <ClInclude Include="sdk\helper\events.hpp" />
+    <ClInclude Include="context\cfg.hpp" />
   </ItemGroup>
 </Project>

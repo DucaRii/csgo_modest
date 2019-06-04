@@ -5,7 +5,7 @@ namespace ctx
 	csgo_t csgo = csgo_t{};
 	client_t client = client_t{};
 	mem_t mem = mem_t{};
-	config_t config = config_t{};
+	cfg_t cfg = cfg_t{};
 }
 
 BOOL WINAPI detach()
@@ -52,6 +52,8 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 		hooks::init();
 
 		LOG( "Initialized Hooks!" );
+
+		config::set_config_directory( "modest_cfg" );
 
 		LOG( "Cheat Attached!" );
 

@@ -8,7 +8,7 @@ using namespace shared;
 #include "context/csgo.hpp"
 #include "context/mem.hpp"
 #include "context/client.hpp"
-#include "context/config.hpp"
+#include "context/cfg.hpp"
 
 #include "hooks/hook_handler.hpp"
 

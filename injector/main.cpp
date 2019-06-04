@@ -1,6 +1,5 @@
 #include "../shared/shared.hpp"
 
-#include <filesystem>
 #include <TlHelp32.h>
 #include <iostream>
 #include <thread>

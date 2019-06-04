@@ -2,7 +2,7 @@
 
 void hook_handler_t::player_hurt( IGameEvent* e )
 {
-	if ( ctx::config.hitmarker &&
+	if ( config::get<bool>( ctx::cfg.misc_hitmarker ) &&
 		 ctx::client.local && ctx::client.local->is_alive() )
 	{
 		/// Check if the damage was done by us

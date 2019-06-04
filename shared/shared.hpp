@@ -25,6 +25,9 @@
 #include <stack>
 #include <iostream>
 #include <TlHelp32.h>
+#include <any>
+#include <array>
+#include <filesystem>
 
 /// Our stuff ( keep in alphabetical order )
 #include "address/address.hpp"
@@ -32,6 +35,8 @@
 #include "bitflag/bitflag.hpp"
 
 #include "color/col_t.hpp"
+
+#include "config/config.hpp"
 
 #include "easing/easing.hpp"
 
@@ -45,6 +50,8 @@
 
 #include "input/input.hpp"
 
+#include "json/json.hpp"
+
 #include "log/log.hpp"
 
 #include "math/math.hpp"
@@ -53,6 +60,6 @@
 
 #include "mem_protect/mem_protect.hpp"
 
-#include "stack_frame/stack_frame.hpp"
+#include "misc/misc.hpp"
 
-#include "yaml/yaml.hpp"
+#include "stack_frame/stack_frame.hpp"

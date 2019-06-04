@@ -62,6 +62,26 @@ namespace shared::input
 		/// State of key ( IDLE, PRESSED, HELD )
 		/// </summary>
 		e_state m_state;
+
+		/// <summary>
+		/// Checks if key is pressed
+		/// </summary>
+		bool is_pressed()
+		{
+			bool pressed = m_state == PRESSED;
+			if ( pressed )
+				m_state = HELD;
+
+			return pressed;
+		}
+
+		/// <summary>
+		/// Checks if key is held
+		/// </summary>
+		bool is_held()
+		{
+			return m_state == HELD;
+		}
 	};
 
 	/// <summary>

@@ -2,7 +2,7 @@
 
 namespace shared::gui::controls
 {
-	c_combo::c_combo( std::string_view name, int* var, std::vector<std::string_view> items )
+	c_combo::c_combo( std::string_view name, config::item_t* var, std::vector<std::string_view> items )
 		: m_style( {} )
 	{
 		m_name = name;
@@ -54,16 +54,16 @@ namespace shared::gui::controls
 
 		/// Go to item on left
 		if ( input::get_mouse().m_state == input::PRESSED )
-			( *m_var )--;
+			m_var->get<int>()--;
 		/// Go to item on right
 		else if ( input::get_mouse().m_state_right == input::PRESSED )
-			( *m_var )++;
+			m_var->get<int>()++;
 
 		/// "Clamp" value
-		if ( ( *m_var ) < 0 )
-			( *m_var ) = m_items.size() - 1;
-		else if ( ( *m_var ) > static_cast< int >( m_items.size() - 1 ) )
-			( *m_var ) = 0;
+		if ( m_var->get<int>() < 0 )
+			m_var->get<int>() = m_items.size() - 1;
+		else if ( m_var->get<int>() > static_cast< int >( m_items.size() - 1 ) )
+			m_var->get<int>() = 0;
 	}
 
 	void c_combo::setup_style()
@@ -88,7 +88,7 @@ namespace shared::gui::controls
 		gui::rect_filled( combobox_pos, combobox_size, m_style.m_col_combobox_inner );
 
 		/// Current selected item
-		gui::text( { combobox_pos.x + combobox_size.x * 0.5f - m_item_widths.at( *m_var ) * 0.5f, combobox_pos.y }, m_style.m_col_text, m_items.at( *m_var ) );
+		gui::text( { combobox_pos.x + combobox_size.x * 0.5f - m_item_widths.at( m_var->get<int>() ) * 0.5f, combobox_pos.y }, m_style.m_col_text, m_items.at( m_var->get<int>() ) );
 
 		/// Outline
 		gui::rect( combobox_pos, combobox_size, m_style.m_col_combobox_outline );
@@ -100,7 +100,7 @@ namespace shared::gui::controls
 		if ( !m_is_active )
 			return;
 
-		const auto pos = math::vec2_t( m_pos.x + m_size.x + m_style.m_inner_padding * 3.f, m_pos.y - ( *m_var ) * m_name_size.y );
+		const auto pos = math::vec2_t( m_pos.x + m_size.x + m_style.m_inner_padding * 3.f, m_pos.y - ( m_var->get<int>() ) * m_name_size.y );
 		const auto size = math::vec2_t( m_style.m_combobox_width + m_style.m_inner_padding * 2.f, m_items.size() * m_name_size.y );
 
 		/// Draw background
@@ -112,7 +112,7 @@ namespace shared::gui::controls
 		/// Render items
 		for ( auto i = 0u; i < m_items.size(); i++ )
 		{
-			gui::text( { pos.x + size.x * 0.5f - m_item_widths.at( i ) * 0.5f, pos.y + i * m_name_size.y }, i == *m_var ? m_style.m_col_text_hover : m_style.m_col_text, m_items.at( i ) );
+			gui::text( { pos.x + size.x * 0.5f - m_item_widths.at( i ) * 0.5f, pos.y + i * m_name_size.y }, i == m_var->get<int>() ? m_style.m_col_text_hover : m_style.m_col_text, m_items.at( i ) );
 		}
 	}
 }

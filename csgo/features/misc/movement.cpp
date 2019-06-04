@@ -4,7 +4,7 @@ namespace movement
 {
 	void bunnyhop()
 	{
-		if ( !ctx::config.bhop )
+		if ( !config::get<bool>( ctx::cfg.movement_bhop ) )
 			return;
 
 		if ( !ctx::client.cmd )

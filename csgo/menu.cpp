@@ -52,23 +52,23 @@ namespace menu
 		/// Now actually do the controls
 		if ( auto tab1 = gui::add_tab( "tab 1" ) )
 		{
-			tab1->add( std::make_shared<gui::controls::c_checkbox>( "Bunnyhop", &ctx::config.bhop ) );
+			tab1->add( std::make_shared<gui::controls::c_checkbox>( "Bunnyhop", &config::get_item( ctx::cfg.movement_bhop ) ) );
 			tab1->add( std::make_shared<gui::controls::c_separator>( "ESP" ) );
 			{
-				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Health ESP", &ctx::config.health_esp ) );
-				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Name ESP", &ctx::config.name_esp ) );
-				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Box ESP", &ctx::config.box_esp ) );
+				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Health ESP", &config::get_item( ctx::cfg.playeresp_health ) ) );
+				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Name ESP", &config::get_item( ctx::cfg.playeresp_name ) ) );
+				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Box ESP", &config::get_item( ctx::cfg.playeresp_box ) ) );
 			}
 
 			tab1->add( std::make_shared<gui::controls::c_separator>( "Events" ) );
 			{
-				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Hitmarker", &ctx::config.hitmarker ) );
+				tab1->add( std::make_shared<gui::controls::c_checkbox>( "Hitmarker", &config::get_item( ctx::cfg.misc_hitmarker ) ) );
 			}
 
 			tab1->add( std::make_shared<gui::controls::c_separator>( "Another section" ) );
 			{
-				tab1->add( std::make_shared<gui::controls::c_combo>( "Combobox", &ctx::config.health_style, std::vector<std::string_view>{ "Type 1", "Type 2", "Type 3", "Largest Item" } ) );
-				tab1->add( std::make_shared<gui::controls::c_slider>( "Slider", &ctx::config.some_float, -100.f, 100.f ) );
+				tab1->add( std::make_shared<gui::controls::c_combo>( "Combobox", &config::get_item( ctx::cfg.playeresp_health_style ), std::vector<std::string_view>{ "Type 1", "Type 2", "Type 3", "Largest Item" } ) );
+				tab1->add( std::make_shared<gui::controls::c_slider>( "Slider", &config::get_item( ctx::cfg.some_float ), -100.f, 100.f ) );
 			}
 		}
 

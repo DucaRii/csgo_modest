@@ -2,7 +2,7 @@
 
 namespace shared::gui::controls
 {
-	c_checkbox::c_checkbox( std::string_view name, bool* var )
+	c_checkbox::c_checkbox( std::string_view name, config::item_t* var )
 		: m_style( {} )
 	{
 		m_name = name;
@@ -43,7 +43,7 @@ namespace shared::gui::controls
 			{
 				push_action( get_curtime() );
 
-				*m_var = !*m_var;
+				m_var->get<bool>() = !m_var->get<bool>();
 			}
 		}
 	}
@@ -77,13 +77,13 @@ namespace shared::gui::controls
 		/// Actual checkbox
 		const auto dot_factor = static_cast< float >( easing::in_out_sine( std::clamp( get_curtime() - m_last_action, 0.f, .25f ) * 4.f ) );
 		const auto dot_offset = dot_factor * m_style.m_checkbox_width * 0.5f;
-		gui::rect_filled( math::vec2_t( *m_var ? checkbox_pos.x + checkbox_size.x - m_style.m_checkbox_width + dot_offset
+		gui::rect_filled( math::vec2_t( m_var->get<bool>() ? checkbox_pos.x + checkbox_size.x - m_style.m_checkbox_width + dot_offset
 										: checkbox_pos.x + checkbox_size.x - m_style.m_checkbox_width * 0.5f - dot_offset, checkbox_pos.y ),
 						  math::vec2_t( m_style.m_checkbox_width * 0.5f, checkbox_size.y ), m_style.m_col_checkbox );
 
-		gui::rect_filled( math::vec2_t( *m_var ? checkbox_pos.x + checkbox_size.x - m_style.m_checkbox_width + dot_offset
+		gui::rect_filled( math::vec2_t( m_var->get<bool>() ? checkbox_pos.x + checkbox_size.x - m_style.m_checkbox_width + dot_offset
 										: checkbox_pos.x + checkbox_size.x - m_style.m_checkbox_width * 0.5f - dot_offset, checkbox_pos.y ),
-						  math::vec2_t( m_style.m_checkbox_width * 0.5f, checkbox_size.y ), col_t( m_style.m_col_checkbox_active, static_cast< int >( ( *m_var ? dot_factor : 1.f - dot_factor ) * 255.f ) ) );
+						  math::vec2_t( m_style.m_checkbox_width * 0.5f, checkbox_size.y ), col_t( m_style.m_col_checkbox_active, static_cast< int >( ( m_var->get<bool>() ? dot_factor : 1.f - dot_factor ) * 255.f ) ) );
 
 		/// Reset clip
 		gui::reset_clip();
