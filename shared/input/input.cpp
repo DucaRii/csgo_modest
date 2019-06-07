@@ -191,15 +191,15 @@ namespace shared::input
 		m_mouse_info.m_scroll = 0;
 	}
 
-	bool mouse_in_bounds( const math::vec2_t & pos, const math::vec2_t & size )
+	bool mouse_in_bounds( const math::vec2_t& pos, const math::vec2_t& size )
 	{
 		const auto mouse_pos = m_mouse_info.m_pos;
 
-		return mouse_pos.x > pos.x&& mouse_pos.x < pos.x + size.x
-			&& mouse_pos.y > pos.y && mouse_pos.y < pos.y + size.y;
+		return mouse_pos.x >= pos.x && mouse_pos.x <= pos.x + size.x
+			&& mouse_pos.y >= pos.y && mouse_pos.y <= pos.y + size.y;
 	}
 
-	bool mouse_in_bounds( const math::vec4_t & bounds )
+	bool mouse_in_bounds( const math::vec4_t& bounds )
 	{
 		return mouse_in_bounds( bounds.get_pos(), bounds.get_size() );
 	}

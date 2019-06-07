@@ -55,7 +55,7 @@ inline func_sig create_hook_impl( const uint32_t token, void* table, const uint3
 
 		return map_entry.m_hook.get_original<func_sig>( current_info.m_index );
 	}
-	catch ( const std::out_of_range& err )
+	catch ( const std::out_of_range & err )
 	{
 		LOG( err.what() );
 	}
