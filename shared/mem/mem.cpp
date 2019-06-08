@@ -2,8 +2,6 @@
 
 namespace shared::mem
 {
-	std::vector<MODULEENTRY32> m_modules;
-
 	address_t find_ida_sig( const char* mod, const char* sig )
 	{
 		/// Credits: MarkHC, although slightly modified by me and also documented
@@ -88,7 +86,7 @@ namespace shared::mem
 	}
 
 	/// Go through multiple sigs incase 1 is invalid
-	address_t find_ida_sig( const char* mod, const std::vector<const char*> & sigs )
+	address_t find_ida_sig( const char* mod, const std::vector<const char*>& sigs )
 	{
 		/// TODO: maybe scan all sigs and check if they all match? 
 		address_t dummy{};
@@ -222,28 +220,36 @@ namespace shared::mem
 		return length;
 	}
 
-	std::vector<MODULEENTRY32>& get_loaded_modules()
+	std::vector<std::wstring>& get_loaded_modules()
 	{
+		static std::vector<std::wstring> m_modules{};
+
 		/// Was it already initialized?
 		if ( m_modules.empty() )
 		{
-			auto snapshot = CreateToolhelp32Snapshot( TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, GetCurrentProcessId() );
-			if ( snapshot != INVALID_HANDLE_VALUE )
+			/// Get Process Environment Block
+			auto peb = reinterpret_cast< PEB* >( reinterpret_cast< TEB* >( __readfsdword( 0x18 ) )->ProcessEnvironmentBlock );
+			if ( !peb || !peb->Ldr->InMemoryOrderModuleList.Flink )
+				return m_modules;
+
+			/// Get module list
+			auto module_list = &peb->Ldr->InMemoryOrderModuleList;
+
+			/// Loop through module list
+			for ( auto i = module_list->Flink; i != module_list; i = i->Flink )
 			{
-				auto module_entry = MODULEENTRY32{ sizeof( MODULEENTRY32 ) };
+				/// Current module list entry
+				auto entry = CONTAINING_RECORD( i, LDR_DATA_TABLE_ENTRY, InMemoryOrderLinks );
+				if ( !entry )
+					continue;
 
-				if ( Module32First( snapshot, &module_entry ) )
-				{
-					do
-					{
-						m_modules.push_back( module_entry);
-					} while ( Module32Next( snapshot, &module_entry ) );
-				}
-
-				CloseHandle( snapshot );
+				/// Strip module path
+				auto path = std::wstring( entry->FullDllName.Buffer );
+				auto module_name_begin = path.find_last_of( '\\' );
+				if ( module_name_begin != std::wstring::npos )
+					m_modules.push_back( path.substr( module_name_begin + 1 ) );
 			}
 		}
-
 		return m_modules;
 	}
 }

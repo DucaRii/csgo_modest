@@ -28,6 +28,7 @@
 #include <any>
 #include <array>
 #include <filesystem>
+#include <winternl.h>
 
 /// Our stuff ( keep in alphabetical order )
 #include "address/address.hpp"

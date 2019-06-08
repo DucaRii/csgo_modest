@@ -88,6 +88,8 @@ namespace ctx
 
 		struct CCSPlayer_t
 		{
+			address_t m_pVtable = mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 83 E4 F8 83 EC 18 56 57 8B F9 89 7C 24 0C" } ).self_offset( 0x45 ).offset( 0x2 );
+
 			address_t UpdateClientSideAnimations = mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 51 56 8B F1 80 BE ? ? ? ? ? 74 36" } );
 			address_t Weapon_Shootpos = mem::find_ida_sig( "client_panorama.dll", { "55 8B EC 56 8B 75 08 57 8B F9 56 8B 07 FF 90 ? ? ? ?" } );
 		} CCSPlayer;

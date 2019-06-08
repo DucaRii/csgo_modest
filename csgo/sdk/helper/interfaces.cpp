@@ -30,7 +30,7 @@ namespace interfaces
 		{
 			for ( auto mod : mem::get_loaded_modules() )
 			{
-				auto module_address = GetModuleHandleA( mod.szModule );
+				auto module_address = GetModuleHandleW( mod.c_str() );
 				if ( !module_address )
 					continue;
 
@@ -62,7 +62,7 @@ namespace interfaces
 				if ( !list )
 					continue;
 
-				auto& entry = interface_map[ HASH( mod.szModule ) ];
+				auto& entry = interface_map[ HASH( misc::to_utf8( mod ).c_str() ) ];
 
 				/// Continue to walk the list until it's no longer valid
 				while ( list )

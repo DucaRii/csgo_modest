@@ -27,4 +27,18 @@ namespace shared::misc
 		std::fill( vec.begin(), vec.begin() + s, fill );
 		return vec;
 	}
+
+	/// <summary>
+	/// Converts a wide unicode string to an UTF8 string
+	/// </summary>
+	/// <param name="wstr">Unicode string</param>
+	/// <returns>UTF8 string</returns>
+	std::string to_utf8( std::wstring_view wstr );
+
+	/// <summary>
+	/// Converts an UTF8 string to a wide unicode string
+	/// </summary>
+	/// <param name="wstr">UTF8 string</param>
+	/// <returns>Unicode string</returns>
+	std::wstring to_unicode( std::string_view str );
 }

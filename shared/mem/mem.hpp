@@ -53,7 +53,7 @@ namespace shared::mem
 	/// Will get all loaded modules from the current process
 	/// </summary>
 	/// <returns>Modules</returns>
-	std::vector<MODULEENTRY32>& get_loaded_modules();
+	std::vector<std::wstring>& get_loaded_modules();
 }
 
 #define NOINLINE __declspec( noinline )
