@@ -122,7 +122,10 @@ namespace shared::gui::controls
 
 		/// Now lets handle the controls
 		for ( const auto& item : m_items )
+		{
+			item->set_active( m_active_control_id == item->get_id() );
 			item->handle_input();
+		}
 	}
 
 	void c_tab::setup_style()
