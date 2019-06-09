@@ -60,7 +60,7 @@ DWORD WINAPI entry( LPVOID lpThreadParameter )
 		while ( !input::get_key_info( VK_END ).m_state )
 			std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
 	}
-	catch ( const std::runtime_error & err )
+	catch ( const std::runtime_error& err )
 	{
 		/// Error while initializing the cheat
 		LOG( err.what() );
