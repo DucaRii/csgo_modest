@@ -9,7 +9,6 @@ namespace ctx
 		struct ISurface_t
 		{
 			ADD_ADDRESS( DrawSetColor, "vguimatsurface.dll", { "55 8B EC 66 0F 6E 45 ? 8A 45 08" } ); /// 15
-			ADD_ADDRESS( DrawSetColor, "vguimatsurface.dll", { "55 8B EC 66 0F 6E 45 ? 8A 45 08" } ); /// 15
 			ADD_ADDRESS( DrawFilledRect, "vguimatsurface.dll", { "55 8B EC 83 EC 40 53 8B D9" } ); /// 16
 			ADD_ADDRESS( DrawOutlinedRect, "vguimatsurface.dll", { "55 8B EC 51 56 8B F1 89 75 FC" } ); /// 18
 			ADD_ADDRESS( DrawLine, "vguimatsurface.dll", { "55 8B EC 83 EC 20 57" } ); /// 19
