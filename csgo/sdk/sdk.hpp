@@ -24,6 +24,7 @@
 #include "source_engine/CGlobalVarsBase.hpp"
 #include "source_engine/ISchemeManager.hpp"
 #include "source_engine/IGameEventManager.hpp"
+#include "source_engine/CInputSystem.hpp"
 
 /// Helper
 #include "helper/render.hpp"

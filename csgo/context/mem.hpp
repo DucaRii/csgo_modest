@@ -15,6 +15,8 @@ namespace ctx
 			ADD_ADDRESS( DrawSetTexture, "vguimatsurface.dll", { "55 8B EC 56 8B 75 08 57 8B F9 3B B7 ? ? ? ?" } ); /// 38
 			ADD_ADDRESS( IsTextureIDValid, "vguimatsurface.dll", { "B0 01 C2 04 00" } ); /// 42
 			ADD_ADDRESS( CreateNewTextureID, "vguimatsurface.dll", { "55 8B EC B9 ? ? ? ? A1 ? ? ? ? 5D FF 20" } ); /// 43
+			ADD_ADDRESS( UnlockCursor, "vguimatsurface.dll", { "80 3D ? ? ? ? ? 8B 91 ? ? ? ? 8B 0D ? ? ? ? C6 05 ? ? ? ? ? 8B 01 74 0B FF 35 ? ? ? ? 52 FF 50 34 C3 6A 00 52 FF 50 34 C3 80 3D ? ? ? ? ?" } ); /// 66
+			ADD_ADDRESS( LockCursor, "vguimatsurface.dll", { "80 3D ? ? ? ? ? 8B 91 ? ? ? ? 8B 0D ? ? ? ? C6 05 ? ? ? ? ? 8B 01 74 0B FF 35 ? ? ? ? 52 FF 50 34 C3 6A 00 52 FF 50 34 C3 55" } ); /// 67
 			ADD_ADDRESS( CreateFont_, "vguimatsurface.dll", { "FF 35 ? ? ? ? B9 ? ? ? ? E8 ? ? ? ? C3" } ); /// 71
 			ADD_ADDRESS( GetFontTall, "vguimatsurface.dll", { "55 8B EC 8B 45 08 8D 0C C5 ? ? ? ? 2B C8 A1 ? ? ? ? 83 7C 88 ? ? 8D 04 88" } ); /// 74
 			ADD_ADDRESS( GetCharacterWidth, "vguimatsurface.dll", { "55 8B EC 8B 45 08 0F B7 55 0C" } ); /// 78
@@ -102,6 +104,11 @@ namespace ctx
 			ADD_ADDRESS( UpdateAccuracy, "client_panorama.dll", { "55 8B EC 83 E4 F8 83 EC 18 56 57 8B F9 8B 8F ? ? ? ?" } ); 
 			ADD_ADDRESS( GetCSWpnData, "client_panorama.dll", { "8B 81 ? ? ? ? 85 C0 0F 84 ? ? ? ? C3" } );
 		} CWeaponCSBase;
+
+		struct CInputSystem_t
+		{
+			address_t EnableInput = mem::find_ida_sig( "inputsystem.dll", { "55 8B EC 8A 45 08 88 81 ? ? ? ? 5D C2 04 00 55 8B EC 8A 45 08" } ); /// 11
+		} CInputSystem;
 
 		/// Unused, but works
 		/*struct CGlobalVarsBase_t

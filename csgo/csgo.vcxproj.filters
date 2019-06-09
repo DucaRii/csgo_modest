@@ -61,5 +61,6 @@
     <ClInclude Include="sdk\source_engine\IGameEventManager.hpp" />
     <ClInclude Include="sdk\helper\events.hpp" />
     <ClInclude Include="context\cfg.hpp" />
+    <ClInclude Include="sdk\source_engine\CInputSystem.hpp" />
   </ItemGroup>
 </Project>

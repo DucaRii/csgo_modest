@@ -182,6 +182,7 @@
     <ClInclude Include="sdk\source_engine\CFontManager.hpp" />
     <ClInclude Include="sdk\source_engine\CGlobalVarsBase.hpp" />
     <ClInclude Include="sdk\source_engine\CHLClient.hpp" />
+    <ClInclude Include="sdk\source_engine\CInputSystem.hpp" />
     <ClInclude Include="sdk\source_engine\CItemSystem.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\CCSWeaponData.hpp" />
     <ClInclude Include="sdk\source_engine\datatypes\ClientClass.hpp" />

@@ -19,6 +19,7 @@ namespace ctx
 		ADD_INTERFACE( IClientEntityList, entlist, "VClientEntityList" );
 		ADD_INTERFACE( ISchemeManager, scheme_manager, "VGUI_Scheme" );
 		ADD_INTERFACE( IGameEventManager2, events, "GAMEEVENTSMANAGER002" );
+		ADD_INTERFACE( CInputSystem, inputsys, "InputSystemVersion0" );
 
 		ADD_INTERFACE_CUSTOM( CFontManager, font_manager, mem::find_ida_sig( "vguimatsurface.dll", { "74 1D 8B 0D ? ? ? ? 68 ? ? ? ?" } ).self_offset( 0x4 ).self_get() );
 		ADD_INTERFACE_CUSTOM( IClientMode, clientmode, mem::get_vfunc( this->client, 10 ).self_find_opcode( 0x0D, 0x1 ).self_get( 2 ) );
