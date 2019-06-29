@@ -68,7 +68,7 @@ namespace render
 				text_pos.x -= size.x;
 
 			if ( flags.has_flag( render::fonts::FONT_CENTER_X ) )
-				text_pos.x += size.x * 0.5f;
+				text_pos.x -= size.x * 0.5f;
 
 			if ( flags.has_flag( render::fonts::FONT_CENTER_Y ) )
 				text_pos.y -= size.y * 0.5f;
