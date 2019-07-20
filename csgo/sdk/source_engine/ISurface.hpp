@@ -32,7 +32,7 @@ struct ISurface
 	CUSTOM_VFUNC( DrawOutlinedRect( int x, int y, int x1, int y1 ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.DrawOutlinedRect )( x, y, x1, y1 );
 	CUSTOM_VFUNC( DrawLine( int x, int y, int x1, int y1 ), void( __thiscall* )( void*, int, int, int, int ), ctx::mem.ISurface.DrawLine )( x, y, x1, y1 );
 	CUSTOM_VFUNC( DrawSetTexture( int id ), void( __thiscall* )( void*, int ), ctx::mem.ISurface.DrawSetTexture )( id );
-	CUSTOM_VFUNC( CreateNewTextureID(), int( __thiscall* )( void* ), ctx::mem.ISurface.CreateNewTextureID )( );
+	CUSTOM_VFUNC( CreateNewTextureID( bool procedural = false ), int( __thiscall* )( void*, bool ), ctx::mem.ISurface.CreateNewTextureID )( procedural );
 	CUSTOM_VFUNC( IsTextureIDValid( int id ), bool( __thiscall* )( void*, int ), ctx::mem.ISurface.IsTextureIDValid )( id );
 	CUSTOM_VFUNC( CreateFont_(), HFont( __thiscall* )( void* ), ctx::mem.ISurface.CreateFont_ )( );
 	CUSTOM_VFUNC( GetFontTall( HFont font ), int( __thiscall* )( void*, HFont ), ctx::mem.ISurface.GetFontTall )( font );
